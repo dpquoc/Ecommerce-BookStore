@@ -2,6 +2,6 @@
 .container-news{
     height: 100vh;
     width: 100%;
-    display: block;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
