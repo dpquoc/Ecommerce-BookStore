@@ -1,0 +1,87 @@
+.search-form {
+    width: 100%;
+    height: 12rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20rem;
+}
+
+.search-form .btn {
+    font-size: 1.5rem;
+    background-color: var(--black);
+    padding: 0.6rem;
+    border-radius: 0.8rem;
+    width: 25rem;
+    justify-content: center;
+    color: #fff;
+    display: flex;
+
+}
+
+.search-form .book-category,
+.search-form .book-author,
+.search-form .book-title {
+    width: 250px;
+}
+
+.search-form .btn:hover {
+    background-color: #373547;
+
+}
+
+.search-form .btn p {
+    margin: 0 10px;
+    display: flex;
+}
+
+// media responsive
+@media (max-width:1200px) {
+    .search-form {
+        padding: 0 8rem;
+    }
+
+    .search-form .book-category,
+    .search-form .book-author,
+    .search-form .book-title {
+        width: 180px;
+    }
+
+    .search-form .btn {
+        width: 20rem;
+    }
+}
+
+@media (max-width:991px) {
+    .search-form {
+        display: flex;
+        flex-direction: column;
+        height: 40rem;
+        padding: 4rem;
+    }
+
+    .search-form .book-category,
+    .search-form .book-author,
+    .search-form .book-title {
+        width: 350px;
+    }
+    .search-form .btn {    
+        width: 40rem; 
+        
+    }
+}
+
+@media (max-width:786px) {}
+
+@media (max-width:450px) {
+    .search-form .book-category,
+    .search-form .book-author,
+    .search-form .book-title {
+        width: 300px;
+    }
+    .search-form .btn {    
+        width: 34rem; 
+        
+    }
+}

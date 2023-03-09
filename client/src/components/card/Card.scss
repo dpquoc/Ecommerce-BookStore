@@ -1,0 +1,119 @@
+.box-card {
+    flex: 1 1 30rem;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+    position: relative;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border: .1rem solid rgba(0, 0, 0, .3);
+}
+
+.box-card img {
+    height: 30rem;
+    width: 100%;
+    border-bottom: .1rem solid rgba(0, 0, 0, .3);
+    object-fit: cover;
+}
+.box-card .author-starts{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    align-items: center;
+}
+.box-card .author-starts a{
+    color: var(--black);
+}
+.box-card .author-starts a:hover{
+    color: var(--orange);
+}
+.box-card .author-starts h3{
+    display: block;
+    margin-bottom: 0;
+    
+}
+.box-card .author-starts span{
+    font-size: 2rem;
+    font-weight: 600;
+}
+.box-card .discount {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 111, 0, 0.774);
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+}
+.box-card .box-content{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+}
+.box-content h2{
+    font-size: 2.4rem;
+    margin: 20px 0;
+}
+.box-card .quantity{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.box-card .price {
+    font-weight: bolder;
+    color: var(--green);
+    font-size: 2.2rem;
+    
+}
+
+.box-card .price span {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 1.5rem;
+}
+.box-content .btn-cart-like{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.6rem;
+}
+.box-content .btn-cart{
+    border: 0;
+    padding: 1.5rem 3rem;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    color: black;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.box-content .btn-cart:hover{
+    background-color:#f6862b;
+    color: #f4f4f4;
+}
+.box-content .btn-like{
+    border: 0;
+    padding: 13px;
+    border-radius: 5px;
+    color: #ff2525;
+    font-weight: 500;
+    font-size: 2.5rem;
+    // background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.box-content .btn-like:hover{
+    border-radius: 50%;
+    background-color: #E1255E15;
+}
+
+
+
+
+
+

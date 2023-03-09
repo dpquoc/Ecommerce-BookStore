@@ -1,0 +1,219 @@
+.banner {
+    display: block;
+    position: relative;
+    height: 500px;
+    background-color: #fff;
+}
+
+
+.banner .img-bg {
+    max-width: 100%;
+    background-color: #fff;
+    position: absolute;
+
+}
+
+
+.banner .container-banner {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10rem;
+}
+
+.banner .img-banner {
+
+    max-width: 50%;
+    height: auto;
+}
+
+.banner .main-content-banner {
+    display: flex;
+    flex-direction: column;
+    width: 50rem;
+    position: absolute;
+    top: 10rem;
+    left: 20rem;
+}
+
+.banner .main-content-banner .title {
+    font-size: 1.8rem;
+    background-color: #eee;
+    padding: 1rem;
+    border-radius: 0.7rem;
+    margin-bottom: 2rem;
+    display: inline;
+    width: 20rem;
+    display: block;
+    text-align: center;
+}
+
+.banner .main-content-banner .content {
+    font-size: 3.5rem;
+    font-weight: bolder;
+    color: var(--black);
+    margin-bottom: 4rem;
+
+}
+
+.banner .main-content-banner .btn {
+    font-size: 2rem;
+    border: 0.2rem solid var(--black);
+    padding: 1rem;
+    border-radius: 0.4rem;
+    width: 15rem;
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    z-index: 0;
+    position: relative;
+
+}
+.banner .main-content-banner .btn::after,
+.banner .main-content-banner .btn::before{
+    position: absolute;
+    content: '';
+    top: 0; left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--orange);
+    z-index: -1;
+    transition: all 0.5s cubic-bezier(0.37, 1.14, 0.26, 1.24);
+}
+
+.banner .main-content-banner .btn::before{
+    clip-path: polygon(0 0, 0 0, 0 0);
+}
+.banner .main-content-banner .btn:hover:before{
+    clip-path: polygon(0 0, 0 100%, 100% 0);
+}
+
+.banner .main-content-banner .btn::after{
+    clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
+}
+.banner .main-content-banner .btn:hover:after{
+    clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
+}
+.banner .main-content-banner .btn:hover{
+    color: #fff;
+}
+.swiper {
+    width: 100%;
+    height: 100%;
+    height: 500px;
+}
+
+.swiper-slide {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.autoplay-progress {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--swiper-theme-color);
+    display: none;
+}
+
+.autoplay-progress svg {
+    --progress: 0;
+    position: absolute;
+    left: 0;
+    top: 0px;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    stroke-width: 4px;
+    stroke: var(--swiper-theme-color);
+    fill: none;
+    stroke-dashoffset: calc(125.6 * (1 - var(--progress)));
+    stroke-dasharray: 125.6;
+    transform: rotate(-90deg);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    color: var(--orange);
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+
+    background-color: var(--orange);
+}
+
+@media (max-width:1200px) {
+    .banner .main-content-banner {
+        width: 40rem;
+    }
+    .banner .main-content-banner .title {
+        font-size: 1.4rem;     
+        width: 16rem;
+    }
+    
+    .banner .main-content-banner .content {
+        font-size: 2.5rem;
+        margin-right: 4rem;
+    }
+    
+    .banner .main-content-banner .btn {
+        font-size: 1.6rem;
+        width: 12rem;  
+    }
+}
+
+@media (max-width:991px) {
+    .banner .main-content-banner {
+        width: 38rem;
+        top: 15rem;
+        left: 20rem;
+    }
+}
+
+@media (max-width:786px) {
+    .banner .main-content-banner {
+        width: 38rem;
+        position: absolute;
+        top: 15rem;
+        left: 10rem;
+    }
+}
+
+
+
+@media (max-width:450px) {
+    .banner .main-content-banner {
+        width: 33rem;
+        position: absolute;
+        top: 7rem;
+    }
+    .banner .container-banner {
+        flex-direction: column;
+    }
+    .banner .img-banner {
+        max-width: 100%;
+    }
+    .banner .main-content-banner .content {
+        
+        margin-bottom: 2rem;
+    
+    }
+}

@@ -1,0 +1,35 @@
+// Home page
+#container-home {
+    height: 100%;
+    width: 100%;
+    display: block;
+    align-items: center;
+}
+
+.list-products {
+    background-color: #fff;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.list-products h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 20px auto;
+    
+}
+
+.list-products h1 span {
+    font-size: 4.4rem;
+    color: var(--orange);
+}
+
+.products-sell{
+    background-color: #fff;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
