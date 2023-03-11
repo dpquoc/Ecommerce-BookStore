@@ -63,7 +63,7 @@ CREATE TABLE USER_LIKE_BOOK (
 
 
 DELIMITER //
-CREATE FUNCTION search_books(search_title VARCHAR(255), search_category VARCHAR(255), search_author INT, min_price DECIMAL(10,2), max_price DECIMAL(10,2))
+CREATE FUNCTION search_books(search_title VARCHAR(255), search_category VARCHAR(255), search_author INT, min_price DECIMAL(10,2), max_price DECIMAL(10,2), sort INT)
 RETURNS TABLE
 BEGIN
     RETURN (
@@ -76,12 +76,19 @@ BEGIN
             AND (search_author IS NULL OR awb.author_id = search_author)
             AND (min_price IS NULL OR b.price >= min_price)
             AND (max_price IS NULL OR b.price <= max_price)
+        ORDER BY 
+            CASE sort 
+                WHEN 1 THEN b.price 
+                WHEN 2 THEN -b.price 
+                ELSE 0 
+            END
     );
 END //
 DELIMITER ;
 
 /*
 USAGE OF THE FUNCTION
-Example : SELECT * FROM search_books('arry Potte', 'Fantasy', 1, 0, 40); 
+Example : SELECT * FROM search_books('arry Potte', 'Fantasy', 1, 0, 40 , 1); 
 'arry Potte' included in 'Harry Potter' , 1 is the id of author , 0 is min_price or can be higher , 40 is max_price
+sort INT parameter = 1 ( sort from low to high ) ,  = 2 ( from high to low ) , else ( no sort )
 */
