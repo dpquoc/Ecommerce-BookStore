@@ -4,13 +4,15 @@ CREATE TABLE BOOK (
   price DECIMAL(10,2) NOT NULL,
   on_sale INT DEFAULT 0,
   image_url VARCHAR(255),
+  author_id INT NOT NULL,
   cover_designer VARCHAR(255) DEFAULT NULL,
   pages INT NOT NULL,
   publisher VARCHAR(255) NOT NULL,
   lang VARCHAR(255) NOT NULL,
   released DATE NOT NULL,
   description TEXT NOT NULL,
-  CHECK (on_sale BETWEEN 0 AND 100)
+  CHECK (on_sale BETWEEN 0 AND 100),
+  FOREIGN KEY (author_id) REFERENCES AUTHOR(id)
 );
 
 
@@ -21,13 +23,6 @@ CREATE TABLE AUTHOR (
   description TEXT NOT NULL
 );
 
-CREATE TABLE AUTHOR_WRITE_BOOK (
-  book_isbn INT NOT NULL,
-  author_id INT NOT NULL,
-  PRIMARY KEY (book_isbn, author_id),
-  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn),
-  FOREIGN KEY (author_id) REFERENCES AUTHOR(id)
-);
 
 
 CREATE TABLE CATEGORY_BOOK (
@@ -69,11 +64,10 @@ BEGIN
     RETURN (
         SELECT b.*
         FROM BOOK b
-        JOIN AUTHOR_WRITE_BOOK awb ON b.isbn = awb.book_isbn
         JOIN CATEGORY_BOOK cb ON b.isbn = cb.book_isbn
         WHERE (search_title IS NULL OR b.title LIKE CONCAT('%', search_title, '%'))
             AND (search_category IS NULL OR cb.category = search_category)
-            AND (search_author IS NULL OR awb.author_id = search_author)
+            AND (search_author IS NULL OR b.author_id = search_author)
             AND (min_price IS NULL OR b.price >= min_price)
             AND (max_price IS NULL OR b.price <= max_price)
         ORDER BY 
