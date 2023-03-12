@@ -4,13 +4,17 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+
 }
 
 .list-products {
     background-color: #fff;
     padding: 2rem;
+    width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -18,7 +22,7 @@
     font-size: 4rem;
     font-weight: 900;
     margin: 20px auto;
-    
+
 }
 
 .list-products h1 span {
@@ -26,10 +30,255 @@
     color: var(--orange);
 }
 
-.products-sell{
+.products-sell {
     background-color: #fff;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.outstanding {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10rem 15rem;
+    height: 100vh;
+    width: 100%;
+
+}
+
+.outstanding div {
+    width: 360px;
+}
+
+.outstanding .featured-category img {
+    border-radius: 1.2rem;
+}
+
+.outstanding div img {
+    height: 480px;
+    object-fit: cover;
+}
+
+.outstanding .introcduce-book {
+    height: 480px;
+}
+
+.outstanding .introcduce-book h3 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #a7a7a7;
+    margin-bottom: 30px;
+}
+
+.outstanding .introcduce-book h1 {
+    font-size: 2.8rem;
+    font-weight: 500;
+}
+
+.outstanding .introcduce-book h4 {
+    font-size: 1.8rem;
+    font-family: "PT Serif", serif;
+    font-style: italic;
+    color: #757575;
+    margin-bottom: 30px;
+}
+
+.outstanding .introcduce-book p {
+    font-size: 1.7rem;
+    font-weight: normal;
+    line-height: 1.786em;
+}
+
+.outstanding .featured-category {
+    position: relative;
+}
+
+.outstanding .featured-category h3 {
+    font-size: 1.5rem;
+    margin-left: 20px;
+    background-color: #27c8ea;
+    color: #fff;
+    display: inline;
+    padding: 0.1rem 1rem;
+    border-radius: 1rem;
+    position: absolute;
+    bottom: 110px;
+    font-weight: 400;
+}
+
+.outstanding .featured-category p {
+    font-size: 1.8rem;
+    width: 70%;
+    margin-left: 20px;
+    position: absolute;
+    bottom: 36px;
+    color: #fff;
+    line-height: 1.35;
+}
+
+.outstanding .introcduce-book a {
+    padding: 0.8rem 3rem;
+    background-color: #373547;
+    color: #fff;
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-top: 10px;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.outstanding .introcduce-book a:hover {
+    background-color: #4d4c52;
+}
+
+.sticker-mark {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 5rem;
+}
+.sticker-mark .SafeTransaction path:nth-child(1),
+.sticker-mark .SafeTransaction path:nth-child(3){
+    fill: rgb(37, 212, 138);
+}
+
+.sticker-mark .authorWrite path:nth-child(2)
+{
+    fill: #c49406;
+}
+
+.sticker-mark .tonsofbook path:nth-child(1),
+.sticker-mark .tonsofbook path:nth-child(3){
+    fill: rgb(59, 108, 183);
+}
+.authorWrite {
+    --bg-color: #ffd861;
+    --bg-color-light: #ffeeba;
+    --text-color-hover: #4C5656;
+    --box-shadow-color: rgba(255, 215, 97, 0.48);
+}
+.SafeTransaction {
+    --bg-color: #B8F9D3;
+    --bg-color-light: #e2fced;
+    --text-color-hover: #4C5656;
+    --box-shadow-color: rgba(184, 249, 211, 0.48);
+}
+.tonsofbook {
+    --bg-color: #DCE9FF;
+    --bg-color-light: #f1f7ff;
+    --text-color-hover: #4C5656;
+    --box-shadow-color: rgba(220, 233, 255, 0.48);
+}
+.sticker-mark .card {
+    width: 364px;
+    height: 358px;
+    background: #fff;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    transition: all 0.3s ease-out;
+    text-decoration: none;
+    margin: 0 2rem;
+    padding: 2rem 3rem 0 3rem;
+}
+
+.sticker-mark .card h3{
+    font-size: 2rem;
+    margin: 2rem 0;
+    z-index: 1000;
+}
+
+.sticker-mark .card:hover {
+    transform: translateY(-5px) scale(1.005) translateZ(0);
+    box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
+        0 24px 46px var(--box-shadow-color);
+}
+
+.sticker-mark .card:hover .overlay {
+    transform: scale(6) translateZ(0);
+}
+
+.sticker-mark .card:hover .circle {
+    border-color: var(--bg-color-light);
+    background: var(--bg-color);
+}
+
+.sticker-mark .card:hover .circle:after {
+    background: var(--bg-color-light);
+}
+
+.sticker-mark .card:hover p {
+    color: var(--text-color-hover);
+}
+
+.sticker-mark .card:active {
+    transform: scale(1) translateZ(0);
+    box-shadow: 0 15px 24px rgba(0, 0, 0, 0.11),
+        0 15px 24px var(--box-shadow-color);
+}
+
+.sticker-mark .card p {
+    display: block;
+    justify-items: center;
+    font-size: 17px;
+    color: #4C5656;
+    z-index: 1000;
+    transition: color 0.3s ease-out;
+    line-height: 1.5;
+}
+
+.sticker-mark .circle {
+    width: 131px;
+    height: 131px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease-out;
+}
+
+.sticker-mark .circle:after {
+    content: "";
+    width: 118px;
+    height: 118px;
+    display: block;
+    position: absolute;
+    background: var(--bg-color);
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+    transition: opacity 0.3s ease-out;
+}
+
+.sticker-mark .circle span{
+    z-index: 10000;
+    transform: translateZ(0);
+}
+
+.sticker-mark .overlay {
+    width: 118px;
+    position: absolute;
+    height: 118px;
+    border-radius: 50%;
+    background: var(--bg-color);
+    top: 26px;
+    left: 122px;
+    z-index: 0;
+    transition: transform 0.3s ease-out;
 }

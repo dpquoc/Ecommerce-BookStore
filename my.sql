@@ -1,6 +1,6 @@
 CREATE TABLE BOOK (
   isbn INT PRIMARY KEY AUTO_INCREMENT,
-  title VARCHAR(255) NOT NULL
+  title VARCHAR(255) NOT NULL,
   price DECIMAL(10,2) NOT NULL,
   on_sale INT DEFAULT 0,
   image_url VARCHAR(255),
@@ -37,7 +37,7 @@ CREATE TABLE CART (
   book_isbn INT NOT NULL,
   quantity INT NOT NULL,
   PRIMARY KEY (user_id, book_isbn),
-  FOREIGN KEY (user_id) REFERENCES USER(id),
+  FOREIGN KEY (user_id) REFERENCES USER(id_user),
   FOREIGN KEY (book_id) REFERENCES BOOK(isbn)
 );
 
@@ -45,8 +45,42 @@ CREATE TABLE BLOG (
   title VARCHAR(255) PRIMARY KEY,
   banner_url VARCHAR(255) NOT NULL,
   content TEXT NOT NULL,
-  publish_date DATE NOT NULL
+  publish_date DATE NOT NULL,
+  tag VARCHAR(255) NOT NULL
 );
+
+
+CREATE TABLE USER (
+  id_user INT PRIMARY KEY AUTO_INCREMENT,
+  fullname VARCHAR(255) NOT NULL,
+  bday DATE NOT NULL,
+  gmail VARCHAR(255) NOT NULL,
+  avt_url VARCHAR(255),
+  username VARCHAR(255) NOT NULL,
+  passwordd VARCHAR(255) NOT NULL,
+  FOREIGN KEY (id_user) REFERENCES ACCOUNT(id_account)
+);
+
+CREATE TABLE REVIEW (
+  id_review INT PRIMARY KEY AUTO_INCREMENT,
+  rating INT NOT NULL,
+  review TEXT,
+  user_id INT NOT NULL,
+  book_isbn INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES USER(id_user),
+  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn)
+);
+
+CREATE TABLE CONTACT (
+  id_contact INT PRIMARY KEY AUTO_INCREMENT,
+  fullname VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  messagee TEXT NOT NULL
+);
+
+
+
 
 CREATE TABLE USER_LIKE_BOOK (
   user_id INT NOT NULL,

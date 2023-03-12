@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ShoppingCartOutlined, HeartOutlined, StarFilled, HeartFilled } from '@ant-design/icons';
 import { InputNumber } from 'antd';
-import './Card.scss'
+import './BookCard.scss'
 
 import book1 from '../imgs/book1.jpg'
 

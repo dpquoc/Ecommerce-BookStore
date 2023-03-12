@@ -1,4 +1,4 @@
-import BookCard from "../card/Card";
+import BookCard from "../book-card/BookCard";
 import './ListProducts.scss'
 
 function ListProducts({ products , title }) {
