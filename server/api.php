@@ -23,9 +23,11 @@ if (array_key_exists($routeKey, $routes)) {
     
     $controller = new $controllerName();
     $response = call_user_func_array([$controller, $methodName], [$_GET, $data]);
-    echo $response;
+    echo json_encode($response);
 } else {
-    http_response_code(404);
-    require __DIR__ . '/view/404.php';
+    echo json_encode([
+        "status" => "not found",
+        "message" => "The requested resource was not found."
+    ]);
 }
 ?>
