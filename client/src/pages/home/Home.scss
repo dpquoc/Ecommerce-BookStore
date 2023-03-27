@@ -282,3 +282,19 @@
     z-index: 0;
     transition: transform 0.3s ease-out;
 }
+.review{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.review .title-review{
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 5rem 0;
+}
+
+.review .title-review span{
+    font-size: 4.4rem;
+    color: var(--orange);
+}

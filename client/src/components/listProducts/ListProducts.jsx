@@ -6,7 +6,6 @@ function ListProducts({ products , title }) {
     const cardElements = products.map((card, index) => (
         <BookCard key={index} {...card} />
     ));
-
     return (
         <div className="list">
             <h1 className="list-title">{title} Book<span>S</span></h1>

@@ -9,6 +9,7 @@ const publicRoutes = [
     { path: '/products', component: Products},  
     { path: '/detailsProduct', component: DetailsProduct},  
     { path: '/news', component: News},  
+    { path: '/news', component: News}, 
     { path: '*', component: NotFound},
 ]
 export { publicRoutes };
