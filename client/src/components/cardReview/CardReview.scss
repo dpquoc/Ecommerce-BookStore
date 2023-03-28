@@ -1,0 +1,87 @@
+.review_item {
+  position: relative;
+  overflow: hidden;
+  margin: 10px 20px 40px 20px;
+  min-width: 220px;
+  max-width: 400px;
+  width: 100%;
+  padding: 10px;
+}
+
+.author {
+  display: block;
+  position: relative;
+  margin: 0;
+  height: 80px;
+  padding: 0 35px;
+  z-index: 1;
+}
+
+.author img {
+  position: absolute;
+  display: block;
+  max-width: 100%;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+
+}
+
+.author h4,
+.author span {
+  left: 40%;
+}
+
+.author h4 {
+  position: absolute;
+  padding-bottom: 3px;
+  bottom: 50%;
+  margin: 0;
+  font-family: 'Montez', cursive;
+  font-size: 1.8rem;
+}
+
+.author span {
+  top: 50%;
+  padding-top: 3px;
+  margin: 0;
+  font-size: 2rem;
+  left: 6%;
+}
+
+.review_words {
+  background: white;
+  border: .1rem solid rgba(0, 0, 0, .3);
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+  border-radius: 5px;
+  position: relative;
+  display: block;
+  margin: -40px 0 0;
+  padding: 65px 50px 35px 50px;
+  height: 200px;
+}
+
+.review_words p {
+  font-size: 1.5rem;
+}
+
+.review_words:before,
+.review_words:after {
+  font-family: 'FontAwesome';
+  content: "\201C";
+  position: absolute;
+  font-size: 50px;
+  opacity: 0.3;
+  font-style: normal;
+}
+
+.review_words:before {
+  top: 55px;
+  left: 20px;
+}
+
+.review_words:after {
+  content: "\201D";
+  right: 20px;
+  bottom: -13px;
+}

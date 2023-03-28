@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     background-color: #eee;
+    margin: 20px 0 100px 0;
 }
 
 .list-title {
@@ -14,11 +15,14 @@
     font-size: 4.4rem;
     color: var(--orange);
 }
-
+.list{
+    display: flex;
+    justify-content: center;
+}
 .card-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 3rem;
+    grid-gap: 5rem;
     
 }
 
