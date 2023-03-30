@@ -14,7 +14,11 @@ class UserModel {
         $this->connection->close();
     }
 
-    public function create($data) {
+    public function create($data , $allowedKeys = []) {
+        if (!empty($allowedKeys)) {
+            $data = array_intersect_key($data, array_flip($allowedKeys));
+        }
+        
         $keys = array_keys($data);
         $values = array_values($data);
         $query = "INSERT INTO USER (" . implode(", ", $keys) . ") VALUES ('" . implode("', '", $values) . "')";
@@ -25,7 +29,12 @@ class UserModel {
         }
     }
 
-    public function read($queryParams) {
+    public function read($queryParams , $allowedKeys = []) {
+        // Filter the query parameters to only include allowed keys
+        if (!empty($allowedKeys)) {
+            $queryParams = array_intersect_key($queryParams, array_flip($allowedKeys));
+        }
+
         $conditions = [];
         foreach ($queryParams as $key => $value) {
             $conditions[] = "$key='$value'";
@@ -44,7 +53,12 @@ class UserModel {
         }
     }
 
-    public function update($id, $data) {
+    public function update($id, $data, $allowedKeys = []) {
+        // Filter the data to only include allowed keys
+        if (!empty($allowedKeys)) {
+            $data = array_intersect_key($data, array_flip($allowedKeys));
+        }
+
         $updates = [];
         foreach ($data as $key => $value) {
             $updates[] = "$key='$value'";
