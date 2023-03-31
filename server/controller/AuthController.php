@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../model/UserModel.php';
 class AuthController {
     private $secret_key = 'x3AQwlq^2LS1%q0%vg3P';
-    public function register($queryParams, $postData, $fromUser) {
+    public function register($idRoute = null, $queryParams, $postData, $fromUser) {
         $user = new UserModel();
         $postData['password'] = password_hash($postData['password'], PASSWORD_DEFAULT);
 
@@ -20,13 +20,13 @@ class AuthController {
         }
     }
 
-    public function login($queryParams, $postData, $fromUser) {
+    public function login($idRoute = null, $queryParams, $postData, $fromUser) {
         $user = new UserModel();
         $username = $postData['username'];
         $password = $postData['password'];
         
         if ($user->checkCredential($username, $password)) {
-            $userInfo = $user->read(['username' => $username])[0] ;
+            $userInfo = $user->read(['username' => $username], [], ['id', 'role', 'fullname'])[0] ;
             $header = base64_encode(json_encode(array(
                 "alg" => "HS256",
                 "typ" => "JWT"
@@ -43,8 +43,13 @@ class AuthController {
 
             setcookie('jwt', $token, [
                 'expires' => time() + 60 * 60 * 24 * 7,
-                'httponly' => true,
+                'path' => '/', // to set cookie be available on all path
+                'domain' => 'localhost',
+                'secure' => false,  // set to true if using HTTPS
+                'httponly' => true, // prevent code to read the cookie on client side
+                'samesite' => 'Lax', //  to prevent CSRF attacks
             ]);
+            
             return array(
                 "status" => "success",
                 "message" => "User logged in successfully.",
@@ -60,7 +65,7 @@ class AuthController {
         }
     }
     
-    public function logout($queryParams, $postData, $fromUser) {
+    public function logout($idRoute = null, $queryParams, $postData, $fromUser) {
         setcookie('jwt', '', time() - 3600);
         return array(
             "status" => "success",

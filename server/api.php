@@ -1,10 +1,11 @@
 <?php
+error_reporting(E_ERROR);
 header('Content-Type: application/json');
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 
-// DATA FROM POST METHOD
+// Data from post method
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
@@ -28,43 +29,79 @@ if (isset($_COOKIE['jwt'])) {
     
     if( $validToken ){
         if ( $payload['role'] == 'user' ) { $userLevel = 1 ; }
-        else if ( $payload['role'] == 'admin' ) { $userLevel = 2 ; }
+        else if ( $payload['role'] == 'admin' ) { $userLevel = 2 ;}
     }
 } 
 
-//  0 : viewer , 1 : user , 2 : admin
+// userLevel = 0 : viewer , 1 : user , 2 : admin
 
 $routes = [
+    // authentication
     'POST /api.php/auth/register' => 'AuthController@register@0',
     'POST /api.php/auth/login' => 'AuthController@login@0',
     'GET /api.php/auth/logout' => 'AuthController@logout@0',
+
+    // user
+    // 'GET /api.php/user' => 'UserController@getUsers@1',
+    // 'GET /api.php/user/(\d+)' => 'UserController@getSingleUser@1',
+    // 'GET /api.php/user/showme' => 'UserController@showMe@1',
+    // 'PATCH /api.php/user/(\d+)' => 'UserController@updateUser@1',
+    'DELETE /api.php/user/(\d+)' => 'UserController@deleteUser@2',
+
+    //blog
+    'POST /api.php/blog' => 'BlogController@createBlog@2',
+    'GET /api.php/blog' => 'BlogController@getBlogs@0',
+    'GET /api.php/blog/(\d+)' => 'BlogController@getSingleBlog@0',
+    'PATCH /api.php/blog/(\d+)' => 'BlogController@updateBlog@2',
+    'DELETE /api.php/blog/(\d+)' => 'BlogController@deleteBlog@2',
+
+    //book
+
+    //cart
 ];
+
 
 $routeKey = $method . ' ' . $request;
 
-if (array_key_exists($routeKey, $routes)) {
-    $action = explode('@', $routes[$routeKey]);
-    $controllerName = $action[0];
-    $methodName = $action[1];
-    $routeUserLevel = intval($action[2]) ;
-    
-    // Check if the user is authorized to access the route
-    if ($routeUserLevel <= $userLevel) {
-        require __DIR__ . '/controller/' . $controllerName . '.php';
-        $controller = new $controllerName();
-        $response = call_user_func_array([$controller, $methodName], [$_GET, $data , $payload]);
-        echo json_encode($response);
-    } else {
-        echo json_encode([
-            "status" => "unauthorized",
-            "message" => "You are not authorized to access this resource."
-        ]);
-    }
+// Try to match the route key to the defined route patterns
+foreach ($routes as $routePattern => $action) {
+    // Split the route pattern into method and path parts
+    list($routeMethod, $routePath) = explode(' ', $routePattern, 2);
 
-} else {
-    echo json_encode([
-        "status" => "not found",
-        "message" => "The requested resource was not found."
-    ]);
+    // Check if the route method and path match the requested method and path
+    if ($routeMethod == $method && preg_match("#^{$routePath}$#", $request, $matches)) {
+        // The route pattern matches the requested URL
+        $actionInfo = explode('@', $action) ;
+        $controllerName = $actionInfo[0];
+        $methodName = $actionInfo[1];
+        $routeUserLevel = intval($actionInfo[2]);
+
+        // Extract the dynamic parameter values from the URL
+        $params = array_slice($matches, 1)[0];
+
+        // Check if the user is authorized to access the route
+        if ($routeUserLevel <= $userLevel) {
+            require __DIR__ . '/controller/' . $controllerName . '.php';
+            $controller = new $controllerName();
+
+            $response = call_user_func_array([$controller, $methodName], [$params, $_GET, $data, $payload]);
+            echo json_encode($response);
+        } else {
+            http_response_code(401);
+            echo json_encode([
+                "status" => "unauthorized",
+                "message" => "You are not authorized to access this resource."
+            ]);
+        }
+
+        exit; // Stop processing the other routes
+    }
 }
+
+// No route pattern matched the requested URL
+echo json_encode([
+    "status" => "not found",
+    "message" => "The requested resource was not found."
+]);
+
 ?>
