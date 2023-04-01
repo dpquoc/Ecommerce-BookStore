@@ -83,10 +83,10 @@ class BlogController {
     public function deleteBlog($idRoute = null, $queryParams, $postData, $fromUser) {
         $blog = new BlogModel();
         if ($blog->delete($idRoute)) {
-            http_response_code(204);
+            http_response_code(200);
             return array(
                 "status" => "success",
-                'message' => 'Blog deleted successfully.'
+                "message" => "Blog deleted successfully."
             );
         } else {
             http_response_code(500);

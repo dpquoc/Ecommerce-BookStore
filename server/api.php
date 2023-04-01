@@ -56,7 +56,11 @@ $routes = [
     'DELETE /api.php/blog/(\d+)' => 'BlogController@deleteBlog@2',
 
     //book
-
+    'POST /api.php/book' => 'BookController@createBook@2',
+    'GET /api.php/book' => 'BookController@getBooks@0',
+    'GET /api.php/book/(\d+)' => 'BookController@getSingleBook@0',
+    'PATCH /api.php/book/(\d+)' => 'BookController@updateBook@2',
+    'DELETE /api.php/book/(\d+)' => 'BookController@deleteBook@2',
     //cart
 ];
 

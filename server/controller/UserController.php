@@ -96,7 +96,7 @@ class UserController {
             http_response_code(200);
             return array(
                 "status" => "success",
-                'message' => 'User deleted successfully.'
+                "message" => "User deleted successfully."
             );
         } else {
             http_response_code(500);

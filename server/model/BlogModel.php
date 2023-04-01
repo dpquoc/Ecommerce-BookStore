@@ -76,7 +76,7 @@ class BlogModel {
     }
 
     public function delete($id) {
-        $query = "DELETE FROM BLOG WHERE id=$id";
+        $query = "DELETE FROM BLOG WHERE id='$id'";
         if ($this->connection->query($query)) {
             return true;
         } else {
