@@ -5,17 +5,19 @@ require_once __DIR__ . '/../model/BlogModel.php';
 class BlogController {
     
     public function createBlog($idRoute = null, $queryParams, $postData, $fromUser) {
-        $user = new UserModel();
+        $blog = new BlogModel();
         $allowedKeys = ['id', 'title', 'banner_url', 'content', 'publish_date', 'tag'];
-        if ($user->create($postData, $allowedKeys)) {
+        if ($blog->create($postData, $allowedKeys)) {
+            http_response_code(201);
             return array(
                 "status" => "success",
-                "message" => "User registration completed successfully."
+                "message" => "Blog created successfully."
             );
         } else {
+            http_response_code(400);
             return array(
                 "status" => "error",
-                "message" => "An error occurred during user registration. Please try again."
+                "message" => "Unable to create blog. Please check your data and try again."
             );
         }
     }
@@ -26,7 +28,7 @@ class BlogController {
         $select = ['id', 'title', 'banner_url', 'publish_date', 'tag'] ;
 
         $blogs = $blog->read($queryParams, $allowedKeys , $select);
-        if ($blogs !== null) {
+        if (!empty($blogs)) {
             http_response_code(200);
             return array(
                 "status" => "success",
@@ -44,7 +46,7 @@ class BlogController {
     public function getSingleBlog($idRoute = null, $queryParams, $postData, $fromUser) {
         $blog = new BlogModel();
         $blogs = $blog->read(['id' => $idRoute]);
-        if ($blogs !== null) {
+        if (!empty($blogs)) {
             http_response_code(200);
             return array(
                 "status" => "success",
@@ -70,10 +72,10 @@ class BlogController {
                 "message" => "Blog updated successfully."
             );
         } else {
-            http_response_code(500);
+            http_response_code(400);
             return array(
                 "status" => "error",
-                "message" => "Unable to update blog."
+                "message" => "Unable to update blog. Please check your data and try again."
             );
         }
     }
@@ -81,7 +83,7 @@ class BlogController {
     public function deleteBlog($idRoute = null, $queryParams, $postData, $fromUser) {
         $blog = new BlogModel();
         if ($blog->delete($idRoute)) {
-            http_response_code(200);
+            http_response_code(204);
             return array(
                 "status" => "success",
                 'message' => 'Blog deleted successfully.'
@@ -90,7 +92,7 @@ class BlogController {
             http_response_code(500);
             return array(
                 "status" => "error",
-                "message" => "Unable to delete blog."
+                "message" => "Unable to delete blog. Please try again later."
             );
         }
     }

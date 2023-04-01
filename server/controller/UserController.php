@@ -6,8 +6,10 @@ class UserController {
     public function getUsers($idRoute = null, $queryParams, $postData, $fromUser) {
         $user = new UserModel();
         $allowedKeys = ['id', 'role', 'fullname', 'bday', 'avt_url'];
-        $users = $user->read($queryParams, $allowedKeys);
-        if ($users !== null) {
+        $select = ['id', 'role', 'fullname', 'avt_url'];
+
+        $users = $user->read($queryParams, $allowedKeys , $select);
+        if (!empty($users)) {
             http_response_code(200);
             return array(
                 "status" => "success",
@@ -23,10 +25,18 @@ class UserController {
     }
 
     public function getSingleUser($idRoute = null, $queryParams, $postData, $fromUser) {
+        if ( $idRoute != $fromUser['id'] && $fromUser['role'] != 'admin' ){
+            http_response_code(401);
+            return [
+                "status" => "unauthorized",
+                "message" => "You are not authorized to access this resource."
+            ];
+        }
         $user = new UserModel();
-        $allowedKeys = ['id', 'role', 'fullname', 'bday', 'avt_url'];
-        $users = $user->read(['id' => $idRoute], $allowedKeys);
-        if ($users !== null) {
+        $select = ['id', 'role', 'fullname', 'avt_url' ,'bday' , 'username' , 'email'];
+
+        $users = $user->read(['id' => $idRoute], [], $select);
+        if (!empty($users)) {
             http_response_code(200);
             return array(
                 "status" => "success",
@@ -42,10 +52,12 @@ class UserController {
     }
 
     public function showMe($idRoute = null, $queryParams, $postData, $fromUser) {
+
         $user = new UserModel();
-        $allowedKeys = ['id', 'role', 'fullname', 'bday', 'avt_url'];
-        $users = $user->read(['id' => $fromUser['sub']], $allowedKeys);
-        if ($users !== null) {
+        $select = ['id', 'role', 'fullname', 'avt_url' ,'bday' , 'username' , 'email'];
+
+        $users = $user->read(['id' => $fromUser['id']], [], $select);
+        if (!empty($users)) {
             http_response_code(200);
             return array(
                 "status" => "success",
@@ -62,19 +74,18 @@ class UserController {
 
     public function updateUser($idRoute = null, $queryParams, $postData, $fromUser) {
         $user = new UserModel();
-        $allowedKeys = ['role', 'fullname', 'bday', 'avt_url'];
-        $data = json_decode($postData, true);
-        if ($user->update($fromUser['sub'], $data, $allowedKeys)) {
+        $allowedKeys = ['fullname', 'bday', 'avt_url'];
+        if ($user->update($idRoute,$postData, $allowedKeys)) {
             http_response_code(200);
             return array(
                 "status" => "success",
                 "message" => "User updated successfully."
             );
         } else {
-            http_response_code(500);
+            http_response_code(400);
             return array(
                 "status" => "error",
-                "message" => "Unable to update user."
+                "message" => "Unable to update user. Please check your data and try again."
             );
         }
     }

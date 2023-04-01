@@ -42,10 +42,10 @@ $routes = [
     'GET /api.php/auth/logout' => 'AuthController@logout@0',
 
     // user
-    // 'GET /api.php/user' => 'UserController@getUsers@1',
-    // 'GET /api.php/user/(\d+)' => 'UserController@getSingleUser@1',
-    // 'GET /api.php/user/showme' => 'UserController@showMe@1',
-    // 'PATCH /api.php/user/(\d+)' => 'UserController@updateUser@1',
+    'GET /api.php/user' => 'UserController@getUsers@1',
+    'GET /api.php/user/(\d+)' => 'UserController@getSingleUser@1',
+    'GET /api.php/user/showme' => 'UserController@showMe@1',
+    'PATCH /api.php/user/(\d+)' => 'UserController@updateUser@1',
     'DELETE /api.php/user/(\d+)' => 'UserController@deleteUser@2',
 
     //blog
