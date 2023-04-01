@@ -69,7 +69,7 @@ foreach ($routes as $routePattern => $action) {
     list($routeMethod, $routePath) = explode(' ', $routePattern, 2);
 
     // Check if the route method and path match the requested method and path
-    if ($routeMethod == $method && preg_match("#^{$routePath}$#", $request, $matches)) {
+    if ($routeMethod == $method && preg_match("#^{$routePath}(\?.*)?$#", $request, $matches)) {
         // The route pattern matches the requested URL
         $actionInfo = explode('@', $action) ;
         $controllerName = $actionInfo[0];

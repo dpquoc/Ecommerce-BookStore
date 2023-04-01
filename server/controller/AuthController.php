@@ -66,7 +66,8 @@ class AuthController {
     }
     
     public function logout($idRoute = null, $queryParams, $postData, $fromUser) {
-        setcookie('jwt', '', time() - 3600);
+        unset($_COOKIE['jwt']);
+        setcookie('jwt', '', time() - 3600, '/', 'localhost', false, true);
         return array(
             "status" => "success",
             "message" => "User logged out successfully."
