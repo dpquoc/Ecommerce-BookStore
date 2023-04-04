@@ -31,7 +31,8 @@ const products = [
         author: "Ellie Thomson, Harry",
         rating: 4,
         price: 21,
-        sale: 15
+        quantity:1,
+        sale: 0
     },
     {
         id: 456,
@@ -41,6 +42,7 @@ const products = [
         author: "Ellie Thomson, Harry",
         rating: 4,
         price: 21,
+        quantity:1,
         sale: 15
     },
     {
@@ -51,6 +53,7 @@ const products = [
         author: "Ellie Thomson, Harry",
         rating: 4,
         price: 21,
+        quantity:1,
         sale: 15
     },
     {
@@ -61,6 +64,7 @@ const products = [
         author: "Ellie Thomson, Harry",
         rating: 4,
         price: 21,
+        quantity:1,
         sale: 15
     },
     {
@@ -71,6 +75,7 @@ const products = [
         author: "Ellie Thomson, Harry",
         rating: 4,
         price: 21,
+        quantity:1,
         sale: 15
     },
 ];
