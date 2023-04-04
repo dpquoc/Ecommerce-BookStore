@@ -54,7 +54,8 @@ CREATE TABLE CART (
 );
 
 CREATE TABLE BLOG (
-  title VARCHAR(255) PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255),
   banner_url VARCHAR(255) NOT NULL,
   content TEXT NOT NULL,
   publish_date DATE NOT NULL,
@@ -90,26 +91,41 @@ CREATE TABLE USER_LIKE_BOOK (
   FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn)
 );
 
-
-DELIMITER //
-CREATE PROCEDURE search_books(IN search_title VARCHAR(255), IN search_category VARCHAR(255), IN search_author INT, IN min_price DECIMAL(10,2), IN max_price DECIMAL(10,2), IN sort INT)
-BEGIN
-    SELECT b.*
-    FROM BOOK b
-    JOIN CATEGORY_BOOK cb ON b.isbn = cb.book_isbn
-    WHERE (search_title IS NULL OR b.title LIKE CONCAT('%', search_title, '%'))
-        AND (search_category IS NULL OR cb.category = search_category)
-        AND (search_author IS NULL OR b.author_id = search_author)
-        AND (min_price IS NULL OR b.price >= min_price)
-        AND (max_price IS NULL OR b.price <= max_price)
+DELIMITER // CREATE PROCEDURE search_books(
+  IN search_title VARCHAR(255), 
+  IN search_category VARCHAR(255), 
+  IN search_author INT, 
+  IN min_price DECIMAL(10, 2), 
+  IN max_price DECIMAL(10, 2), 
+  IN sort INT
+) BEGIN 
+    SELECT 
+      b.isbn, 
+      b.title, 
+      b.price, 
+      b.on_sale as onsale, 
+      b.image_url as img, 
+      b.author_id, 
+      GROUP_CONCAT(cb.category SEPARATOR ', ') as categories 
+    FROM 
+      BOOK b 
+      JOIN CATEGORY_BOOK cb ON b.isbn = cb.book_isbn 
+    WHERE 
+      ( search_title IS NULL OR b.title LIKE CONCAT('%', search_title, '%') ) 
+      AND
+      ( search_category IS NULL OR cb.category = search_category ) 
+      AND 
+      ( search_author IS NULL OR b.author_id = search_author ) 
+      AND ( min_price IS NULL OR b.price >= min_price ) 
+      AND 
+      ( max_price IS NULL OR b.price <= max_price ) 
+    GROUP BY 
+      b.isbn 
     ORDER BY 
-        CASE sort 
-            WHEN 1 THEN b.price 
-            WHEN 2 THEN -b.price 
-            ELSE 0 
-        END;
-END //
-DELIMITER ;
+      CASE sort WHEN 1 THEN b.price WHEN 2 THEN - b.price ELSE 0 END;
+END // 
+DELIMITER;
+
 
 /*
 USAGE OF THE FUNCTION
