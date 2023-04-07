@@ -82,6 +82,17 @@ class BlogController {
 
     public function deleteBlog($idRoute = null, $queryParams, $postData, $fromUser) {
         $blog = new BlogModel();
+
+        // Check if blog with the given ID exists
+        $existingBlog = $blog->read(['id' => $idRoute]);
+        if (!$existingBlog) {
+            http_response_code(404);
+            return array(
+                "status" => "error",
+                "message" => "Blog not found."
+            );
+        }
+        
         if ($blog->delete($idRoute)) {
             http_response_code(200);
             return array(

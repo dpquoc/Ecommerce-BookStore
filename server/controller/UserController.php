@@ -92,6 +92,17 @@ class UserController {
 
     public function deleteUser($idRoute = null, $queryParams, $postData, $fromUser) {
         $user = new UserModel();
+        
+        // Check if user with the given ID exists
+        $existingUser = $user->read(['id' => $idRoute]);
+        if (!$existingUser) {
+            http_response_code(404);
+            return array(
+                "status" => "error",
+                "message" => "User not found."
+            );
+        }
+
         if ($user->delete($idRoute)) {
             http_response_code(200);
             return array(
