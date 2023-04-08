@@ -29,8 +29,8 @@ CREATE TABLE USER (
   username VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   role ENUM('user', 'admin') DEFAULT 'user',
-  fullname VARCHAR(255) NOT NULL,
-  bday DATE NOT NULL,
+  fullname VARCHAR(255) ,
+  bday DATE ,
   avt_url VARCHAR(255)
 );
 
