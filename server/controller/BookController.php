@@ -82,6 +82,17 @@ class BookController {
 
     public function deleteBook($idRoute = null, $queryParams, $postData, $fromUser) {
         $book = new BookModel();
+        
+        // Check if book with the given ID exists
+        $existingBook = $book->read(['isbn' => $idRoute]);
+        if (!$existingBook) {
+            http_response_code(404);
+            return array(
+                "status" => "error",
+                "message" => "Book not found."
+            );
+        }
+
         if ($book->delete($idRoute)) {
             http_response_code(200);
             return array(
