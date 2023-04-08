@@ -38,6 +38,7 @@ if (isset($_COOKIE['jwt'])) {
 $routes = [
     // authentication
     'POST /api.php/auth/register' => 'AuthController@register@0',
+    'POST /api.php/auth/registeradmin' => 'AuthController@registerAdmin@2',
     'POST /api.php/auth/login' => 'AuthController@login@0',
     'GET /api.php/auth/logout' => 'AuthController@logout@0',
 
@@ -61,7 +62,43 @@ $routes = [
     'GET /api.php/book/(\d+)' => 'BookController@getSingleBook@0',
     'PATCH /api.php/book/(\d+)' => 'BookController@updateBook@2',
     'DELETE /api.php/book/(\d+)' => 'BookController@deleteBook@2',
+
+    //likelist
+    'GET /api.php/likelist' => 'LikelistController@getLikelists@2',
+    'GET /api.php/likelist/my' => 'LikelistController@getMyLikelist@1',
+    'GET /api.php/likelist/(\d+)' => 'LikelistController@likeBook@1',
+    'DELETE /api.php/likelist/(\d+)' => 'LikelistController@unlikeBook@1',
+
+    //author
+    'POST /api.php/author' => 'AuthorController@createAuthor@2',
+    'GET /api.php/author' => 'AuthorController@getAuthors@0',
+    'GET /api.php/author/(\d+)' => 'AuthorController@getSingleAuthor@0',
+    'PATCH /api.php/author/(\d+)' => 'AuthorController@updateAuthor@2',
+    'DELETE /api.php/author/(\d+)' => 'AuthorController@deleteAuthor@2',
+
+    //review
+    'POST /api.php/review' => 'ReviewController@createReview@1',
+    'GET /api.php/review' => 'ReviewController@getReviews@0',
+    'GET /api.php/review/(\d+)' => 'ReviewController@getSingleReview@0',
+    'PATCH /api.php/review/(\d+)' => 'ReviewController@updateReview@1',
+    'DELETE /api.php/review/(\d+)' => 'ReviewController@deleteReview@1',
+
+    //contact
+    'POST /api.php/contact' => 'ContactController@createContact@0',
+    'GET /api.php/contact' => 'ContactController@getContacts@2',
+    'GET /api.php/contact/(\d+)' => 'ContactController@getSingleContact@2',
+    'PATCH /api.php/contact/(\d+)' => 'ContactController@updateContact@2',
+    'DELETE /api.php/contact/(\d+)' => 'ContactController@deleteContact@2',
+
     //cart
+    'POST /api.php/cart' => 'CartController@addToCart@1',
+    'GET /api.php/cart' => 'CartController@getCart@1',
+    'PATCH /api.php/cart/(\d+)' => 'CartController@updateCart@1',
+    'DELETE /api.php/cart/(\d+)' => 'CartController@removeFromCart@1',
+
+
+
+    
 ];
 
 

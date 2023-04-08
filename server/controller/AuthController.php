@@ -20,6 +20,24 @@ class AuthController {
         }
     }
 
+    public function registerAdmin($idRoute = null, $queryParams, $postData, $fromUser) {
+        $user = new UserModel();
+        $postData['role'] = 'admin';
+        $postData['password'] = password_hash($postData['password'], PASSWORD_DEFAULT);
+
+        if ($user->create($postData, ['bday' , 'avt_url' , 'fullname' ,'email' , 'role', 'username' ,'password'])) {
+            return array(
+                "status" => "success",
+                "message" => "User registration completed successfully."
+            );
+        } else {
+            return array(
+                "status" => "error",
+                "message" => "An error occurred during user registration. Please try again."
+            );
+        }
+    }
+
     public function login($idRoute = null, $queryParams, $postData, $fromUser) {
         $user = new UserModel();
         $username = $postData['username'];

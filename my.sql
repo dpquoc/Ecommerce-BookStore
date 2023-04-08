@@ -78,7 +78,8 @@ CREATE TABLE CONTACT (
   fullname VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   title VARCHAR(255) NOT NULL,
-  messagee TEXT NOT NULL
+  message TEXT NOT NULL,
+  resolved BOOLEAN DEFAULT false
 );
 
 
