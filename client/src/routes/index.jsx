@@ -4,6 +4,7 @@ import NotFound from '../pages/404/NotFound';
 import Products from '../pages/products/Products';
 import DetailsProduct from '../pages/detailsProduct/DetailsProduct';
 import DetailsNews from '../pages/detailsNews/DetailsNews';
+import About from '../pages/about/About';
 
 const publicRoutes = [
     { path: '/', component: Home},
@@ -11,6 +12,7 @@ const publicRoutes = [
     { path: '/detailsProduct', component: DetailsProduct},  
     { path: '/news', component: News},  
     { path: '*', component: NotFound },
-    { path: '/detailsNews', component: DetailsNews},
+    { path: '/detailsNews', component: DetailsNews },
+    { path: '/about', component: About},
 ]
 export { publicRoutes };
