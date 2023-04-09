@@ -1,0 +1,25 @@
+.review{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: #fff;
+    margin: 20px 0 100px 0;
+}
+.review .list-review{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 5rem;
+    padding: 0 70px;
+}
+.review .title-review{
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 5rem 0;
+}
+
+.review .title-review span{
+    font-size: 4.4rem;
+    color: var(--orange);
+}

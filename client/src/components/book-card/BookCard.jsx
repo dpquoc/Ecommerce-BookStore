@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { ShoppingCartOutlined, HeartOutlined, StarFilled, HeartFilled } from '@ant-design/icons';
 import { InputNumber } from 'antd';
-import './Card.scss'
 
-import book1 from '../imgs/book1.jpg'
+import './BookCard.scss'
+import { useDispatch } from "react-redux";
+import { cartActions } from '../../store/cartSlice'
 
 function BookCard({ id, title, author, cover, rating, price, sale }) {
     const [isFavorite, setIsFavorite] = useState(false);
@@ -13,6 +14,11 @@ function BookCard({ id, title, author, cover, rating, price, sale }) {
     const heartClick = () => {
         setIsFavorite(!isFavorite);
     };
+    const dispatch = useDispatch()
+    const addToCart = () => {
+        dispatch(cartActions.addToCart({ id, title, newprice, cover }))
+    }
+    const newprice =  (sale ? (price - price * sale / 100) : price);
     return (
         <>
             <div className="box-card">
@@ -32,14 +38,14 @@ function BookCard({ id, title, author, cover, rating, price, sale }) {
                         <div className="price">
                             {sale ? (
                                 <>
-                                    ${price - price * sale / 100} <span>${price}</span>
+                                    ${newprice} <span>${price}</span>
                                 </>
-                            ) : (<>${price}</>)}
+                            ) : (<>${newprice}</>)}
                         </div>
                         <InputNumber min={1} defaultValue={1} style={{ width: '58px' }} />
                     </div>
                     <div className='btn-cart-like'>
-                        <div href="" className="btn-cart">Add to cart</div>
+                        <div href="" className="btn-cart" onClick={addToCart}>Add to cart</div>
                         <div href="" className="btn-like" onClick={heartClick}>{heartIcon}</div>
                     </div>
                 </div >

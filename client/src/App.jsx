@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import { publicRoutes } from './routes'
+import Admin from './pages/admin/admin'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
           const Page = route.component;
           return <Route key={index} path={route.path} element={<Layout> <Page /> </Layout>} />;
         })}
+        <Route path="/admin/*" element={<Admin />} />
       </Routes>
     </Router>
   )

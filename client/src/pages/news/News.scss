@@ -1,7 +1,21 @@
 // Home page
 .container-news{
-    height: 100vh;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.news-main-content{
+    height: auto;
+    width: 100%;
+    padding: 30px 8rem 30px 8rem ;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex : 9;
+    flex-wrap: wrap;
 }
