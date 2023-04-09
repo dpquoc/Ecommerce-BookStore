@@ -1,0 +1,212 @@
+// Home page
+.container-contact {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;}
+.mid0 {
+
+    margin-top: 50px;
+
+    // float: left;
+    background-color: white;
+    // width:100%;
+
+    height: 100%;
+
+    padding: 10px;
+
+}
+
+.mid1 {
+    // margin-left:7%;
+    // margin-right:7%;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: white;
+    margin-right: 2%;
+    margin-left: 2%;
+    // width:100%;
+
+    // height: 100%;
+    border-radius: 20px 20px;
+    // padding: 20px;
+    border: 0.5px solid;
+    border-color: lightgray;
+}
+
+.info {
+    float: left;
+    // margin-top:50px;
+    width: 40%;
+    padding: 3%;
+    border-radius: 5px 5px;
+}
+
+.maps {
+    float: left;
+    //margin-top:50px;
+    width: 60%;
+    padding: 3%;
+    // border-radius: 5px 5px;
+}
+
+.form1 {
+    float: left;
+    // margin-top:50px;
+    width: 60%;
+    padding: 3%;
+    height: 100%;
+}
+
+.contacts {
+    float: left;
+    margin-top: 50px;
+    width: 34%;
+    padding: 3%;
+    // height:100%;
+    // border-radius: 5px 5px;
+}
+
+.FAQs {
+    float: left;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 30px;
+}
+
+input,
+select,
+textarea {
+    color: #3e3d00;
+    background-color: #f1f0f0;
+    border: 1px solid;
+    padding: 10px;
+    width: 100%;
+}
+
+textarea:focus,
+input:focus {
+    color: black;
+}
+
+button.normal {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px 30px;
+    color: #000;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 0.2s;
+    border: 1px solid;
+}
+
+button.normal:hover {
+    background-color: #088178;
+    color: #fff;
+}
+
+.tag1 {
+    width: 100%;
+    height: 100%;
+    float:left;
+}
+
+img{
+    
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  object-fit: contain;
+  object-position: center;
+}
+.img1 {
+    width:40%;
+}
+
+.rate {
+    width: 50%;
+    float: left;
+    // padding: 10px;
+    // margin-left: 5%;
+
+}
+@media only screen and (max-width: 992px) {
+    
+}
+@media only screen and (max-width: 992px) {
+    .info {
+        width: 100%;
+        text-align: center;
+    }
+
+    .maps {
+        width: 100%;
+        text-align: center;
+    }
+
+    h1 {
+        text-align: center;
+    }
+    h2{
+        text-align: center;
+    }
+
+    .form1 {
+        float: none;
+    // margin-top:50px;
+    margin-left: 17%;
+    width: 70%;
+    // margin: 0;
+    padding: 0%;
+    }
+
+    .button {
+        text-align: center;
+    }
+
+    .contacts {
+
+        width: 100%;
+        
+        // float: none;
+    // margin-top: 50px;
+    margin-left:5%;
+    height:100%;
+    
+    }
+    .tag1 {
+        width: 30%;
+        float: left;
+        padding: 5px;
+    }
+    
+    .img1 {
+       width: 100%;
+    // width: 200px;
+    // height: 200px;
+        float: none;
+        // padding: 0px;
+        text-align: center;
+    }
+    
+
+    .rate {
+        width: 100%;
+        // float: none;
+        padding: 0px;
+        margin-left: 0%;
+        text-align: center;
+    }
+
+    .mid1 {
+        height: 100%;
+    }
+}

@@ -115,7 +115,7 @@ function Home() {
                 </Swiper>
 
             </div>  
-            <ListProducts title="Sale" products={products} />
+            <ListProducts title="Sale" namelogo="Book" hightlight="S" products={products} />
         </div>
     );
 }
