@@ -8,6 +8,7 @@ import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
 import Checkout from '../pages/checkout/Checkout';
 import Profile from '../pages/profile/Profile';
+import About from '../pages/about/About';
 
 const publicRoutes = [
     { path: '/', component: Home},

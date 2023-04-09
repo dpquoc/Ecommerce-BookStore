@@ -60,7 +60,7 @@ function Header() {
                 <Link className='links-nav' to="/">Home</Link>
                 <Link className='links-nav' to="/products">Products</Link>
                 <Link className='links-nav' to="/news">News</Link>
-                <Link className='links-nav' to="">About</Link>
+                <Link className='links-nav' to="/about">About</Link>
                 <Link className='links-nav' to="">Contact</Link>
             </nav>
             <div className='icons'>
