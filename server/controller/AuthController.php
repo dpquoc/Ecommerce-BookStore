@@ -44,7 +44,7 @@ class AuthController {
         $password = $postData['password'];
         
         if ($user->checkCredential($username, $password)) {
-            $userInfo = $user->read(['username' => $username], [], ['id', 'role', 'fullname'])[0] ;
+            $userInfo = $user->read(['username' => $username], [], ['id', 'role', 'fullname','avt_url','email','bday'])[0] ;
             $header = base64_encode(json_encode(array(
                 "alg" => "HS256",
                 "typ" => "JWT"
@@ -52,7 +52,10 @@ class AuthController {
             $payload = base64_encode(json_encode(array(
                 "id" => $userInfo['id'],
                 "role" => $userInfo['role'],
-                "fullname" => $userInfo['fullname'] 
+                "fullname" => $userInfo['fullname'], 
+                "avt_url" => $userInfo['avt_url'],
+                "email" => $userInfo['email'],
+                "bday" => $userInfo['bday'],
             )));
 
             $signature = hash_hmac('sha256', "$header.$payload",$this->secret_key, true);
@@ -73,7 +76,10 @@ class AuthController {
                 "message" => "User logged in successfully.",
                 "id" => $userInfo['id'],
                 "role" => $userInfo['role'],
-                "fullname" => $userInfo['fullname'] 
+                "fullname" => $userInfo['fullname'],
+                "avt_url" => $userInfo['avt_url'],
+                "email" => $userInfo['email'],
+                "bday" => $userInfo['bday']
             );
         } else {
             return array(

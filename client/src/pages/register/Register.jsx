@@ -7,17 +7,21 @@ import * as Yup from "yup";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-// import { registerUser } from "../../reduxToolkit/apiRequest";
+import { registerUser } from "../../store/apiReq";
+
 import { useDispatch } from "react-redux";
 const target = document.querySelector(".overlayz");
 
 
 const Register = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     useEffect(() => window.scrollTo(0, 0), []);
+
     const [type, setType] = useState("password");
     const [disabled, setDisabled] = useState(true);
-    const navigate = useNavigate();
+    
     const re_1digit = new RegExp("^(?=.*[0-9])");
     const re_8chart = new RegExp("^(?=.{8,})");
     const re_low = new RegExp("^(?=.*[a-z])");
@@ -26,13 +30,17 @@ const Register = () => {
 
     const formik = useFormik({
         initialValues: {
-            name: "",
+            fullname: "",
+            username: "",
             password: "",
             confirm: "",
             email: "",
         },
         validationSchema: Yup.object({
-            name: Yup.string()
+            fullname: Yup.string()
+                .required("Yêu cầu nhập họ và tên")
+                .min(4, "Họ và tên yêu cầu tối thiểu 4 kí tự"),
+            username: Yup.string()
                 .required("Yêu cầu nhập tài khoản")
                 .min(4, "Tài khoản yêu cầu tối thiểu 4 kí tự"),
             password: Yup.string()
@@ -49,37 +57,48 @@ const Register = () => {
                     "Vui lòng nhập email chính xác"
                 ),
         }),
-        // onSubmit: (values) => {
-        //     const newUser = {
-        //         name: values.name,
-        //         password: values.password,
-        //         email: values.email,
-        //         action: "getUserRegister",
-        //     };
-        //     console.log(newUser)
-        //     registerUser(newUser, dispatch, navigate)
-
-        // },
+        onSubmit: (values) => {
+            const newUser = {
+                fullname: values.fullname,
+                username: values.username,
+                password: values.password,
+                email: values.email,
+                // action: "getUserRegister",
+            };
+            registerUser(newUser, dispatch, navigate)
+        },
     });
     useEffect(() => {
         if (
-            formik.values.name &&
+            formik.values.fullname &&
+            formik.values.username &&
             formik.values.email &&
             formik.values.password &&
             formik.values.confirm
-
         ) {
             setDisabled(false);
         }
         else setDisabled(true);
-    }, [formik.values.email, formik.values.name, formik.values.password]);
+    }, [ formik.values.fullname,formik.values.email, formik.values.username, formik.values.password]);
 
     const icon = document.querySelector(".input__icon");
 
     return (
         <div className="register__form">
-            <form className="form__register">
+            <form className="form__register" onSubmit={formik.handleSubmit}>
                 <div className="title">Đăng ký tài khoản</div>
+                <TextField
+                    name="fullname"
+                    id="fullname"
+                    label="Full Name"
+                    variant="outlined"
+                    value={formik.values.fullname}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                />
+                {formik.touched.fullname && formik.errors.fullname ? (
+                    <div className="error_msg">{formik.errors.fullname}</div>
+                ) : null}
                 <TextField
                     name="email"
                     id="email"
@@ -93,16 +112,16 @@ const Register = () => {
                     <div className="error_msg">{formik.errors.email}</div>
                 ) : null}
                 <TextField
-                    id="name"
-                    name="name"
+                    id="username"
+                    name="username"
                     label="Username"
                     variant="outlined"
-                    value={formik.values.name}
+                    value={formik.values.username}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                 />
-                {formik.touched.name && formik.errors.name ? (
-                    <div className="error_msg">{formik.errors.name}</div>
+                {formik.touched.username && formik.errors.username ? (
+                    <div className="error_msg">{formik.errors.username}</div>
                 ) : null}
                 <TextField
                     id="password"
@@ -126,8 +145,8 @@ const Register = () => {
                         ),
                     }}
                 />
-                {formik.touched.email && formik.errors.email ? (
-                    <div className="error_msg">{formik.errors.email}</div>
+                {formik.touched.password && formik.errors.password ? (
+                    <div className="error_msg">{formik.errors.password}</div>
                 ) : null}
                 <TextField
                     id="confirm"
@@ -211,7 +230,7 @@ const Register = () => {
                 </ul>
                 <p className="dieuKhoan">
                     Bằng việc bấm nút Đăng ký bên dưới, tôi xác nhận đã đọc, hiểu và đồng
-                    ý với các <a href="#" style={{color:'#ff7809'}}>Điều kiện và Điều khoản </a>của Book<span style={{color:'#ff7809'}}>S</span>.
+                    ý với các <a href="#" style={{ color: '#ff7809' }}>Điều kiện và Điều khoản </a>của Book<span style={{ color: '#ff7809' }}>S</span>.
                 </p>
                 <Button type="submit" variant="contained" disabled={disabled}>
                     Đăng Kí

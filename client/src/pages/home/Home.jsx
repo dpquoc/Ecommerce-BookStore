@@ -7,7 +7,10 @@ import book1 from '../../components/imgs/book1.jpg'
 
 import { ReadOutlined, EditTwoTone, SafetyCertificateTwoTone } from '@ant-design/icons';
 
-import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -31,7 +34,7 @@ const products = [
         author: "Ellie Thomson, Harry",
         rating: 4,
         price: 21,
-        quantity:1,
+        quantity: 1,
         sale: 0
     },
     {
@@ -42,7 +45,7 @@ const products = [
         author: "Ellie Thomson, Harry",
         rating: 4,
         price: 21,
-        quantity:1,
+        quantity: 1,
         sale: 15
     },
     {
@@ -53,7 +56,7 @@ const products = [
         author: "Ellie Thomson, Harry",
         rating: 4,
         price: 21,
-        quantity:1,
+        quantity: 1,
         sale: 15
     },
     {
@@ -64,7 +67,7 @@ const products = [
         author: "Ellie Thomson, Harry",
         rating: 4,
         price: 21,
-        quantity:1,
+        quantity: 1,
         sale: 15
     },
     {
@@ -75,49 +78,49 @@ const products = [
         author: "Ellie Thomson, Harry",
         rating: 4,
         price: 21,
-        quantity:1,
+        quantity: 1,
         sale: 15
     },
 ];
 const reviews = [
     {
         id: 1,
-        name:"Maureen Burrows",
+        name: "Maureen Burrows",
         cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer2.jpg",
         rating: 4.5,
         review: "Under the gifted guidance of Ron Burgandy, one of James Cameron's talented team, imaginative modern cooking from a kitchen brigade at the top of its game"
     },
     {
         id: 2,
-        name:"Magnus Mahoney",
+        name: "Magnus Mahoney",
         cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer1.jpg",
         rating: 5,
         review: "On my midweek visit, every seat was taken by 6.15pm, the atmosphere was electric, the air filled with charcoal smoke, music and laughter"
     },
     {
         id: 3,
-        name:"Rhonda Barajas",
+        name: "Rhonda Barajas",
         cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer3.jpg",
         rating: 5,
         review: "The friendly and welcoming staff act like they genuinely care, first and foremost, about you having a really good time. I'll drink to that"
     },
     {
         id: 4,
-        name:"Rhonda Barajas",
+        name: "Rhonda Barajas",
         cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer3.jpg",
         rating: 5,
         review: "The friendly and welcoming staff act like they genuinely care, first and foremost, about you having a really good time. I'll drink to that"
     },
     {
         id: 5,
-        name:"Rhonda Barajas",
+        name: "Rhonda Barajas",
         cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer3.jpg",
         rating: 5,
         review: "The friendly and welcoming staff act like they genuinely care, first and foremost, about you having a really good time. I'll drink to that"
     },
     {
         id: 6,
-        name:"Rhonda Barajas",
+        name: "Rhonda Barajas",
         cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer3.jpg",
         rating: 5,
         review: "The friendly and welcoming staff act like they genuinely care, first and foremost, about you having a really good time. I'll drink to that"
@@ -125,6 +128,8 @@ const reviews = [
 ];
 
 function Home() {
+    
+    window.scrollTo(0, 0);
     return (
 
         <div id="container-home">
@@ -136,7 +141,7 @@ function Home() {
                     style={{ width: '100%', padding: '50px 0' }}
                     effect={"coverflow"}
                     centeredSlides={true}
-                    initialSlide= {2}
+                    initialSlide={2}
                     slidesPerView={"auto"}
                     coverflowEffect={{
                         rotate: 0,
@@ -167,7 +172,7 @@ function Home() {
                     <SwiperSlide style={{ width: "300px", height: "400px" }}>
                         <img src={book1} style={{ width: '100%', display: 'block' }} />
                     </SwiperSlide>
-                    
+
                 </Swiper>
 
             </div>
