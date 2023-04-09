@@ -17,6 +17,7 @@ const publicRoutes = [
     { path: '/news', component: News},  
     { path: '/detailsNews', component: DetailsNews},
     { path: '/login', component: Login},
+    { path: '/about', component: About},
     { path: '/register', component: Register},
     { path: '/checkout', component: Checkout},
     { path: '/profile', component: Profile},
