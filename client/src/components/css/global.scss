@@ -28,7 +28,8 @@ html {
 }
 
 body #root {
-    background-color: #eee;
+    background-color: #F3F4FA;
+    
 }
 
 .content {
@@ -44,9 +45,6 @@ body #root {
     }
 }
 
-@media (max-width:786px) {
-}
+@media (max-width:786px) {}
 
-@media (max-width:450px) {
-    
-}
+@media (max-width:450px) {}

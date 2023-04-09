@@ -1,45 +1,58 @@
 import './Header.scss'
-import { Link } from 'react-router-dom';
-import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import React, { Fragment, useState } from "react";
+import { HeartOutlined, ShoppingCartOutlined, MenuOutlined, UserOutlined, DeleteFilled } from '@ant-design/icons'
 
-import {HeartOutlined, ShoppingCartOutlined, MenuOutlined,UserOutlined, DeleteFilled } from '@ant-design/icons'
+import CartItems from '../../cartItems/CartItems'
+import { useDispatch, useSelector } from "react-redux"
+import {
+    Menu,
+    MenuItem,
+    Avatar,
+    ListItemIcon,
+    Divider,
+} from '@mui/material';
 
-import book1 from '../../imgs/book1.jpg'
+import SettingsIcon from '@mui/icons-material/Settings';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LogoutIcon from '@mui/icons-material/Logout';
 
+import { logoutUser } from '../../../store/apiReq';
 
 function Header() {
-    const handleCartClick = () => {
-        if (document.querySelector('.search-form.active')) {
-            document.querySelector('.search-form.active').classList.remove('active');
-        }
-        if (document.querySelector('.header .navbar.active')) {
-            document.querySelector('.header .navbar.active').classList.remove('active');
-        }
-        return document.querySelector('.shopping-cart').classList.toggle('active');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        logoutUser(dispatch, navigate);
     }
-    const handleMenuClick = () => {
-        if (document.querySelector('.search-form.active')) {
-            document.querySelector('.search-form.active').classList.remove('active');
-        }
-        if (document.querySelector('.shopping-cart.active')) {
-            document.querySelector('.shopping-cart.active').classList.remove('active');
-        }
-        return document.querySelector('.header .navbar').classList.toggle('active');
+
+    const user = useSelector((state) => state.auth.login.currentUser)
+    const [cardOpen, setCardOpen] = useState(false)
+
+    // const quantity = useSelector((state) => state.cart.totalQuantity)
+    const cartItems = useSelector((state) => state.cart.itemsList)
+
+    let total = 0
+    const itemsLists = useSelector((state) => state.cart.itemsList)
+    itemsLists.forEach((item) => {
+        total += item.totalPrice
+    })
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleCheckout = () => {
+        user ? navigate('/checkout') : navigate('/login')
     }
-    // window.onscroll = () => {
-    //     if (document.querySelector('.search-form.active')) {
-    //         document.querySelector('.search-form.active').classList.remove('active');
-    //     }
-    //     if (document.querySelector('.shopping-cart.active')) {
-    //         document.querySelector('.shopping-cart.active').classList.remove('active');
-    //     }
-    //     if (document.querySelector('.header .navbar.active')) {
-    //         document.querySelector('.header .navbar.active').classList.remove('active');
-    //     }
-    // }
     return (
         <div className="header">
-            <div className="menu-btn icon-btn" onClick={handleMenuClick}><MenuOutlined /></div>
+            <div className="menu-btn icon-btn" ><MenuOutlined /></div>
             <h1>
                 Book<span>S</span>
             </h1>
@@ -50,45 +63,119 @@ function Header() {
                 <Link className='links-nav' to="/about">About</Link>
                 <Link className='links-nav' to="">Contact</Link>
             </nav>
-            <div className='icons'> 
-                <div className="icon-btn"><HeartOutlined /></div>
-                <div className="icon-btn" onClick={handleCartClick}><ShoppingCartOutlined /></div>
-                <div className="icon-btn"><UserOutlined /></div>
-                
+            <div className='icons'>
+                <div className="icon-btn" onClick={() => setCardOpen(!cardOpen)}><ShoppingCartOutlined /></div>
+                {
+                    user
+                        ? (<>
+                            <Avatar
+                                onClick={handleClick}
+                                size="small"
+                                sx={{ ml: 2 }}
+                                aria-controls={open ? 'account-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                            >
+                                <UserOutlined />
+                            </Avatar>
+                            <Menu
+                                anchorEl={anchorEl}
+                                id="account-menu"
+                                open={open}
+                                onClose={handleClose}
+                                onClick={handleClose}
+                                PaperProps={{
+                                    elevation: 0,
+                                    sx: {
+                                        overflow: 'visible',
+                                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                        mt: 1.5,
+                                        '& .MuiAvatar-root': {
+                                            width: 32,
+                                            height: 32,
+                                            ml: -0.5,
+                                            mr: 1,
+                                        },
+                                        '&:before': {
+                                            content: '""',
+                                            display: 'block',
+                                            position: 'absolute',
+                                            top: 0,
+                                            right: 17,
+                                            width: 10,
+                                            height: 10,
+                                            bgcolor: 'background.paper',
+                                            transform: 'translateY(-50%) rotate(45deg)',
+                                            zIndex: 0,
+                                        },
+                                    },
+                                }}
+                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                            >
+                                <Link to='/profile'>
+                                    <MenuItem sx={{ fontSize: '1.5rem', color: 'black' }}>
+                                        Hi, {user.fullname}
+                                    </MenuItem>
+                                </Link>
+                                <Divider />
+                                {user.role === 'admin' && (
+                                    <Link to='/admin'>
+                                        <MenuItem onClick={handleClose} sx={{ fontSize: '1.5rem', color: 'black' }}>
+                                            <ListItemIcon>
+                                                <SettingsIcon />
+                                            </ListItemIcon>
+                                            Admin page
+                                        </MenuItem>
+                                    </Link>
+                                )}
+                                <MenuItem onClick={handleClose} sx={{ fontSize: '1.5rem' }}>
+                                    <ListItemIcon>
+                                        <FavoriteIcon />
+                                    </ListItemIcon>
+                                    WishList
+                                </MenuItem>
+                                <MenuItem onClick={handleLogout} sx={{ fontSize: '1.5rem' }}>
+                                    <ListItemIcon>
+                                        <LogoutIcon />
+                                    </ListItemIcon>
+                                    Logout
+                                </MenuItem>
+
+                            </Menu>
+                        </>
+                        )
+                        :
+                        (
+                            <Link to='/login'>
+                                <Avatar
+                                    size="small"
+                                    sx={{ ml: 2 }}
+                                >
+                                    <UserOutlined />
+                                </Avatar>
+                            </Link>
+                        )
+                }
+
             </div>
-            <div className='shopping-cart'>
-                <div className='box'>
-                    <img src={book1} alt="" />
-                    <div className='content'>
-                        <h3>Harry Potter And The Philosopher's Stone</h3>
-                        <span className='price'>$8.99/-</span>
-                        <span className='quantity'>Qty : 1</span>
-                    </div>
-                    <DeleteFilled className='delete' />
-                </div>
-                <div className='box'>
-                    <img src={book1} alt="" />
-                    <div className='content'>
-                        <h3>Harry Potter And The Philosopher's Stone</h3>
-                        <span className='price'>$8.99/-</span>
-                        <span className='quantity'>Qty : 1</span>
-                    </div>
-                    <DeleteFilled className='delete' />
-                </div>
-                <div className='box'>
-                    <img src={book1} alt="" />
-                    <div className='content'>
-                        <h3>Harry Potter And The Philosopher's Stone</h3>
-                        <span className='price'>$8.99/-</span>
-                        <span className='quantity'>Qty : 1</span>
-                    </div>
-                    <DeleteFilled className='delete' />
-                </div>
-                <div className='total'> Total : $26.97/-</div>
-                <a href="#" className='btn'>Checkout</a>
+
+            <div className={cardOpen ? "shopping-cart active" : "shopping-cart"}>
+                {cartItems.map((item, index) => (
+                    <CartItems
+                        key={index}
+                        id={item.id}
+                        cover={item.cover}
+                        title={item.title}
+                        newprice={item.newprice}
+                        quantity={item.quantity}
+                        totalPrice={item.totalPrice}
+                    />
+                ))}
+                <div className='total'> Total : ${total}</div>
+                <div href="#" className='btn' onClick={handleCheckout} >Checkout</div>
             </div>
         </div>
     );
 }
-
 export default Header;
