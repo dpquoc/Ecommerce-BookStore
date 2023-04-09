@@ -1,7 +1,6 @@
 
 import HeroBanner from '../../components/heroBanner/HeroBanner';
 import SearchForm from '../../components/searchForm/SearchForm';
-import BookCard from '../../components/card/Card';
 
 import pageHeaderProduct from '../../components/imgs/banner-01.jpg'
 import ListProducts from '../../components/listProducts/ListProducts';
