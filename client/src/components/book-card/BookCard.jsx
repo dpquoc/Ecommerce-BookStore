@@ -41,7 +41,6 @@ function BookCard({ id, title, author, cover, rating, price, sale }) {
                                 </>
                             ) : (<>${newprice}</>)}
                         </div>
-                        <InputNumber min={1} defaultValue={1} style={{ width: '58px' }} />
                     </div>
                     <div className='btn-cart-like'>
                         <div href="" className="btn-cart" onClick={addToCart}>Add to cart</div>

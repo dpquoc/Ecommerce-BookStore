@@ -1,0 +1,41 @@
+.list-top-products {
+    margin-right: 50px;
+    background-color: #fff;
+    padding: 40px;
+    margin-top: 10px;
+}
+
+.card-topProducts {
+    display: flex;
+    flex-direction: row;
+    margin: 30px 0;
+}
+
+.title-topProducts {
+    font-size: 2.3rem;
+    font-weight: 550;
+}
+
+.card-topProducts .product-info {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    color: var(--black);
+}
+
+.card-topProducts .product-info h4 {
+    font-size: 1.8rem;
+}
+
+.card-topProducts .product-info a {
+    color: var(--black);
+}
+
+.card-topProducts .product-info a:hover {
+    color: var(--orange);
+}
+
+.card-topProducts .product-info .price {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}

@@ -8,7 +8,7 @@ function ListProducts({ products , title }) {
     ));
     return (
         <div className="list">
-            <h1 className="list-title">{title} Book<span>S</span></h1>
+            {title? <h1 className="list-title">{title} Book<span>S</span></h1> : <></>}
             <div className="card-container">
                 {cardElements}
             </div>
