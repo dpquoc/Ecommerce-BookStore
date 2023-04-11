@@ -74,7 +74,7 @@ function Products() {
                         <div className='left-content'>
                             <ListProducts products={products} style={{ backgroundColor: '#eee' }} />
                         </div>
-                        <div className='right-content'>
+                        <div className='right-content' style={{paddingTop:'10px'}}>
                             <ListTopProducts topProducts={products} />
                         </div>
                     </div>

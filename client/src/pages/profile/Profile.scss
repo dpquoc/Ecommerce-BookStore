@@ -1,9 +1,8 @@
 .Profile_container{
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  background-color: white;
 }
 
 .frame_container{
@@ -19,6 +18,10 @@
   display: grid;
   grid-template-rows: 2fr 2.5fr 1fr 1fr;
   font-size: 2rem;
+
+  .img img{
+    width: 100%;
+  }
 
   .avatar{
     position: absolute;
@@ -47,7 +50,7 @@
   }
 
   .tab[aria-selected="true"]{
-    background-color: rgb(160, 248, 243);
+    background-color: rgb(255, 179, 66);
   }
 
   .tab[aria-selected="false"]{
@@ -87,11 +90,19 @@
     column-gap: 40px;
   }
   
+
+  .Update_form .lable_text{
+    display: flex;
+    flex-direction: column;
+  }
+
   .Update_form .lable_text input{
+    border: 1px solid black;
     border-radius: 2px;
-    background-color: #FEF9E7 ;
+    background-color: #fef6e7 ;
     height: 50px;
     margin-top: 10px;
+    padding: 0 15px 0 15px;
   }
 
   .Update_form .lable_text input:focus{
@@ -116,7 +127,7 @@
   }
   
   .update_button:hover{
-    background-color: #0ea096;
+    background-color: var(--orange);
     color: #fff;
   }
 
@@ -161,7 +172,7 @@
 
 @media (max-width: 1200px) {
   .frame_container{
-    width: 400px;
+    width: 400px; 
     height: 400px;
     padding: 30px;
   }

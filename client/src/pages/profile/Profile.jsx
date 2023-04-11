@@ -5,14 +5,14 @@ import { Avatar } from "@mui/material"
 
 export default function Profile() {
 
-  const HandleClick1 = event => {
+  const HandleClick1 = (event) => {
     document.querySelector(".Profile_setting").setAttribute("aria-selected", true);
     document.querySelector(".Order_list").setAttribute("aria-selected", false);
     document.querySelector(".Update_form").style.display = "grid";
     document.querySelector(".order_list_content").style.display = "none";
   };
 
-  const HandleClick2 = event => {
+  const HandleClick2 = (event) => {
     document.querySelector(".Profile_setting").setAttribute("aria-selected", false);
     document.querySelector(".Order_list").setAttribute("aria-selected", true);
     document.querySelector(".Update_form").style.display = "none";
@@ -41,13 +41,17 @@ export default function Profile() {
               className="Profile_setting tab"
               aria-selected="true"
               onClick={HandleClick1}
-            >PROFILE SETTING</button>
+            >
+              PROFILE SETTING
+            </button>
 
             <button
               className="Order_list tab"
               aria-selected="false"
               onClick={HandleClick2}
-            >ORDER LIST</button>
+            >
+              ORDER LIST
+              </button>
 
           </div>
         </div>
