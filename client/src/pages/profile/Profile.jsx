@@ -1,7 +1,7 @@
 import React from 'react'
 import './Profile.scss'
 
-import {Avatar} from "@mui/material"
+import { Avatar } from "@mui/material"
 
 export default function Profile() {
 
@@ -18,7 +18,7 @@ export default function Profile() {
     document.querySelector(".Update_form").style.display = "none";
     document.querySelector(".order_list_content").style.display = "flex";
   };
-  
+
   return (
     <>
       <div className="Profile_container">
@@ -28,7 +28,7 @@ export default function Profile() {
               <img src="https://gust.com/assets/blank_slate/Gust_Profile_CoverPhoto_Blank-21edf1e2890708d5a507204f49afc10b7dc58eb7baea100b68a1bc2c96948297.png" alt="" />
             </div>
             <div className="avatar">
-              <Avatar className='avatar_img'/>
+              <Avatar className='avatar_img' />
             </div>
             <div className="infor">
               <div className="infor_content">
@@ -42,7 +42,7 @@ export default function Profile() {
               aria-selected="true"
               onClick={HandleClick1}
             >PROFILE SETTING</button>
-              
+
             <button
               className="Order_list tab"
               aria-selected="false"
@@ -51,9 +51,9 @@ export default function Profile() {
 
           </div>
         </div>
-    
+
         <div className="tab_panel">
-          
+
           <div className="Update_form">
             <div className="lable_text">
               <label htmlFor="">USERNAME</label>
