@@ -2,6 +2,7 @@ import Home from '../pages/home/Home'
 import News from '../pages/news/News'
 import NotFound from '../pages/404/NotFound';
 import Products from '../pages/products/Products';
+import Contact from '../pages/contact/Contact';
 import DetailsProduct from '../pages/detailsProduct/DetailsProduct';
 import DetailsNews from '../pages/detailsNews/DetailsNews';
 import Login from '../pages/login/Login';
@@ -15,13 +16,16 @@ const publicRoutes = [
     { path: '/products', component: Products},  
     { path: '/detailsProduct', component: DetailsProduct},  
     { path: '/news', component: News},  
+    { path: '/contact', component: Contact},
     { path: '/detailsNews', component: DetailsNews},
+    { path: '/about', component: About},
     { path: '/login', component: Login},
     { path: '/about', component: About},
     { path: '/register', component: Register},
     { path: '/checkout', component: Checkout},
     { path: '/profile', component: Profile},
     { path: '*', component: NotFound },
+
 ]
 
 export { publicRoutes };

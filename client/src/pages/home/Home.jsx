@@ -74,7 +74,6 @@ function Home() {
                     </SwiperSlide>
 
                 </Swiper>
-
             </div>
             <div className='sticker-mark'>
                 <div className="card tonsofbook">
@@ -128,7 +127,6 @@ function Home() {
                     <p>A Complete Idiot Guide to Programming</p>
                 </div>
             </div>
-
             <ListProducts title="Sale" products={products} style={{ backgroundColor: '#eee' }} />
             <ListReview title="Review" reviews={reviews} />
         </div>

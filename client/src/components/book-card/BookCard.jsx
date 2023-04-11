@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ShoppingCartOutlined, HeartOutlined, StarFilled, HeartFilled } from '@ant-design/icons';
 import { InputNumber } from 'antd';
+
 import './BookCard.scss'
 import { useDispatch } from "react-redux";
 import { cartActions } from '../../store/cartSlice'

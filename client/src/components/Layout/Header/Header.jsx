@@ -61,7 +61,8 @@ function Header() {
                 <Link className='links-nav' to="/products">Products</Link>
                 <Link className='links-nav' to="/news">News</Link>
                 <Link className='links-nav' to="/about">About</Link>
-                <Link className='links-nav' to="">Contact</Link>
+                <Link className='links-nav' to="/contact">Contact</Link>
+
             </nav>
             <div className='icons'>
                 <div className="icon-btn" onClick={() => setCardOpen(!cardOpen)}><ShoppingCartOutlined /></div>

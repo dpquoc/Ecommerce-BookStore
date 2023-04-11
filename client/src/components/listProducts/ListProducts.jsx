@@ -1,7 +1,7 @@
 import BookCard from "../book-card/BookCard";
 import './ListProducts.scss'
 
-function ListProducts({ products , title }) {
+function ListProducts({ products, title, namelogo, hightlight }) {
 
     const cardElements = products.map((card, index) => (
         <BookCard key={index} {...card} />
