@@ -1,6 +1,7 @@
 import './Contact.scss'
 
-import { Button, Form, Input, Select, Radio, Card, Col, Row, Space } from 'antd';
+
+import { Button, Form, Input, Select, Radio, Card, Col, Row, Space, Watermark } from 'antd';
 import {
   HomeOutlined,
   LoadingOutlined,
@@ -11,7 +12,6 @@ import {
 import HeroBanner from '../../components/heroBanner/HeroBanner';
 
 import pageHeaderProduct from '../../components/imgs/banner2.jpg'
-import SearchForm from '../../components/searchForm/SearchForm';
 
 import avt from '../../components/imgs/avt.png'
 
@@ -40,29 +40,21 @@ const validateMessages = {
 const onFinish = (values) => {
   console.log(values);
 };
+
 function Contact() {
   const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log('Received values of form:', values);
   };
+
   const handleChange = () => {
     form.setFieldsValue({
       sights: [],
     });
   };
-  //prefix for phone number
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="84">+84</Option>
-      </Select>
-    </Form.Item>
-  );
+
+
+  
   return (
     <>
       <div className="container-contact">
@@ -86,7 +78,7 @@ function Contact() {
                   <br></br>
                   <EnvironmentFilled />
                   &nbsp;
-                    268 Ly Thuong Kiet, phuong 14 , quan 10, Thanh pho HCM  
+                  268 Ly Thuong Kiet, phuong 14 , quan 10, Thanh pho HCM
 
                   <br></br>
                   <br></br>
@@ -107,17 +99,23 @@ function Contact() {
 
                 </div>
               </div>
-              
+
             </section>
           </div>
           <div className="maps">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.511579557386!2d106.65571311432022!3d10.772074992324471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ec3c161a3fb%3A0xef77cd47a1cc691e!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBCw6FjaCBraG9hIC0gxJDhuqFpIGjhu41jIFF14buRYyBnaWEgVFAuSENN!5e0!3m2!1svi!2s!4v1680513438326!5m2!1svi!2s" width="100%" height="500" ></iframe>
-                {/* width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" */}
-              
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.511579557386!2d106.65571311432022!3d10.772074992324471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ec3c161a3fb%3A0xef77cd47a1cc691e!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBCw6FjaCBraG9hIC0gxJDhuqFpIGjhu41jIFF14buRYyBnaWEgVFAuSENN!5e0!3m2!1svi!2s!4v1680513438326!5m2!1svi!2s" width="100%" height="500" ></iframe>
+            {/* width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" */}
+
           </div>
         </div>
         <div className="mid1">
-          <div className="form1"><h1>We love to hear from you</h1>
+
+          <div className="form1">
+
+            <h1 style={{ fontSize: '250%' }}>We love to hear from you</h1>
+
+            <br></br>
+            <br></br>
             <br></br>
             <Form {...layout} name="nest-messages" onFinish={onFinish} style={{ maxWidth: 600 }} validateMessages={validateMessages}>
               <input type="text" placeholder="Your Name" />
@@ -126,10 +124,10 @@ function Contact() {
               <input type="text" placeholder="E-mail" />
               <br></br>
               <br></br>
-              <input type="text" placeholder="E-mail" />
+              <input type="text" placeholder="Phone number" />
               <br></br>
               <br></br>
-              <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
+              <textarea cols="300" rows="10" placeholder="Your Message"></textarea>
               <br></br>
               <br></br>
               <button className="normal" >Submit</button>
@@ -138,69 +136,58 @@ function Contact() {
           <div className="contacts">
             <div className="tag1">
               <div className="img1">
-                <img src={avt}   />
+                <img src={avt} />
                 {/* acbbb */}
               </div>
-              <div className="rate">
-                <h1>Harry Potter</h1>
-
-                <br></br>
-
-                <h2>Senior Marketing Manager <br></br> Phone: +000 123 000 77 88 <br></br> Email: contact@examole.com</h2>
+              <div className="adinfo">
+                <h2>Harry Potter</h2>
+                <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
+                <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
+                <h3 style={{ color: 'gray' }}>Email: contact@examole.com</h3>
+              </div>
+            </div><div className="tag1">
+              <div className="img1">
+                <img src={avt} />
+                {/* acbbb */}
+              </div>
+              <div className="adinfo">
+                <h2>Harry Potter</h2>
+                <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
+                <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
+                <h3 style={{ color: 'gray' }}>Email: contact@examole.com</h3>
               </div>
             </div>
             <div className="tag1">
               <div className="img1">
-                <img src={avt}  />
+                <img src={avt} />
                 {/* acbbb */}
               </div>
-              <div className="rate">
-                <h1>Harry Potter</h1>
-
-                <br></br>
-
-                <h2>Senior Marketing Manager <br></br> Phone: +000 123 000 77 88 <br></br> Email: contact@examole.com</h2>
+              <div className="adinfo">
+                <h2>Harry Potter</h2>
+                <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
+                <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
+                <h3 style={{ color: 'gray' }}>Email: contact@examole.com</h3>
               </div>
             </div>
             <div className="tag1">
               <div className="img1">
-                <img src={avt}  />
+                <img src={avt} />
                 {/* acbbb */}
               </div>
-              <div className="rate">
-                <h1>Harry Potter</h1>
-
-                <br></br>
-
-                <h2>Senior Marketing Manager <br></br> Phone: +000 123 000 77 88 <br></br> Email: contact@examole.com</h2>
+              <div className="adinfo">
+                <h2>Harry Potter</h2>
+                <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
+                <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
+                <h3 style={{ color: 'gray' }}>Email: contact@examole.com</h3>
               </div>
             </div>
-            
+
           </div>
 
         </div>
-        {/* <div className="FAQs">
-          <h1>FAQs</h1>
-          <Row gutter={50}>
-            <Col span={8}>
-              <Card title="How to notify new info from web immediately?" bordered={false} >
-                ...........
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card title="Card title" bordered={false}  >
-                .......
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card title="Card title" bordered={false}  >
-                .......
-              </Card>
-            </Col>
-
-          </Row>
-
-        </div> */}
+        <br></br>
+        <br></br>
+        
       </div>
     </>
   );

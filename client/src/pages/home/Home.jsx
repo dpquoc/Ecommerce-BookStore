@@ -1,20 +1,39 @@
+// import * as React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import Banner from '../../components/banner/Banner';
 import SearchForm from '../../components/searchForm/SearchForm';
 
 import featuredBook1 from '../../components/imgs/home1-featured-01.jpg'
 import featuredBook2 from '../../components/imgs/home1-featured-02.jpg'
 import book1 from '../../components/imgs/book1.jpg'
+import blog from '../../components/imgs/blog.jpg'
+import Button from '@mui/material/Button';
 
 import { ReadOutlined, EditTwoTone, SafetyCertificateTwoTone } from '@ant-design/icons';
+import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
+import ManageAccountsSharpIcon from '@mui/icons-material/ManageAccountsSharp';
+import NotificationsActiveSharpIcon from '@mui/icons-material/NotificationsActiveSharp';
+import QuestionAnswerSharpIcon from '@mui/icons-material/QuestionAnswerSharp';
+import PaymentsSharpIcon from '@mui/icons-material/PaymentsSharp';
+
 
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
+import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
+
+
+
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -128,7 +147,23 @@ const reviews = [
 ];
 
 function Home() {
-    
+    const [expanded, setExpanded] = React.useState('panel1');
+
+    const handleChange1 = (panel) => (event, newExpanded) => {
+        setExpanded(newExpanded ? panel : false);
+    };
+    const ColoredLine = ({ color }) => (
+        <hr
+            style={{
+                color: color,
+                backgroundColor: color,
+                height: 1,
+                marginLeft: 500,
+                marginRight: 500,
+            }}
+        />
+    );
+
     window.scrollTo(0, 0);
     return (
 
@@ -226,10 +261,157 @@ function Home() {
                     <h3>Featured Category</h3>
                     <p>A Complete Idiot Guide to Programming</p>
                 </div>
-            </div>
+            </div><br></br>
+
             <ListProducts title="Sale" products={products} style={{ backgroundColor: '#eee' }} />
             <ListReview title="Review" reviews={reviews} />
+            <ColoredLine color="gray" />
+
+            <div className="Blog-container" >
+                <h1 >Blog</h1>
+                <br></br>
+                <div className="card">
+                    <div className="img1">
+                        <img src={blog} alt="" />
+                    </div>
+                    <div className="content_blog" >
+                        <h2>There's goting to be a musical about meghan</h2>
+                        <p><CalendarMonthTwoToneIcon sx={{ fontSize: 20 }} /> 20th April 2023</p>
+                        <p className="p1">Creepeth green light appear let rule only you're divide and lights moving and isn't given creeping deep.</p>
+                        <Button size="large">Read more</Button>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="img1">
+                        <img src={blog} alt="" />
+                    </div>
+                    <div className="content_blog" >
+                        <h2>There's goting to be a musical about meghan</h2>
+                        <p><CalendarMonthTwoToneIcon sx={{ fontSize: 20 }} /> 20th April 2023</p>
+                        <p className="p1">Creepeth green light appear let rule only you're divide and lights moving and isn't given creeping deep.</p>
+                        <Button size="large">Read more</Button>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="img1">
+                        <img src={blog} alt="" />
+                    </div>
+                    <div className="content_blog" >
+                        <h2>There's goting to be a musical about meghan</h2>
+                        <p><CalendarMonthTwoToneIcon sx={{ fontSize: 20 }} /> 20th April 2023</p>
+                        <p className="p1">Creepeth green light appear let rule only you're divide and lights moving and isn't given creeping deep.</p>
+                        <Button size="large">Read more</Button>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="img1">
+                        <img src={blog} alt="" />
+                    </div>
+                    <div className="content_blog" >
+                        <h2>There's goting to be a musical about meghan</h2>
+                        <p><CalendarMonthTwoToneIcon sx={{ fontSize: 20 }} /> 20th April 2023</p>
+                        <p className="p1">Creepeth green light appear let rule only you're divide and lights moving and isn't given creeping deep.</p>
+                        <Button size="large">Read more</Button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div className="FAQs">
+                <QuestionAnswerSharpIcon />&nbsp;&nbsp;<h1> FAQs </h1>
+                <br></br>
+                <div className="tag111">
+
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange1('panel1')} style={{ border: '1px solid', backgroundColor: 'white' }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1bh-content"
+                            id="panel1bh-header"
+                        >
+
+                            <Typography sx={{ width: '20%', }}>
+                                <ManageAccountsSharpIcon sx={{ fontSize: 30 }} />
+                            </Typography>
+                            <Typography sx={{ width: '80%', textAlign: 'left', fontSize: "20px" }}>
+                                How to change password?
+                            </Typography>
+
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
+                                Aliquam eget maximus est, id dignissim quam.
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange1('panel2')} style={{ border: '1px solid', background: 'white' }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2bh-content"
+                            id="panel2bh-header"
+                        >
+                            <Typography sx={{ width: '20%', }}>
+                                <PaymentsSharpIcon sx={{ fontSize: 30 }} />
+                            </Typography>
+                            <Typography sx={{ width: '80%', textAlign: 'left', fontSize: "20px" }}>
+                                How to pay online?
+                            </Typography>
+
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
+                                Aliquam eget maximus est, id dignissim quam.
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                </div>
+                <div className="tag111">
+                    <Accordion expanded={expanded === 'panel3'} onChange={handleChange1('panel3')} style={{ border: '1px solid', background: 'white' }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel3bh-content"
+                            id="panel3bh-header"
+                        >
+                            <Typography sx={{ width: '20%', }}>
+                                <ManageAccountsSharpIcon sx={{ fontSize: 30 }} />
+                            </Typography>
+                            <Typography sx={{ width: '80%', textAlign: 'left', fontSize: "20px" }}>
+                                Can we refund new book?
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
+                                Aliquam eget maximus est, id dignissim quam.
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel4'} onChange={handleChange1('panel4')} style={{ border: '1px solid', }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel4bh-content"
+                            id="panel4bh-header"
+                        >
+                            <Typography sx={{ width: '20%', }}>
+                                <NotificationsActiveSharpIcon sx={{ fontSize: 30 }} />
+                            </Typography>
+                            <Typography sx={{ width: '80%', textAlign: 'left', fontSize: "20px" }}>
+                                How to receive notifications?
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
+                                Aliquam eget maximus est, id dignissim quam.
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                </div>
+            </div>
+
         </div>
+
     );
 }
 

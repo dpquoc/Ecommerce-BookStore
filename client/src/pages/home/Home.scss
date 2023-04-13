@@ -39,15 +39,15 @@
 }
 
 .outstanding {
-    display: flex;
+    // display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
-    padding: 10rem 15rem;
-    height: 100vh;
+    padding: 10rem 10rem;
+    // height: 100vh;
     width: 100%;
-
+    float: left;
 }
 
 .outstanding div {
@@ -64,8 +64,12 @@
 }
 
 .outstanding .introcduce-book {
-    height: 480px;
+    // height: 480px;
+    width: 30%;
+    float: left;
 }
+
+
 
 .outstanding .introcduce-book h3 {
     font-size: 2rem;
@@ -93,16 +97,31 @@
     line-height: 1.786em;
 }
 
+.outstanding .featured-book {
+    height: 480px;
+    width: 32%;
+    float: left;
+}
+
+// .outstanding .featured-book img {
+//     width: 100%;
+// }
 .outstanding .featured-category {
+    float: left;
+    width: 32%;
+    // height: 480px;
     position: relative;
+
+
 }
 
 .outstanding .featured-category h3 {
     font-size: 1.5rem;
+    // width: 70%;
     margin-left: 20px;
     background-color: #27c8ea;
     color: #fff;
-    display: inline;
+    // display: inline;
     padding: 0.1rem 1rem;
     border-radius: 1rem;
     position: absolute;
@@ -112,7 +131,7 @@
 
 .outstanding .featured-category p {
     font-size: 1.8rem;
-    width: 70%;
+    width: 80%;
     margin-left: 20px;
     position: absolute;
     bottom: 36px;
@@ -136,7 +155,9 @@
 }
 
 .sticker-mark {
-    width: 100%;
+    // width: 50%;
+    // margin-left: 25%;
+    // margin-right: 25%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -144,41 +165,48 @@
     background-color: #fff;
     padding: 5rem;
 }
+
 .sticker-mark .SafeTransaction path:nth-child(1),
-.sticker-mark .SafeTransaction path:nth-child(3){
+.sticker-mark .SafeTransaction path:nth-child(3) {
     fill: rgb(37, 212, 138);
 }
 
-.sticker-mark .authorWrite path:nth-child(2)
-{
+.sticker-mark .authorWrite path:nth-child(2) {
     fill: #c49406;
 }
 
 .sticker-mark .tonsofbook path:nth-child(1),
-.sticker-mark .tonsofbook path:nth-child(3){
+.sticker-mark .tonsofbook path:nth-child(3) {
     fill: rgb(59, 108, 183);
 }
+
 .authorWrite {
     --bg-color: #ffd861;
     --bg-color-light: #ffeeba;
     --text-color-hover: #4C5656;
     --box-shadow-color: rgba(255, 215, 97, 0.48);
 }
+
 .SafeTransaction {
     --bg-color: #B8F9D3;
     --bg-color-light: #e2fced;
     --text-color-hover: #4C5656;
     --box-shadow-color: rgba(184, 249, 211, 0.48);
 }
+
 .tonsofbook {
     --bg-color: #DCE9FF;
     --bg-color-light: #f1f7ff;
     --text-color-hover: #4C5656;
     --box-shadow-color: rgba(220, 233, 255, 0.48);
 }
+
 .sticker-mark .card {
     width: 364px;
     height: 358px;
+    margin-left: 25%;
+
+    margin-right: 25%;
     background: #fff;
     border-top-right-radius: 10px;
     overflow: hidden;
@@ -194,7 +222,7 @@
     padding: 2rem 3rem 0 3rem;
 }
 
-.sticker-mark .card h3{
+.sticker-mark .card h3 {
     font-size: 2rem;
     margin: 2rem 0;
     z-index: 1000;
@@ -266,7 +294,7 @@
     transition: opacity 0.3s ease-out;
 }
 
-.sticker-mark .circle span{
+.sticker-mark .circle span {
     z-index: 10000;
     transform: translateZ(0);
 }
@@ -282,19 +310,312 @@
     z-index: 0;
     transition: transform 0.3s ease-out;
 }
-.review{
+
+.review {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
 }
-.review .title-review{
+
+.review .title-review {
     font-size: 4rem;
     font-weight: 900;
     margin: 5rem 0;
 }
 
-.review .title-review span{
+.review .title-review span {
     font-size: 4.4rem;
     color: var(--orange);
 }
+
+#container-home .Blog-container {
+    float: left;
+    padding: 25px;
+    background-color: white;
+    text-align: center;
+    font-size:22px;
+}
+
+.Blog-container .card {
+    Float: left;
+    width: 23%;
+    background-color: rgb(235, 247, 252);
+    margin-left:2%;
+    margin-bottom: 40px;
+}
+.Blog-container .h1 {
+    margin: auto;
+}
+.Blog-container .card:hover {
+    
+    box-shadow: 5px 5px 5px #b5b5b5;
+    background-color: white;
+  
+}
+.card .img1 {
+    width: 100%;
+    height: 30%;
+}
+
+.img1 img {
+    width: 100%;
+    border-radius: 5px 5px;
+}
+
+.card .content_blog {
+    text-align:left;
+    padding: 40px;
+    height: 70%;
+}
+
+.content_blog h2{
+    margin-bottom:25px;
+    font-size: 18px;
+}
+
+.content_blog p{
+    color: gray;
+    font-size: 12px;
+    margin-bottom:25px;
+    display:inline-block;
+}
+.content_blog .p1{
+    color: gray;
+    font-size: 13px;
+    margin-bottom:25px;
+    display:inline-block;
+    line-height: 1.6;
+}
+.content_blog button{
+    color: rgb(0, 0, 0);
+    font-size: 12px;
+    padding:0px;
+}
+
+#container-home .FAQs {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 30px;
+    background-color: rgb(255, 255, 255);
+    float: left;
+}
+
+.FAQs .tag111 {
+    width: 50%;
+    padding: 10px;
+    float: left;
+}
+@media only screen and (max-width: 1413px) {
+    .Blog-container .card {
+        width: 30%;
+        margin-left:2%;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    .sticker-mark {
+
+        display: block;
+    }
+
+    .sticker-mark .card {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .outstanding .introcduce-book {
+
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .outstanding .featured-book {
+        width: 40%;
+    }
+
+
+    .outstanding .featured-category {
+        width: 40%;
+        ;
+    }
+
+    .outstanding {
+        padding: 2rem 2rem;
+    }
+
+    .outstanding .featured-category p {
+        width: 50%;
+    }
+    
+}
+@media only screen and (max-width: 1097px) {
+    .Blog-container .card {
+        width: 35%;
+        margin-left:10%;
+        margin-left:10%;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .FAQs .tag111 {
+        width: 100%;
+
+        padding: 0px;
+        
+    }
+    .Blog-container .card {
+        width: 43%;
+        margin-left:5%;
+    }
+}
+@media only screen and (max-width: 892px) {
+    .outstanding div img {
+        height: 360px;
+    }
+    .outstanding .introcduce-book {
+
+        width: 95%;
+    }
+}
+@media only screen and (max-width: 754px) {
+    .Blog-container .card {
+        width: 48%;
+        margin-left:1%;
+    }
+    .outstanding .featured-book {
+        // margin-left: 25%;
+
+        width: 45%;
+        margin-bottom: 0px;
+    }
+
+    .outstanding .featured-category p {
+        width: 300px;
+    }
+
+    .outstanding .featured-category h3 {
+        width: 150px;
+    }
+    .outstanding div img {
+        height: 340px;
+    }
+    .outstanding .featured-book {
+        height: 350px;
+    }
+    
+}
+@media only screen and (max-width: 600px) {
+    .Blog-container .card {
+        width: 84%;
+        margin-left:8%;
+        margin-right:8%;
+    }
+    #container-home .Blog-container {
+       padding :5px;
+    }
+    .outstanding div img {
+        height: 250px;
+    }
+    .outstanding .featured-category p {
+        width: 150px;
+        font-size: 13px;
+    }
+    .outstanding .featured-category h3 {
+        font-size: 1.1rem;
+        width: 120px;
+        bottom: 85px;
+        font-weight: 400;
+    }
+}
+@media only screen and (max-width: 431px) {
+    .outstanding div img {
+        height: 210px;
+    }
+    .outstanding .featured-category p {
+        width: 150px;
+        font-size: 8px;
+    }
+    .outstanding .featured-category h3 {
+        font-size: 0.8rem;
+        width: 85px;
+        bottom: 75px;
+        font-weight: 400;
+    }
+    .sticker-mark {
+        padding: 5%;
+    }
+    .sticker-mark .card {
+        width: 290px;
+        height: 340px;
+        margin-left: 5%;
+    
+        margin-right: 20%;
+        padding: 0rem 0rem 0 0rem;
+    }
+    .sticker-mark .circle {
+        width: 107px;
+        height: 107px;
+    }
+    .sticker-mark .circle:after {
+        content: "";
+        width: 100px;
+        height: 100px;
+        top: 2px;
+        left: 2px;
+    }
+    .sticker-mark .overlay {
+        width: 100px;
+        height: 100px;
+        top: 45px;
+        left: 95px;
+        z-index: 0;
+    }
+    .sticker-mark .card h3 {
+        font-size: 1.8rem;
+        margin: 2rem 0;
+        z-index: 1000;
+    }
+    .sticker-mark .card p {
+        
+        font-size: 14px;
+        color: #4C5656;
+        z-index: 1000;
+        
+        line-height: 1.5;
+    }
+}
+@media only screen and (max-width: 363px) {
+    .sticker-mark {
+        padding: 0;
+    }
+    .outstanding .featured-book {
+        // margin-left: 25%;
+        height: 260px;
+        width: 80%;
+        margin-bottom: 0px;
+    }
+    .outstanding {
+
+        padding: 1rem 1rem;
+    }
+    .Blog-container .card {
+        width: 98%;
+        margin-left:1%;
+        margin-right:1%;
+    }
+    .outstanding div img {
+        height: 250px;
+    }
+    .outstanding .featured-category p {
+        width: 150px;
+        font-size: 13px;
+    }
+    .outstanding .featured-category h3 {
+        font-size: 1.1rem;
+        width: 120px;
+        bottom: 85px;
+        font-weight: 400;
+    }
+}
+
