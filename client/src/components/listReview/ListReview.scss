@@ -23,3 +23,12 @@
     font-size: 4.4rem;
     color: var(--orange);
 }
+@media only screen and (max-width: 1300px){
+    .review .list-review{
+        display:block;
+        // flex-direction: row;
+        justify-content:baseline;
+        margin-bottom: 5rem;
+        padding: 0 0px;
+    }
+}
