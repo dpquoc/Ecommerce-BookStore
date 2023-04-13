@@ -1,4 +1,4 @@
-.box {
+.box-items {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -8,7 +8,7 @@
     padding-left: 2rem;
 }
 
-.box .delete {
+.box-items .delete {
     font-size: 2rem;
     position: absolute;
     top: 40%;
@@ -17,11 +17,11 @@
     color: var(--light-color);
 }
 
-.box .delete:hover {
+.box-items .delete:hover {
     color: var(--orange);
 }
 
-.box .content-item h3 {
+.box-items .content-item h3 {
     color: var(--black);
     font-size: 1.8rem;
     padding-left: 1rem;
@@ -45,7 +45,7 @@
     align-content: space-between;
 
 }
-.box .content-item span {
+.box-items .content-item span {
     color: var(--light-color);
     font-size: 1.8rem;
     padding-left: 1rem;
@@ -57,7 +57,7 @@
     margin-bottom: 0;
 }
 
-.box img {
+.box-items img {
     height: 10rem;
 }
 

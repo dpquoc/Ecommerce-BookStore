@@ -7,7 +7,7 @@ import SearchForm from '../../components/searchForm/SearchForm';
 function DetailsNews() {
     return (
         <>
-            <div className="container">
+            <div className="container-detailNews">
                 <HeroBanner
                     title="#news"
                     summary="Brings you news about books and authors along with our picks for great reads!"

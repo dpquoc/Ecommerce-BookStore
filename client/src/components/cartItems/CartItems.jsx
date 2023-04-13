@@ -18,7 +18,7 @@ function CartItems({ id, cover, title, newprice, quantity, totalPrice }) {
     }
     return (
         <>
-            <div className='box'>
+            <div className='box-items'>
                 <img src={cover} alt="" />
                 <div className='content-item'>
                     <h3>{title}</h3>
