@@ -1,0 +1,260 @@
+<<<<<<< HEAD
+// Home page
+.container-contact {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.container-contact.mid0 {
+
+    margin-top: 50px;
+
+    // float: left;
+    background-color: white;
+    // width:100%;
+
+    height: 100%;
+
+    padding: 10px;
+
+}
+
+.container-contact .mid1 {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: white;
+    margin-right: 2%;
+    margin-left: 2%;
+    border-radius: 20px 20px;
+    border: 0.5px solid;
+    border-color: rgb(0, 0, 0);
+}
+
+.mid0 .info {
+    float: left;
+    // margin-top:50px;
+    width: 40%;
+    padding: 3%;
+    border-radius: 5px 5px;
+}
+
+.mid0 .maps {
+    float: left;
+    //margin-top:50px;
+    width: 60%;
+    padding: 3%;
+    // border-radius: 5px 5px;
+}
+
+.form1 {
+    float: left;
+    // margin-top:50px;
+    width: 70%;
+    padding: 3%;
+    height: 100%;
+    margin-top: 30px;
+}
+
+.contacts {
+    float: left;
+    margin-top: 50px;
+    width: 27%;
+    // padding: 3%;
+    // height:100%;
+    // border-radius: 5px 5px;
+}
+
+
+
+
+input,
+select,
+textarea {
+    color: #3e3d00;
+    background-color: #f1f0f0;
+    border: 1px solid;
+    padding: 10px;
+    width: 100%;
+}
+
+textarea:focus,
+input:focus {
+    color: black;
+}
+
+button.normal {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px 30px;
+    color: #000;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 0.2s;
+    border: 1px solid;
+}
+
+button.normal:hover {
+    background-color: #088178;
+    color: #fff;
+
+}
+
+.contacts .tag1 {
+    width: 100%;
+    height: 100%;
+    float: left;
+    padding: 5px;
+    // margin-right: 5%;
+}
+
+.contacts .tag1 img {
+
+    max-width:80px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border-radius: 50%;
+}
+
+.contacts .tag1 .img1 {
+    width: 30%;
+    float: left;
+    margin-top: 10px;
+    margin-bottom:15px;
+}
+// .adinfo h2 {
+//     margin-bottom:10px;
+
+// }
+.adinfo h3{
+    margin-top:12px;
+
+}
+.contacts .tag1 .adinfo {
+    width: 70%;
+    float: left;
+    padding: 10px;
+    // margin-left: 5%;
+
+}
+
+@media only screen and (max-width: 1200px) {
+    // .contacts .tag1 .adinfo {
+    //     width: 75%;
+    //     float: left;
+    //     padding: 10px;
+    //     margin-left: 5%;
+    
+    // }
+    .form1 {
+        width: 65%;
+        
+    }
+    
+    .contacts {
+        width: 32%;
+        
+    }
+    .FAQs .tag{
+        width:100%;
+        // border-radius: 5px 5px;
+        padding:30px;
+        float:left;
+        // border: 1px solid;
+    }
+    
+}
+
+@media only screen and (max-width: 992px) {
+    .mid0 .info {
+        width: 100%;
+        text-align: center;
+    }
+
+    .mid0 .maps {
+        width: 100%;
+        text-align: center;
+    }
+    .form1{
+        text-align: center;
+    }
+    // .form1 h1 {
+    //     text-align: center;
+    // }
+
+    .adinfo h2 {
+        text-align: center;
+    }
+
+    .container-contact .mid1 .form1 {
+        float: none;
+        // margin-top:50px;
+        margin-left: 17%;
+        width: 70%;
+        // margin: 0;
+        padding: 0%;
+    }
+
+    .form1 .button {
+        text-align: center;
+    }
+
+    .contacts {
+
+        width: 97%;
+
+        // float: none;
+        // margin-top: 50px
+        margin-right: 3%;
+        height: 100%;
+    }
+
+    .contacts .tag1 {
+        width: 33%;
+        float: left;
+        padding: 15px;
+    }
+
+    .contacts .tag1 .img1 {
+        width: 100%;
+    }
+
+    .contacts .tag1 .adinfo {
+        width: 100%;
+        // float: none;
+        padding: 0px;
+        margin-left: 0%;
+        text-align: center;
+    }
+
+    .container-contact.mid1 {
+        height: 100%;
+    }
+}
+@media only screen and (max-width : 1200px) {
+
+     }
+     @media only screen and (max-width : 992px) {
+
+     }
+      @media only screen and (max-width : 768px) {
+
+     }
+     @media only screen and (max-width : 517px) {
+        .contacts .tag1 {
+            width: 50%;
+        }
+     }
+    @media only screen and (max-width : 402px) {
+        .contacts .tag1 {
+            width:100%;
+        }
+     }
+=======
+>>>>>>> 99af408fd2969b9a75e4a2b385c8f01148939ec1
