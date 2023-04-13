@@ -44,107 +44,8 @@ import './Home.scss'
 import ListProducts from '../../components/listProducts/ListProducts';
 import ListReview from '../../components/listReview/ListReview';
 
-const products = [
-    {
-        id: 123,
-        cover: "https://hostacmee.space/demo/bookchoix/wp-content/uploads/2021/03/mastering-the-kitchen-572x764-1.jpg",
-        category: "Food",
-        title: "Mastering the Kitchen Series",
-        author: "Ellie Thomson, Harry",
-        rating: 4,
-        price: 21,
-        quantity: 1,
-        sale: 0
-    },
-    {
-        id: 456,
-        cover: "https://hostacmee.space/demo/bookchoix/wp-content/uploads/2021/03/mastering-the-kitchen-572x764-1.jpg",
-        category: "Food",
-        title: "Mastering the Kitchen Series",
-        author: "Ellie Thomson, Harry",
-        rating: 4,
-        price: 21,
-        quantity: 1,
-        sale: 15
-    },
-    {
-        id: 789,
-        cover: "https://hostacmee.space/demo/bookchoix/wp-content/uploads/2021/03/mastering-the-kitchen-572x764-1.jpg",
-        category: "Food",
-        title: "Mastering the Kitchen Series",
-        author: "Ellie Thomson, Harry",
-        rating: 4,
-        price: 21,
-        quantity: 1,
-        sale: 15
-    },
-    {
-        id: 23,
-        cover: "https://hostacmee.space/demo/bookchoix/wp-content/uploads/2021/03/mastering-the-kitchen-572x764-1.jpg",
-        category: "Food",
-        title: "Mastering the Kitchen Series",
-        author: "Ellie Thomson, Harry",
-        rating: 4,
-        price: 21,
-        quantity: 1,
-        sale: 15
-    },
-    {
-        id: 13,
-        cover: "https://hostacmee.space/demo/bookchoix/wp-content/uploads/2021/03/mastering-photography-572x764-1.jpg",
-        category: "Food",
-        title: "Mastering the Kitchen Series",
-        author: "Ellie Thomson, Harry",
-        rating: 4,
-        price: 21,
-        quantity: 1,
-        sale: 15
-    },
-];
-const reviews = [
-    {
-        id: 1,
-        name: "Maureen Burrows",
-        cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer2.jpg",
-        rating: 4.5,
-        review: "Under the gifted guidance of Ron Burgandy, one of James Cameron's talented team, imaginative modern cooking from a kitchen brigade at the top of its game"
-    },
-    {
-        id: 2,
-        name: "Magnus Mahoney",
-        cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer1.jpg",
-        rating: 5,
-        review: "On my midweek visit, every seat was taken by 6.15pm, the atmosphere was electric, the air filled with charcoal smoke, music and laughter"
-    },
-    {
-        id: 3,
-        name: "Rhonda Barajas",
-        cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer3.jpg",
-        rating: 5,
-        review: "The friendly and welcoming staff act like they genuinely care, first and foremost, about you having a really good time. I'll drink to that"
-    },
-    {
-        id: 4,
-        name: "Rhonda Barajas",
-        cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer3.jpg",
-        rating: 5,
-        review: "The friendly and welcoming staff act like they genuinely care, first and foremost, about you having a really good time. I'll drink to that"
-    },
-    {
-        id: 5,
-        name: "Rhonda Barajas",
-        cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer3.jpg",
-        rating: 5,
-        review: "The friendly and welcoming staff act like they genuinely care, first and foremost, about you having a really good time. I'll drink to that"
-    },
-    {
-        id: 6,
-        name: "Rhonda Barajas",
-        cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer3.jpg",
-        rating: 5,
-        review: "The friendly and welcoming staff act like they genuinely care, first and foremost, about you having a really good time. I'll drink to that"
-    }
-];
+import { products } from '../../components/data/products';
+import { reviews } from '../../components/data/reviews';
 
 function Home() {
     const [expanded, setExpanded] = React.useState('panel1');
@@ -169,7 +70,6 @@ function Home() {
 
         <div id="container-home">
             <Banner />
-            <SearchForm />
             <div className="list-products">
                 <h1>Popular Book<span>S</span></h1>
                 <Swiper

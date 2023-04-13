@@ -1,5 +1,6 @@
-import './Contact.scss'
+import React from 'react'
 
+<<<<<<< HEAD
 
 import { Button, Form, Input, Select, Radio, Card, Col, Row, Space, Watermark } from 'antd';
 import {
@@ -191,6 +192,10 @@ function Contact() {
       </div>
     </>
   );
+=======
+export default function Contact() {
+  return (
+    <div>Contact</div>
+  )
+>>>>>>> 99af408fd2969b9a75e4a2b385c8f01148939ec1
 }
-
-export default Contact;

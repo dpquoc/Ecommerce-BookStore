@@ -20,6 +20,7 @@ const publicRoutes = [
     { path: '/detailsNews', component: DetailsNews},
     { path: '/about', component: About},
     { path: '/login', component: Login},
+    { path: '/about', component: About},
     { path: '/register', component: Register},
     { path: '/checkout', component: Checkout},
     { path: '/profile', component: Profile},

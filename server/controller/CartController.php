@@ -36,7 +36,6 @@ class CartController {
     
     public function getCart($idRoute = null, $queryParams, $postData, $fromUser) {
         $cart = new CartModel();
-
         $carts = $cart->read(['user_id' => $fromUser['id'] ]);
         if (!empty($carts)) {
             http_response_code(200);
