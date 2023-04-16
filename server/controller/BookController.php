@@ -44,7 +44,7 @@ class BookController {
 
     public function getSingleBook($idRoute = null, $queryParams, $postData, $fromUser) {
         $book = new BookModel();
-        $books = $book->read(['id' => $idRoute]);
+        $books = $book->read(['isbn' => $idRoute]);
         if (!empty($books)) {
             http_response_code(200);
             return array(

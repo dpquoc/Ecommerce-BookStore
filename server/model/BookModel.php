@@ -68,7 +68,20 @@ class BookModel {
         $max_price = $queryParams['max_price'] ?? null;
         $sort = $queryParams['sort'] ?? null;
     
-        $query = "CALL search_books('$search_title', '$search_category', '$search_author', '$min_price', '$max_price', '$sort')";
+        $query = "CALL search_books(";
+        $query .= $search_title === null ? "NULL" : "'$search_title'";
+        $query .= ",";
+        $query .= $search_category === null ? "NULL" : "'$search_category'";
+        $query .= ",";
+        $query .= $search_author === null ? "NULL" : "'$search_author'";
+        $query .= ",";
+        $query .= $min_price === null ? "NULL" : "'$min_price'";
+        $query .= ",";
+        $query .= $max_price === null ? "NULL" : "'$max_price'";
+        $query .= ",";
+        $query .= $sort === null ? "NULL" : "'$sort'";
+        $query .= ")";
+
         $result = $this->connection->query($query);
         if ($result->num_rows > 0) {
             $books = [];
