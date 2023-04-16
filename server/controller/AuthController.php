@@ -89,6 +89,27 @@ class AuthController {
         }
     }
     
+    public function updatePassword($idRoute = null, $queryParams, $postData, $fromUser) {
+        $user = new UserModel();
+        $oldPassword = $postData['oldPassword'];
+        $newPassword = $postData['newPassword'];
+
+        $userInfo = $user->read(['id' => $fromUser['id']], [], ['id', 'password'])[0];
+        if (!password_verify($oldPassword, $userInfo['password'])) {
+            return array(
+                "status" => "error",
+                "message" => "Incorrect old password."
+            );
+        }
+
+        $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+        $user->update($fromUser['id'], ['password' => $newPasswordHash]);
+
+        return array(
+            "status" => "success",
+            "message" => "Password updated successfully."
+        );
+    }
     public function logout($idRoute = null, $queryParams, $postData, $fromUser) {
         unset($_COOKIE['jwt']);
         setcookie('jwt', '', time() - 3600, '/', 'localhost', false, true);
