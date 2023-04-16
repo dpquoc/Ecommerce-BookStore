@@ -38,6 +38,15 @@ function Products() {
 
                     <div className='sort-content'>
                         <div className='left-content'>
+                            <div className='type-products'>
+                                <div className={selected === "all" ? "selected" : ""} onClick={() => handleSelect("all")}>
+                                    All
+                                </div>
+                                <div className={selected === "sale" ? "selected" : ""} onClick={() => handleSelect("sale")}>
+                                    Sale
+                                </div>
+                            </div>
+                            <p className='text'>"10 total products"</p>
                             <div className='sort-price'>
                                 <p>Sort by price: </p>
                                 <Select
@@ -51,15 +60,7 @@ function Products() {
                                     ]}
                                 />
                             </div>
-                            <div className='type-products'>
-                                <div className={selected === "all" ? "selected" : ""} onClick={() => handleSelect("all")}>
-                                    All
-                                </div>
-                                <div className={selected === "sale" ? "selected" : ""} onClick={() => handleSelect("sale")}>
-                                    Sale
-                                </div>
-                            </div>
-                            <p className='text'>"10 total products"</p>
+
 
                         </div>
                         <div className='right-content'>
@@ -74,7 +75,7 @@ function Products() {
                         <div className='left-content'>
                             <ListProducts products={products} style={{ backgroundColor: '#eee' }} />
                         </div>
-                        <div className='right-content' style={{paddingTop:'10px'}}>
+                        <div className='right-content' style={{ paddingTop: '10px' }}>
                             <ListTopProducts topProducts={products} />
                         </div>
                     </div>

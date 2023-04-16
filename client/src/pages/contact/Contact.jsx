@@ -1,6 +1,5 @@
-import React from 'react'
+import './Contact.scss'
 
-<<<<<<< HEAD
 
 import { Button, Form, Input, Select, Radio, Card, Col, Row, Space, Watermark } from 'antd';
 import {
@@ -138,9 +137,8 @@ function Contact() {
             <div className="tag1">
               <div className="img1">
                 <img src={avt} />
-                {/* acbbb */}
               </div>
-              <div className="adinfo">
+              <div className="info-contact">
                 <h2>Harry Potter</h2>
                 <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
                 <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
@@ -149,9 +147,19 @@ function Contact() {
             </div><div className="tag1">
               <div className="img1">
                 <img src={avt} />
-                {/* acbbb */}
               </div>
-              <div className="adinfo">
+              <div className="info-contact">
+                <h2>Harry Potter</h2>
+                <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
+                <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
+                <h3 style={{ color: 'gray' }}>Email: contact@examole.com</h3>
+              </div>
+            </div>
+            <div className="tag1">
+              <div className="img1">
+                <img src={avt} />
+              </div>
+              <div className="info-contact">
                 <h2>Harry Potter</h2>
                 <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
                 <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
@@ -163,19 +171,7 @@ function Contact() {
                 <img src={avt} />
                 {/* acbbb */}
               </div>
-              <div className="adinfo">
-                <h2>Harry Potter</h2>
-                <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
-                <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
-                <h3 style={{ color: 'gray' }}>Email: contact@examole.com</h3>
-              </div>
-            </div>
-            <div className="tag1">
-              <div className="img1">
-                <img src={avt} />
-                {/* acbbb */}
-              </div>
-              <div className="adinfo">
+              <div className="info-contact">
                 <h2>Harry Potter</h2>
                 <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
                 <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
@@ -192,10 +188,6 @@ function Contact() {
       </div>
     </>
   );
-=======
-export default function Contact() {
-  return (
-    <div>Contact</div>
-  )
->>>>>>> 99af408fd2969b9a75e4a2b385c8f01148939ec1
 }
+
+export default Contact;

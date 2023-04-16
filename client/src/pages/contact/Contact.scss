@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Home page
 .container-contact {
     height: 100%;
@@ -70,22 +69,22 @@
 
 
 
-input,
-select,
-textarea {
+.form1 input,
+.form1 select,
+.form1 textarea {
     color: #3e3d00;
-    background-color: #f1f0f0;
+    background-color: #fff;
     border: 1px solid;
     padding: 10px;
     width: 100%;
 }
 
 textarea:focus,
-input:focus {
+.form1 input:focus {
     color: black;
 }
 
-button.normal {
+.form1 button.normal {
     font-size: 14px;
     font-weight: 600;
     padding: 15px 30px;
@@ -99,8 +98,8 @@ button.normal {
     border: 1px solid;
 }
 
-button.normal:hover {
-    background-color: #088178;
+.form1 button.normal:hover {
+    background-color: var(--orange);
     color: #fff;
 
 }
@@ -115,7 +114,7 @@ button.normal:hover {
 
 .contacts .tag1 img {
 
-    max-width:80px;
+    max-width: 80px;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -126,17 +125,19 @@ button.normal:hover {
     width: 30%;
     float: left;
     margin-top: 10px;
-    margin-bottom:15px;
+    margin-bottom: 15px;
 }
+
 // .adinfo h2 {
 //     margin-bottom:10px;
 
 // }
-.adinfo h3{
-    margin-top:12px;
+.info-contact h3 {
+    margin-top: 12px;
 
 }
-.contacts .tag1 .adinfo {
+
+.contacts .tag1 .info-contact {
     width: 70%;
     float: left;
     padding: 10px;
@@ -150,25 +151,26 @@ button.normal:hover {
     //     float: left;
     //     padding: 10px;
     //     margin-left: 5%;
-    
+
     // }
     .form1 {
         width: 65%;
-        
+
     }
-    
+
     .contacts {
         width: 32%;
-        
+
     }
-    .FAQs .tag{
-        width:100%;
+
+    .FAQs .tag {
+        width: 100%;
         // border-radius: 5px 5px;
-        padding:30px;
-        float:left;
+        padding: 30px;
+        float: left;
         // border: 1px solid;
     }
-    
+
 }
 
 @media only screen and (max-width: 992px) {
@@ -181,14 +183,13 @@ button.normal:hover {
         width: 100%;
         text-align: center;
     }
-    .form1{
+
+    .form1 {
         text-align: center;
     }
-    // .form1 h1 {
-    //     text-align: center;
-    // }
 
-    .adinfo h2 {
+
+    .info-contact h2 {
         text-align: center;
     }
 
@@ -208,9 +209,6 @@ button.normal:hover {
     .contacts {
 
         width: 97%;
-
-        // float: none;
-        // margin-top: 50px
         margin-right: 3%;
         height: 100%;
     }
@@ -225,9 +223,8 @@ button.normal:hover {
         width: 100%;
     }
 
-    .contacts .tag1 .adinfo {
+    .contacts .tag1 .info-contact {
         width: 100%;
-        // float: none;
         padding: 0px;
         margin-left: 0%;
         text-align: center;
@@ -237,24 +234,21 @@ button.normal:hover {
         height: 100%;
     }
 }
-@media only screen and (max-width : 1200px) {
 
-     }
-     @media only screen and (max-width : 992px) {
+@media only screen and (max-width : 1200px) {}
 
-     }
-      @media only screen and (max-width : 768px) {
+@media only screen and (max-width : 992px) {}
 
-     }
-     @media only screen and (max-width : 517px) {
-        .contacts .tag1 {
-            width: 50%;
-        }
-     }
-    @media only screen and (max-width : 402px) {
-        .contacts .tag1 {
-            width:100%;
-        }
-     }
-=======
->>>>>>> 99af408fd2969b9a75e4a2b385c8f01148939ec1
+@media only screen and (max-width : 768px) {}
+
+@media only screen and (max-width : 517px) {
+    .contacts .tag1 {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width : 402px) {
+    .contacts .tag1 {
+        width: 100%;
+    }
+}

@@ -81,7 +81,6 @@ function DetailsProduct() {
                     document.querySelector(".detail_product_wrapper .tab_panel_content .description_tab_panel").style.display = "none";
                     document.querySelector(".detail_product_wrapper .tab_panel_content .reviews_tab_panel").style.display = "flex";
                 }
-                
             });
         }
 

@@ -1,30 +1,41 @@
 .search-form {
-    width: 100%;
+    width: 60%;
     height: 12rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16rem;
+    margin: 0 auto;
+}
+.search__input{
+    width: 100%;
+    height: 50px;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    border: .1rem solid rgba(0, 0, 0, .3);
+    font-style: italic;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.048);
+    border-bottom-left-radius: 0.8rem;
+    border-top-left-radius: 0.8rem;
 }
 
 .search-form .btn {
+    height: 50px;
     font-size: 1.5rem;
     background-color: var(--black);
-    padding: 0.6rem;
-    border-radius: 0.8rem;
-    width: 25rem;
+    padding: 1rem;
+    border-bottom-right-radius: 0.8rem;
+    border-top-right-radius: 0.8rem;
     justify-content: center;
     color: #fff;
     display: flex;
+    align-items: center;
 
 }
-
-.search-form .book-category,
-.search-form .book-author,
-.search-form .book-title {
-    width: 250px;
+.search__input:focus{
+    border: 1px solid var(--black);
 }
+
 
 .search-form .btn:hover {
     background-color: #373547;
@@ -37,51 +48,16 @@
 }
 
 // media responsive
-@media (max-width:1200px) {
-    .search-form {
-        padding: 0 8rem;
-    }
 
-    .search-form .book-category,
-    .search-form .book-author,
-    .search-form .book-title {
-        width: 180px;
-    }
-
-    .search-form .btn {
-        width: 20rem;
-    }
-}
-
-@media (max-width:991px) {
-    .search-form {
-        display: flex;
-        flex-direction: column;
-        height: 40rem;
-        padding: 4rem;
-    }
-
-    .search-form .book-category,
-    .search-form .book-author,
-    .search-form .book-title {
-        width: 350px;
-    }
-    .search-form .btn {    
-        width: 40rem; 
-        
-    }
-}
-
-@media (max-width:786px) {}
 
 @media (max-width:450px) {
-    .search-form .book-category,
-    .search-form .book-author,
-    .search-form .book-title {
-        width: 300px;
-    }
-    .search-form .btn {    
-        width: 34rem; 
-        
-    }
+    
+    
 }
+
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700,900');
+
+/* Base styling */
+
+
