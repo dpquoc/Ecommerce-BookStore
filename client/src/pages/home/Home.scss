@@ -11,7 +11,6 @@
     background-color: #fff;
     padding: 2rem;
     width: 100%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,15 +38,14 @@
 }
 
 .outstanding {
-    // display: flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
     padding: 10rem 10rem;
     // height: 100vh;
-    width: 100%;
-    float: left;
+    width: 100%; 
 }
 
 .outstanding div {
@@ -64,9 +62,9 @@
 }
 
 .outstanding .introcduce-book {
-    // height: 480px;
+    height: 480px;
     width: 30%;
-    float: left;
+    
 }
 
 
@@ -99,17 +97,10 @@
 
 .outstanding .featured-book {
     height: 480px;
-    width: 32%;
-    float: left;
 }
 
-// .outstanding .featured-book img {
-//     width: 100%;
-// }
 .outstanding .featured-category {
-    float: left;
-    width: 32%;
-    // height: 480px;
+    height: 480px;
     position: relative;
 
 
@@ -394,12 +385,16 @@
 }
 
 #container-home .FAQs {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 400px;
     text-align: center;
+    margin: auto;
     padding: 30px;
-    background-color: rgb(255, 255, 255);
-    float: left;
+}
+.FAQs .title-faq{
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 4rem 0;
 }
 
 .FAQs .tag111 {
@@ -407,102 +402,83 @@
     padding: 10px;
     float: left;
 }
+.FAQs .tag111 div {
+    margin: 0;
+}
 @media only screen and (max-width: 1413px) {
-    .Blog-container .card {
-        width: 30%;
-        margin-left:2%;
+    .outstanding {
+        display: flex;
+        flex-wrap: wrap;
     }
+    .outstanding .introcduce-book{
+        width: 100%;
+        margin: 0;
+        height: 400px;
+    } 
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1280px) {
     .sticker-mark {
-
         display: block;
     }
-
     .sticker-mark .card {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .outstanding .introcduce-book {
-
-        width: 90%;
-        margin-bottom: 20px;
-    }
-
-    .outstanding .featured-book {
-        width: 40%;
-    }
-
-
-    .outstanding .featured-category {
-        width: 40%;
-        ;
-    }
-
-    .outstanding {
-        padding: 2rem 2rem;
-    }
-
-    .outstanding .featured-category p {
-        width: 50%;
-    }
-    
-}
-@media only screen and (max-width: 1097px) {
-    .Blog-container .card {
-        width: 35%;
-        margin-left:10%;
-        margin-left:10%;
+        margin: 20px auto;
     }
 }
 @media only screen and (max-width: 992px) {
+    #container-home .FAQs {
+        height: 500px; 
+    }
     .FAQs .tag111 {
         width: 100%;
-
         padding: 0px;
-        
+        margin: 0;
     }
     .Blog-container .card {
         width: 43%;
         margin-left:5%;
     }
+    .outstanding .introcduce-book{
+        width: 100%;
+        margin: 0;
+        height: 350px;
+    } 
 }
 @media only screen and (max-width: 892px) {
-    .outstanding div img {
-        height: 360px;
+    
+    .outstanding div img{
+        height: 350px;
     }
-    .outstanding .introcduce-book {
-
-        width: 95%;
+    .outstanding .featured-book {
+        height: 350px;
+        width: 300px;
     }
+    .outstanding .featured-category {
+        width: 300px;
+        height: 350px;
+    }
+    
 }
 @media only screen and (max-width: 754px) {
     .Blog-container .card {
         width: 48%;
         margin-left:1%;
     }
-    .outstanding .featured-book {
-        // margin-left: 25%;
-
-        width: 45%;
-        margin-bottom: 0px;
+    .outstanding div{
+        margin: 20px 0;
     }
-
-    .outstanding .featured-category p {
-        width: 300px;
-    }
-
-    .outstanding .featured-category h3 {
-        width: 150px;
-    }
-    .outstanding div img {
-        height: 340px;
+    .outstanding div img{
+        height: 300px;
     }
     .outstanding .featured-book {
-        height: 350px;
+        height: 300px;
+        width: 250px;
     }
+    .outstanding .featured-category {
+        width: 250px;
+        height: 300px;
+    }
+
     
 }
 @media only screen and (max-width: 600px) {
@@ -514,33 +490,13 @@
     #container-home .Blog-container {
        padding :5px;
     }
-    .outstanding div img {
-        height: 250px;
-    }
-    .outstanding .featured-category p {
-        width: 150px;
-        font-size: 13px;
-    }
-    .outstanding .featured-category h3 {
-        font-size: 1.1rem;
-        width: 120px;
-        bottom: 85px;
-        font-weight: 400;
+    .outstanding .introcduce-book{
+        height: 450px;
     }
 }
-@media only screen and (max-width: 431px) {
-    .outstanding div img {
-        height: 210px;
-    }
-    .outstanding .featured-category p {
-        width: 150px;
-        font-size: 8px;
-    }
-    .outstanding .featured-category h3 {
-        font-size: 0.8rem;
-        width: 85px;
-        bottom: 75px;
-        font-weight: 400;
+@media only screen and (max-width: 450px) {
+    .outstanding .introcduce-book{
+        height: 500px;
     }
     .sticker-mark {
         padding: 5%;
@@ -584,38 +540,17 @@
         
         line-height: 1.5;
     }
+    #container-home .FAQs {
+        height: 500px;    
+    }
+    .FAQs .tag111 div p {
+        font-size: 2rem;
+    }
 }
-@media only screen and (max-width: 363px) {
-    .sticker-mark {
-        padding: 0;
-    }
-    .outstanding .featured-book {
-        // margin-left: 25%;
-        height: 260px;
-        width: 80%;
-        margin-bottom: 0px;
-    }
-    .outstanding {
-
-        padding: 1rem 1rem;
-    }
-    .Blog-container .card {
-        width: 98%;
-        margin-left:1%;
-        margin-right:1%;
-    }
-    .outstanding div img {
-        height: 250px;
-    }
-    .outstanding .featured-category p {
-        width: 150px;
-        font-size: 13px;
-    }
-    .outstanding .featured-category h3 {
-        font-size: 1.1rem;
-        width: 120px;
-        bottom: 85px;
-        font-weight: 400;
+@media only screen and (max-width: 410px) {
+    
+    .outstanding .introcduce-book{
+        height: 600px;
     }
 }
 

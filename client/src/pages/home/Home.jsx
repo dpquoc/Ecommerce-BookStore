@@ -48,28 +48,17 @@ import { products } from '../../components/data/products';
 import { reviews } from '../../components/data/reviews';
 
 function Home() {
-    const [expanded, setExpanded] = React.useState('panel1');
+    const [expanded, setExpanded] = React.useState('');
 
     const handleChange1 = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
     };
-    const ColoredLine = ({ color }) => (
-        <hr
-            style={{
-                color: color,
-                backgroundColor: color,
-                height: 1,
-                marginLeft: 500,
-                marginRight: 500,
-            }}
-        />
-    );
-
     window.scrollTo(0, 0);
     return (
 
         <div id="container-home">
             <Banner />
+            <SearchForm />
             <div className="list-products">
                 <h1>Popular Book<span>S</span></h1>
                 <Swiper
@@ -164,71 +153,24 @@ function Home() {
             </div><br></br>
 
             <ListProducts title="Sale" products={products} style={{ backgroundColor: '#eee' }} />
-            <ListReview title="Review" reviews={reviews} />
-            <ColoredLine color="gray" />
 
-            <div className="Blog-container" >
-                <h1 >Blog</h1>
-                <br></br>
-                <div className="card">
-                    <div className="img1">
-                        <img src={blog} alt="" />
-                    </div>
-                    <div className="content_blog" >
-                        <h2>There's goting to be a musical about meghan</h2>
-                        <p><CalendarMonthTwoToneIcon sx={{ fontSize: 20 }} /> 20th April 2023</p>
-                        <p className="p1">Creepeth green light appear let rule only you're divide and lights moving and isn't given creeping deep.</p>
-                        <Button size="large">Read more</Button>
-                    </div>
-                </div>
-                <div className="card">
-                    <div className="img1">
-                        <img src={blog} alt="" />
-                    </div>
-                    <div className="content_blog" >
-                        <h2>There's goting to be a musical about meghan</h2>
-                        <p><CalendarMonthTwoToneIcon sx={{ fontSize: 20 }} /> 20th April 2023</p>
-                        <p className="p1">Creepeth green light appear let rule only you're divide and lights moving and isn't given creeping deep.</p>
-                        <Button size="large">Read more</Button>
-                    </div>
-                </div>
-                <div className="card">
-                    <div className="img1">
-                        <img src={blog} alt="" />
-                    </div>
-                    <div className="content_blog" >
-                        <h2>There's goting to be a musical about meghan</h2>
-                        <p><CalendarMonthTwoToneIcon sx={{ fontSize: 20 }} /> 20th April 2023</p>
-                        <p className="p1">Creepeth green light appear let rule only you're divide and lights moving and isn't given creeping deep.</p>
-                        <Button size="large">Read more</Button>
-                    </div>
-                </div>
-                <div className="card">
-                    <div className="img1">
-                        <img src={blog} alt="" />
-                    </div>
-                    <div className="content_blog" >
-                        <h2>There's goting to be a musical about meghan</h2>
-                        <p><CalendarMonthTwoToneIcon sx={{ fontSize: 20 }} /> 20th April 2023</p>
-                        <p className="p1">Creepeth green light appear let rule only you're divide and lights moving and isn't given creeping deep.</p>
-                        <Button size="large">Read more</Button>
-                    </div>
-                </div>
-            </div>
+
+
+
+            <ListReview title="Review" reviews={reviews} />
+
 
 
             <div className="FAQs">
-                <QuestionAnswerSharpIcon />&nbsp;&nbsp;<h1> FAQs </h1>
+                <QuestionAnswerSharpIcon sx={{fontSize:'2.8rem'}}/>&nbsp;&nbsp;<h1 className='list-title'> FA<span className='highlight'>Q</span>s </h1>
                 <br></br>
                 <div className="tag111">
-
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange1('panel1')} style={{ border: '1px solid', backgroundColor: 'white' }}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1bh-content"
                             id="panel1bh-header"
                         >
-
                             <Typography sx={{ width: '20%', }}>
                                 <ManageAccountsSharpIcon sx={{ fontSize: 30 }} />
                             </Typography>
@@ -238,7 +180,7 @@ function Home() {
 
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography>
+                            <Typography sx={{fontSize:'2rem'}}>
                                 Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
                                 Aliquam eget maximus est, id dignissim quam.
                             </Typography>
@@ -259,7 +201,7 @@ function Home() {
 
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography>
+                            <Typography sx={{fontSize:'2rem'}}>
                                 Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
                                 Aliquam eget maximus est, id dignissim quam.
                             </Typography>
@@ -281,7 +223,7 @@ function Home() {
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography>
+                            <Typography sx={{fontSize:'2rem'}}>
                                 Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
                                 Aliquam eget maximus est, id dignissim quam.
                             </Typography>
@@ -301,7 +243,7 @@ function Home() {
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography>
+                            <Typography sx={{fontSize:'2rem'}}>
                                 Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
                                 Aliquam eget maximus est, id dignissim quam.
                             </Typography>
