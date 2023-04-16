@@ -3,7 +3,7 @@ error_reporting(E_ERROR);
 header('Content-Type: application/json');
 
 header('Access-Control-Allow-Origin: http://localhost:5173');
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Access-Control-Allow-Credentials: true');
 
@@ -45,6 +45,7 @@ $routes = [
     'POST /api.php/auth/register' => 'AuthController@register@0',
     'POST /api.php/auth/registeradmin' => 'AuthController@registerAdmin@2',
     'POST /api.php/auth/login' => 'AuthController@login@0',
+    'POST /api.php/auth/updatepassword' => 'AuthController@updatePassword@1',
     'GET /api.php/auth/logout' => 'AuthController@logout@0',
 
     // user
