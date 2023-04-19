@@ -13,6 +13,8 @@ import { fetchAsyncAuthor, fetchAsyncProductSingle } from '../../store/apiReq';
 import { getAuthor, getAuthorStatus } from '../../store/authorSlice';
 import { STATUS } from '../../utils/status';
 import Loading from '../../components/loading/Loading';
+import axios from 'axios';
+import { BASE_URL } from '../../utils/apiURL';
 
 const number_of_product = 20;
 
@@ -54,7 +56,40 @@ function DetailsProduct() {
     const productSingleStatus = useSelector(getSingleProductStatus);
     const author = useSelector(getAuthor)
     const authorStatus = useSelector(getAuthorStatus)
+    const user = useSelector((state) => state.auth.login.currentUser);
 
+    const [listReview, setlistReview] = useState([]);
+    const [valueRating, setvalueRating] = useState(0);
+    const [valueReview, setvalueReview] = useState("");
+
+    const onSubmitReview = async (e) => {
+        e.preventDefault();
+        const post = {
+            rating: valueRating,
+            review: valueReview,
+            book_isbn: id
+        };
+        await axios.post(`${BASE_URL}review`, post, { withCredentials: true })
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+    const fetchReview = async () => {
+        await axios.get(`${BASE_URL}review`, { withCredentials: true })
+            .then(res => {
+                setlistReview(res.data.data)
+            })
+            .catch(err => {
+                setlistReview([])
+            })
+    };
+    useEffect(() => {
+        fetchReview();
+    }, []);
+    const filteredListReview = listReview.filter(item => item.book_isbn === id);
 
     useEffect(() => {
         if (productSingle && productSingle.author_id)
@@ -62,7 +97,8 @@ function DetailsProduct() {
     }, [dispatch, productSingle.author_id]);
 
     const newprice = Math.round((productSingle.price - (productSingle.price * productSingle.on_sale / 100)) * 100) / 100;
-    const [value, setValue] = useState(0);
+    //value rating
+
 
     useEffect(() => {
         document.querySelector(".detail_product_wrapper input").setAttribute("value", 1);
@@ -70,7 +106,6 @@ function DetailsProduct() {
             const slideWidth = document.querySelector(".detail_product_wrapper .img_slide_wrapper").clientWidth;
             document.querySelector('.detail_product_wrapper .img_slide').style.transform = `translateX(${- imgId * slideWidth}px)`;
         }
-
 
         const tabSelectItems = document.querySelectorAll(".detail_product_wrapper .tab_list .tab_select");
 
@@ -87,12 +122,7 @@ function DetailsProduct() {
                 }
             });
         }
-
     }, []);
-    // if(productSingleStatus === STATUS.LOADING)
-    // return <Loading />
-    // if(authorStatus === STATUS.Loading)
-    // return <Loading />
 
     return (
         <>
@@ -104,13 +134,9 @@ function DetailsProduct() {
                             <div className="product_img_slider">
                                 <div className="img_slide_wrapper">
                                     <div className="img_slide">
-
                                         <img src={productSingle?.image_url} alt="" />
-
                                     </div>
                                 </div>
-
-
                             </div>
 
                             <div className="summarize">
@@ -222,32 +248,61 @@ function DetailsProduct() {
                                             </div>
                                         </div>
                                     ))}
+                                    {filteredListReview.map((review, index) => (
+                                        <div className="item_review" key={index}>
+                                            <Avatar
+                                                className='review_avatar'
+                                                variant="square" src={user?.img}
+                                                sx={{ fontSize: '3rem' }}
+                                            >
+                                                {user.img ? <></> : user?.fullname[0]}
+                                            </Avatar>
+                                            <div className="review_detail">
+                                                <div className="review_name">{user?.fullname}</div>
+                                                <div className="review_content">{review.review}</div>
+                                                <div className="review_rating">
+                                                    <Rating name="read-only" value={parseInt(review.rating)} size='large' readOnly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+
                                     <div className="review_add_form">
                                         <div className="form_title">
                                             <span>Add a review</span>
-                                            Your email address will not be published. Required fields are marked *
+                                            {user ? <>You are only allowed to review once, so please consider carefully !</> : <>Please login before review *</>}
                                         </div>
                                         <Form className='form_content'>
                                             <div className="form_input_row">
                                                 <div className='label'>Your rating *</div>
                                                 <Rating
                                                     className='rating'
-                                                    name="simple-controlled"
-                                                    value={value}
-                                                    onChange={(event, newValue) => {
-                                                        setValue(newValue);
+                                                    name="rating"
+                                                    value={valueRating}
+                                                    onChange={(e) => {
+                                                        setvalueRating(parseInt(e.target.value));
                                                     }}
                                                     size='large'
                                                 />
                                             </div>
                                             <div className="form_input_row">
                                                 <div className='label'>Your review *</div>
-                                                <textarea name="" id="" cols="30" rows="5"></textarea>
+                                                <textarea
+                                                    name="review"
+                                                    id=""
+                                                    cols="30"
+                                                    rows="5"
+                                                    placeholder='Please write your thoughts...'
+                                                    onChange={(e) => {
+                                                        setvalueReview(e.target.value);
+                                                    }}
+                                                >
+                                                </textarea>
                                             </div>
-                                            
+
                                             <div className="form_input_row">
                                                 <div className=""></div>
-                                                <button className='submit_review'>Submit</button>
+                                                <button className='submit_review' onClick={onSubmitReview}>Submit</button>
                                             </div>
                                         </Form>
                                     </div>

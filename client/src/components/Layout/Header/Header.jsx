@@ -29,7 +29,6 @@ function Header() {
 
     const user = useSelector((state) => state.auth.login.currentUser)
 
-    console.log(user)
     const [cardOpen, setCardOpen] = useState(false)
 
     const quantityTotal = useSelector((state) => state.cart.totalQuantity)
@@ -82,7 +81,7 @@ function Header() {
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
                             >
-                                <UserOutlined />
+                                {user.fullname[0]}
                             </Avatar>
                             <Menu
                                 anchorEl={anchorEl}

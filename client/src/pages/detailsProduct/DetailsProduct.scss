@@ -424,8 +424,7 @@
                             display: flex;
                             border: none;
                             border-radius: 3px;
-                            background-color: #EAECEE;
-
+                            background-color: #F3F4FA;
                             &:focus {
                                 border: 1px solid black;
                             }
@@ -441,7 +440,7 @@
                         }
 
                         .rating {
-
+                            width: 100px;
                             svg {
                                 width: 20px;
                                 height: 20px;
