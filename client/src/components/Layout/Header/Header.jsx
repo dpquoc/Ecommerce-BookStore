@@ -1,10 +1,11 @@
 import './Header.scss'
 import { Link, useNavigate } from 'react-router-dom';
-import React, { Fragment, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HeartOutlined, ShoppingCartOutlined, MenuOutlined, UserOutlined, DeleteFilled } from '@ant-design/icons'
 
 import CartItems from '../../cartItems/CartItems'
 import { useDispatch, useSelector } from "react-redux"
+import { getCartTotal } from '../../../store/cartSlice'
 import {
     Menu,
     MenuItem,
@@ -27,16 +28,17 @@ function Header() {
     }
 
     const user = useSelector((state) => state.auth.login.currentUser)
+
+    console.log(user)
     const [cardOpen, setCardOpen] = useState(false)
 
-    // const quantity = useSelector((state) => state.cart.totalQuantity)
+    const quantityTotal = useSelector((state) => state.cart.totalQuantity)
+    const amountTotal = useSelector((state) => state.cart.totalAmount)
     const cartItems = useSelector((state) => state.cart.itemsList)
 
-    let total = 0
-    const itemsLists = useSelector((state) => state.cart.itemsList)
-    itemsLists.forEach((item) => {
-        total += item.totalPrice
-    })
+    useEffect(() => {
+        dispatch(getCartTotal());
+      }, [cartItems])
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -65,7 +67,10 @@ function Header() {
 
             </nav>
             <div className='icons'>
-                <div className="icon-btn" onClick={() => setCardOpen(!cardOpen)}><ShoppingCartOutlined /></div>
+                <div className="icon-btn-cart" onClick={() => setCardOpen(!cardOpen)}>
+                    <ShoppingCartOutlined />
+                    {quantityTotal === 0 ? <></> : <span className="quantity-cart">{quantityTotal}</span>}
+                </div>
                 {
                     user
                         ? (<>
@@ -130,12 +135,14 @@ function Header() {
                                         </MenuItem>
                                     </Link>
                                 )}
-                                <MenuItem onClick={handleClose} sx={{ fontSize: '1.5rem' }}>
-                                    <ListItemIcon>
-                                        <FavoriteIcon />
-                                    </ListItemIcon>
-                                    WishList
-                                </MenuItem>
+                                <Link to='/wishlist'>
+                                    <MenuItem onClick={handleClose} sx={{ fontSize: '1.5rem' , color: 'black' }}>
+                                        <ListItemIcon>
+                                            <FavoriteIcon />
+                                        </ListItemIcon>
+                                        WishList
+                                    </MenuItem>
+                                </Link>
                                 <MenuItem onClick={handleLogout} sx={{ fontSize: '1.5rem' }}>
                                     <ListItemIcon>
                                         <LogoutIcon />
@@ -165,16 +172,16 @@ function Header() {
                 {cartItems.map((item, index) => (
                     <CartItems
                         key={index}
-                        id={item.id}
-                        cover={item.cover}
+                        isbn={item.isbn}
+                        img={item.img}
                         title={item.title}
                         newprice={item.newprice}
                         quantity={item.quantity}
                         totalPrice={item.totalPrice}
                     />
                 ))}
-                <div className='total'> Total : ${total}</div>
-                <div href="#" className='btn' onClick={handleCheckout} >Checkout</div>
+                <div className='total'> Total : ${amountTotal}</div>
+                <div href="#" className='btn' onClick={handleCheckout} >Go to Checkout page</div>
             </div>
         </div>
     );

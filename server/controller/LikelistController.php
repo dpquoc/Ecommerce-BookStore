@@ -73,7 +73,8 @@ class LikelistController {
         $likelist = new LikelistModel();
 
         // Check if likelist with the given ID exists
-        $existingLikelist = $likelist->read(['id' => $idRoute]);
+        $existingLikelist = $likelist->read(['user_id' => $fromUser['id'] ,'book_isbn' => $idRoute]);
+
         if (!$existingLikelist) {
             http_response_code(404);
             return array(

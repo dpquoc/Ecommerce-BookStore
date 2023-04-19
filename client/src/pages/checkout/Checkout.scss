@@ -1,10 +1,10 @@
-.checkout_wrapper{
+.checkout_wrapper {
   height: 100%;
-  width: 1170px;
-  padding: 60px 15px 60px 15px;
+  width: 100%;
+  padding: 60px 40px 60px 40px;
   margin-left: auto;
   margin-right: auto;
-  
+
 
   .checkout_container {
     padding: 20px 0 20px 0;
@@ -14,125 +14,194 @@
     height: 100%;
     background-color: white;
 
-    .product_ship_info{
+    .product_ship_info {
       display: flex;
       flex-direction: column;
       padding: 0 30px 0 30px;
       border-right: 1px solid rgba(93, 92, 92, 0.25);
 
-      .title{
+      .title {
         font-size: 2.5rem;
         margin-bottom: 10px;
-        color: orangered;
+        color: var(--orange);
       }
 
-      .product_info{
+      .product_info {
         display: flex;
         flex-direction: column;
 
-        .product_table{
+        .product_table {
           font-size: 1.7rem;
           width: 100%;
 
-          .product_th{
-            width: 70%;
+          .num-cart {
+            width: 7%;
           }
 
-          .price_th{
-            width: 20%;
+          .product_th {
+            width: 45%;
           }
+
+          .price_th {
+            width: 15%;
+          }
+
+          .quantity_th {
+            width: 13%;
+          }
+
 
           td {
-            padding: 10px 15px 10px 0;
+            // padding: 10px 15px 10px 0;
+            text-align: center;
 
-            input{
+            input {
               width: 100%;
               text-align: center;
               height: 30px;
-              border:  1px solid rgba(93, 92, 92, 0.25);
+              border: 1px solid rgba(93, 92, 92, 0.25);
               border-radius: 5px;
             }
 
-            .img_title{
-              display:grid;
+            .img_title {
+              display: grid;
               grid-template-columns: 1.5fr 4fr;
 
-              .checkout_product_img img{
+              .checkout_product_img img {
                 width: 100%;
               }
 
-              .checkout_product_title{
+              .checkout_product_title {
                 display: flex;
                 align-items: center;
-                font-weight: bold;
+                font-weight: 400;
+                margin-left: 20px;
               }
             }
           }
-          
-          th{
+
+          td:nth-child(2) {
             text-align: left;
-            padding: 10px 0 10px 0;
-            color: #808B96  ;
+            padding-right: 30px;
+          }
+          td:nth-child(6) {
+            cursor: pointer;
+          }
+          td:nth-child(6):hover {
+            color: var(--orange);
           }
 
-          tr{
+          .plus,
+          .num,
+          .minus {
+            font-size: 2rem;
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+            margin: auto 5px;
+          }
+
+          .plus:hover,  
+          .minus:hover {
+            color: var(--orange);
+          }
+
+          th {
+            text-align: center;
+            padding: 10px;
+            color: #808B96;
+          }
+
+          th:nth-child(2) {
+            text-align: left;
+            padding: 10px 0 10px 15px;
+            color: #808B96;
+          }
+
+
+          tr {
             height: 100%;
-            border-bottom:  1px solid rgba(93, 92, 92, 0.25);;
+            border-bottom: 1px solid rgba(93, 92, 92, 0.25);
+
           }
         }
       }
-
-      .ship_info{
+      .clear_button {
         margin-top: 20px;
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px;
+        border: 1px solid rgba(93, 92, 92, 0.75);
+        font-weight: 500;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--orange);
+          color: white;
+        }
+      }
+
+    }
+
+    .checkout_infor {
+      .ship_info {
+        .title{
+          font-size: 2.5rem;
+          margin-bottom: 20px;
+          color: var(--orange);
+        }
         display: flex;
         flex-direction: column;
 
-        .shipping_form{
+        .shipping_form {
           width: 100%;
           display: flex;
           flex-direction: column;
 
-          input{
+          input {
             height: 40px;
             width: 100%;
-            border:  1px solid rgba(93, 92, 92, 0.5);
+            border: 1px solid rgba(93, 92, 92, 0.5);
             margin-bottom: 10px;
             padding-left: 10px;
             border-radius: 5px;
           }
         }
       }
-    }
 
-    .checkout_infor{
       padding: 0 30px 0 30px;
       font-size: 1.5rem;
       display: flex;
       flex-direction: column;
 
-      .checkout_info_table{
+      .checkout_info_table {
         width: 100%;
 
-        th{
+        th {
           text-align: left;
           padding: 10px 0 10px 0;
         }
 
-        td{
+        td {
           text-align: left;
           padding: 10px 0 10px 0;
           text-align: right;
-          color: orangered;
+          color: var(--black);
+          font-size: 2rem;
         }
+        
 
-        .last_row{
+        .last_row {
           border-bottom: 1px solid rgba(93, 92, 92, 0.25);
           border-top: 1px solid rgba(93, 92, 92, 0.25);
         }
-        
+
       }
 
-      .checkout_button{
+      .checkout_button {
         margin-top: 20px;
         display: flex;
         align-items: center;
@@ -143,8 +212,8 @@
         border-radius: 5px;
         cursor: pointer;
 
-        &:hover{
-          background-color: orangered;
+        &:hover {
+          background-color: var(--orange);
           color: white;
         }
       }
@@ -171,28 +240,27 @@
 
 @media (max-width:768px) {
 
-  .checkout_wrapper{
+  .checkout_wrapper {
     width: 100%;
     padding: 30px 15px 30px 15px;
 
-    .checkout_container{
+    .checkout_container {
       display: flex;
       flex-direction: column;
 
       .product_ship_info {
         border-right: unset;
-        .ship_info{
-          border-bottom:  1px dashed rgba(93, 92, 92, 0.5);
+
+        .ship_info {
+          border-bottom: 1px dashed rgba(93, 92, 92, 0.5);
           padding-bottom: 30px;
         }
       }
-      
-      .checkout_infor{
+
+      .checkout_infor {
         margin-top: 20px;
-        
+
       }
     }
   }
 }
-
-

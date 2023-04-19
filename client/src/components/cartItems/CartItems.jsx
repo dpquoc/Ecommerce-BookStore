@@ -1,25 +1,26 @@
 import React from "react"
 import { DeleteFilled, PlusOutlined, MinusOutlined } from '@ant-design/icons'
 import { useDispatch } from "react-redux"
-import { cartActions } from '../../store/cartSlice'
+import { addToCart, decreaseCartItem, removeFromCart } from "../../store/cartSlice"
+
 import './CartItems.scss'
 
-function CartItems({ id, cover, title, newprice, quantity, totalPrice }) {
+function CartItems({ isbn, img, title, newprice, quantity }) {
     const dispatch = useDispatch()
 
     const incCartitems = () => {
-        dispatch(cartActions.addToCart({ id, title, newprice }))
+        dispatch(addToCart({ isbn, title, newprice }))
     }
     const descCartitems = () => {
-        dispatch(cartActions.decreaseCartItem(id))
+        dispatch(decreaseCartItem(isbn))
     }
     const removeCartitems = () => {
-        dispatch(cartActions.removeFromCart(id))
+        dispatch(removeFromCart(isbn))
     }
     return (
         <>
             <div className='box-items'>
-                <img src={cover} alt="" />
+                <img src={img} alt="" />
                 <div className='content-item'>
                     <h3>{title}</h3>
                     <span className='price'>${newprice}</span>

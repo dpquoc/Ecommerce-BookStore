@@ -10,11 +10,12 @@ import Register from '../pages/register/Register';
 import Checkout from '../pages/checkout/Checkout';
 import Profile from '../pages/profile/Profile';
 import About from '../pages/about/About';
+import WishList from '../pages/wishlist/WishList';
 
 const publicRoutes = [
     { path: '/', component: Home},
     { path: '/products', component: Products},  
-    { path: '/detailsProduct', component: DetailsProduct},  
+    { path: '/products/:id', component: DetailsProduct},  
     { path: '/news', component: News},  
     { path: '/contact', component: Contact},
     { path: '/detailsNews', component: DetailsNews},
@@ -24,6 +25,7 @@ const publicRoutes = [
     { path: '/register', component: Register},
     { path: '/checkout', component: Checkout},
     { path: '/profile', component: Profile},
+    { path: '/wishlist', component: WishList},
     { path: '*', component: NotFound },
 
 ]

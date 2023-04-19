@@ -21,7 +21,7 @@ const Register = () => {
 
     const [type, setType] = useState("password");
     const [disabled, setDisabled] = useState(true);
-    
+
     const re_1digit = new RegExp("^(?=.*[0-9])");
     const re_8chart = new RegExp("^(?=.{8,})");
     const re_low = new RegExp("^(?=.*[a-z])");
@@ -79,7 +79,7 @@ const Register = () => {
             setDisabled(false);
         }
         else setDisabled(true);
-    }, [ formik.values.fullname,formik.values.email, formik.values.username, formik.values.password]);
+    }, [formik.values.fullname, formik.values.email, formik.values.username, formik.values.password]);
 
     const icon = document.querySelector(".input__icon");
 

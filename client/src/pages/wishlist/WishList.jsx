@@ -17,13 +17,14 @@ import Sidebar from '../../components/sidebar/Sidebar';
 
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
-
+import { BASE_URL } from '../../utils/apiURL';
+import axios from 'axios';
 import {
     Select,
     Slider
 } from 'antd';
 
-import './Products.scss'
+import './Wishlist.scss'
 
 const categorys = [
     {
@@ -56,7 +57,7 @@ const categorys = [
     },
 ]
 
-function Products() {
+function WishList() {
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -66,19 +67,36 @@ function Products() {
     const productStatus = useSelector(getAllProductsStatus);
     const [selected, setSelected] = useState("all");
     const [changeFilter, setChangeFilter] = useState([5, 100]);
-
+    const [listLiked, setlistLiked] = useState([]);
     const handleSelect = (option) => {
         setSelected(option);
     };
     const handleChangeSelect = (value) => {
         console.log(`selected ${value}`);
     };
+    const fetchLiked = async () => {
+        await axios.get(`${BASE_URL}likelist/my`, { withCredentials: true })
+        .then(res => {
+            setlistLiked(res.data.data)
+        })
+        .catch(err => {
+            setlistLiked([])
+        })
+    };
+
+    useEffect(() => {
+        fetchLiked();
+    }, []);
+
+    const filteredProducts = products.filter(product => {
+        return listLiked.some(item => item.book_isbn === product.isbn);
+    });
 
     return (
         <>
             <div className="container-products">
                 <HeroBanner
-                    title="#products"
+                    title="#wishlist"
                     summary="A place where you can find the books you need!"
                     srcImg={pageHeaderProduct}
                 />
@@ -91,9 +109,16 @@ function Products() {
                         <Link
                             underline="hover"
                             href="/material-ui/getting-started/installation/"
-                            color="text.primary"
+                            color="inherit"
                         >
                             Products
+                        </Link>
+                        <Link
+                            underline="hover"
+                            href="/material-ui/getting-started/installation/"
+                            color="text.primary"
+                        >
+                            Wishlist
                         </Link>
                     </Breadcrumbs>
                     <div className='sort-content'>
@@ -107,7 +132,7 @@ function Products() {
                                     Sale
                                 </div>
                             </div>
-                            <p className='text'>"{selected === "sale" ? products.filter((card) => (card.onsale > 0)).length : products.length} total products"</p>
+                            <p className='text'>"{selected === "sale" ? filteredProducts.filter((card) => (card.onsale > 0)).length : filteredProducts.length} total products liked"</p>
                             <div className='sort-price'>
                                 <p>Sort by price: </p>
                                 <Select
@@ -121,8 +146,6 @@ function Products() {
                                     ]}
                                 />
                             </div>
-
-
                         </div>
                         <div className='right-content'>
                             <div className='filter'>
@@ -141,12 +164,14 @@ function Products() {
                                     :
                                     selected === "sale" ?
                                         <ListProducts
-                                            products={products.filter((card) => (card.onsale > 0))}
+                                            products={filteredProducts.filter((card) => (card.onsale > 0))}
                                             style={{ backgroundColor: '#eee' }}
+                                            liked={true}
                                         />
                                         : <ListProducts
-                                            products={products}
+                                            products={filteredProducts}
                                             style={{ backgroundColor: '#eee' }}
+                                            liked={true}
                                         />
                             }
 
@@ -162,4 +187,4 @@ function Products() {
     );
 }
 
-export default Products;
+export default WishList;

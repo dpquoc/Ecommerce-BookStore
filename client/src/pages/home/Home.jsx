@@ -44,8 +44,10 @@ import './Home.scss'
 import ListProducts from '../../components/listProducts/ListProducts';
 import ListReview from '../../components/listReview/ListReview';
 
-import { products } from '../../components/data/products';
 import { reviews } from '../../components/data/reviews';
+import { getAllProducts } from '../../store/productSlice';
+import { fetchAsyncProducts } from '../../store/apiReq';
+import { useDispatch } from 'react-redux';
 
 function Home() {
     const [expanded, setExpanded] = React.useState('');
@@ -53,6 +55,14 @@ function Home() {
     const handleChange1 = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
     };
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchAsyncProducts());
+      }, []);
+
+    const products = useSelector(getAllProducts);
+
     window.scrollTo(0, 0);
     return (
 

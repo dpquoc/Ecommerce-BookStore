@@ -1,47 +1,97 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
+
+const fetchFromLocalStorage = () => {
+  let cart = localStorage.getItem('cart');
+  if (cart) {
+    return JSON.parse(cart);
+  } else {
+    return [];
+  }
+}
+
+const storeInLocalStorage = (data) => {
+  localStorage.setItem('cart', JSON.stringify(data));
+}
+
+const initialState = {
+  itemsList: fetchFromLocalStorage(),
+  totalQuantity: 0,
+  totalAmount: 0,
+};
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {
-    itemsList: [],
-    totalQuantity: 0,
-  },
+  initialState,
   reducers: {
     addToCart(state, action) {
-      const newItem = action.payload
-      //check item is already exits
-      const exitsItem = state.itemsList.find((item) => item.id === newItem.id)
-      if (exitsItem) {
-        exitsItem.quantity++
-        exitsItem.totalPrice = Math.round((exitsItem.totalPrice + newItem.newprice) * 100) / 100;
+      const newItem = action.payload;
+      const existingItemIndex = state.itemsList.findIndex((item) => item.isbn === newItem.isbn);
+
+      if (existingItemIndex !== -1) {
+        const existingItem = state.itemsList[existingItemIndex];
+        existingItem.quantity++;
+        existingItem.totalPrice = Math.round((existingItem.totalPrice + newItem.newprice) * 100) / 100;
+        state.totalQuantity++;
+        state.totalAmount = Math.round((state.totalAmount + newItem.newprice) * 100) / 100;
+        state.itemsList[existingItemIndex] = existingItem;
       } else {
         state.itemsList.push({
-          id: newItem.id,
+          isbn: newItem.isbn,
           title: newItem.title,
           newprice: newItem.newprice,
           quantity: 1,
           totalPrice: newItem.newprice,
-          cover: newItem.cover,
-        })
-        state.totalQuantity++
+          img: newItem.img,
+        });
+        state.totalQuantity++;
+        state.totalAmount = Math.round((state.totalAmount + newItem.newprice) * 100) / 100;
       }
+
+      storeInLocalStorage(state.itemsList);
     },
     decreaseCartItem(state, action) {
-      const id = action.payload
-      const exitstingItem = state.itemsList.find((item) => item.id === id)
-      if (exitstingItem.quantity !== 1) {
-        exitstingItem.quantity--
-        exitstingItem.totalPrice = Math.round((exitstingItem.totalPrice - exitstingItem.newprice) * 100) / 100;
-      }
+      const isbn = action.payload;
+      const existingItemIndex = state.itemsList.findIndex((item) => item.isbn === isbn);
 
+      if (existingItemIndex !== -1) {
+        const existingItem = state.itemsList[existingItemIndex];
+
+        if (existingItem.quantity !== 1) {
+          existingItem.quantity--;
+          existingItem.totalPrice = Math.round((existingItem.totalPrice - existingItem.newprice) * 100) / 100;
+          state.totalQuantity--;
+          state.totalAmount = Math.round((state.totalAmount - existingItem.newprice) * 100) / 100;
+          state.itemsList[existingItemIndex] = existingItem;
+          storeInLocalStorage(state.itemsList);
+        }
+      }
     },
     removeFromCart(state, action) {
-      const id = action.payload
-      state.itemsList = state.itemsList.filter((item) => item.id !== id)
-      state.totalQuantity--
+      const isbn = action.payload;
+      state.itemsList = state.itemsList.filter((item) => {
+        if (item.isbn === isbn) {
+          state.totalQuantity -= item.quantity;
+          state.totalAmount = Math.round((state.totalAmount - item.totalPrice) * 100) / 100;
+        }
+        return item.isbn !== isbn;
+      });
+
+      storeInLocalStorage(state.itemsList);
+    },
+    getCartTotal(state) {
+      state.totalAmount = state.itemsList.reduce((cartTotal, cartItem) => {
+        return cartTotal += cartItem.totalPrice;
+      }, 0);
+      state.totalQuantity = state.itemsList.reduce((totalQuantity, cartItem) => {
+        return totalQuantity += cartItem.quantity;
+      }, 0);
+    },
+    clearCart(state) {
+      state.itemsList = [];
+      storeInLocalStorage(state.itemsList);
     },
   },
-})
+});
 
-export const cartActions = cartSlice.actions
-export default cartSlice
+export const { addToCart, decreaseCartItem, removeFromCart, getCartTotal, clearCart } = cartSlice.actions;
+export default cartSlice;

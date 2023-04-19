@@ -1,10 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+
+const fetchFromLocalStorage = () => {
+    let user = localStorage.getItem('user');
+    if (user) {
+        return JSON.parse(user);
+    } else {
+        return null;
+    }
+}
+const storeInLocalStorage = (data) => {
+    localStorage.setItem('user', JSON.stringify(data));
+}
+
 const authSlice = createSlice({
     name: "auth",
     initialState: {
         login: {
-            currentUser: null,
+            currentUser: fetchFromLocalStorage(),
             isFetching: false,
             error: false,
             //   isLogin: false,
@@ -30,6 +43,7 @@ const authSlice = createSlice({
             state.login.isFetching = false;
             state.login.currentUser = action.payload;
             state.login.error = false;
+            storeInLocalStorage(state.login.currentUser)
         },
         loginFalse: (state) => {
             state.login.isFetching = false;
@@ -55,6 +69,7 @@ const authSlice = createSlice({
             state.logout.isFetching = true;
             state.login.currentUser = null;
             state.logout.error = false;
+            storeInLocalStorage(state.login.currentUser)
         },
         logOutFalse: (state) => {
             state.logout.isFetching = false;

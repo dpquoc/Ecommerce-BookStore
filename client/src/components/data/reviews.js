@@ -1,5 +1,4 @@
-export 
-const reviews = [
+export const reviews = [
     {
         id: 1,
         name: "Maureen Burrows",

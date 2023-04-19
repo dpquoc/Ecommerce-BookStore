@@ -35,8 +35,6 @@ CREATE TABLE USER (
 );
 
 
-
-
 CREATE TABLE CATEGORY_BOOK (
   category VARCHAR(255) NOT NULL,
   book_isbn INT NOT NULL,
@@ -81,8 +79,6 @@ CREATE TABLE CONTACT (
   message TEXT NOT NULL,
   resolved BOOLEAN DEFAULT false
 );
-
-
 
 CREATE TABLE USER_LIKE_BOOK (
   user_id INT NOT NULL,

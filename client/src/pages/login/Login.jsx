@@ -37,6 +37,7 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         const newUser = {
@@ -45,45 +46,8 @@ const Login = () => {
         };
         loginUser(newUser, dispatch, navigate);
     }
+    
 
-    // useEffect(() => {
-    //     if (username && password) setDisable(false);
-    //     else setDisable(true);
-    // }, [username, password]);
-
-    // useEffect(() => {
-    //     userRef.current.focus();
-    // }, [])
-
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const res = await axios.post("http://localhost:80/api.php/auth/login",
-    //             { username, password },
-    //             {
-    //                 headers: { 'Content-Type': 'application/json' },
-    //                 withCredentials: true
-    //             }
-    //         );
-    //         if (res.data.status == "error") {
-    //             alert(res?.data?.message);
-    //         }
-    //         else {
-    //             const accessToken = res?.data?.accessToken;
-    //             const roles = res?.data?.roles;
-    //             const fullname = res?.data?.fullname;
-    //             setAuth({ username, password, roles, accessToken, fullname })
-    //             setUsername('');
-    //             setPassword('');
-    //             setSuccess(true);
-    //             navigate('/')
-    //         }
-    //     }
-    //     catch (err) {
-    //         console.log(err)
-    //     }
-    // };
     const icon = document.querySelector(".input__icon");
     return (
         <>
@@ -139,14 +103,14 @@ const Login = () => {
                     <Button
                         type="submit"
                         variant="contained"
-                        // disabled={disabled}
-                        // onClick={() => {
-                        //     setLoading(true);
-                        //     setTimeout(() => {
-                        //         setLoading(false);
-                        //         setSuccess(true);
-                        //     }, 3000);
-                        // }}
+                    // disabled={disabled}
+                    // onClick={() => {
+                    //     setLoading(true);
+                    //     setTimeout(() => {
+                    //         setLoading(false);
+                    //         setSuccess(true);
+                    //     }, 3000);
+                    // }}
                     >
                         Đăng nhập
                     </Button>

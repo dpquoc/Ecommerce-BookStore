@@ -21,6 +21,8 @@
     margin-left: 40px;
 }
 .right-content {
+    display: flex;
+    flex-direction: column;
     width: 28%;
  }
 
@@ -51,6 +53,8 @@
     font-weight: 400;
     display: flex;
     flex-direction: column;
+    background-color: #fff;
+    padding: 30px 20px;
 }
 .sort-content .right-content .filter .ResetBtn{
     width: 100px;
@@ -78,13 +82,14 @@
     text-align: center;
     margin-right: 20px;
     width: 90px;
-    padding: 5px 10px;
-    background-color: #c9c9c9;
+    padding: 8px 10px;
+    background-color: #d7d7d7;
     border-radius: 4rem;
 }
 .type-products .selected{
     background-color: var(--orange);
     color:#fff;
+    font-weight: 600;
 }
 
 
