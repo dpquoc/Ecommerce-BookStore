@@ -102,7 +102,10 @@ $routes = [
     'PATCH /api.php/cart/(\d+)' => 'CartController@updateCart@1',
     'DELETE /api.php/cart/(\d+)' => 'CartController@removeFromCart@1',
 
-
+    //category
+    'POST /api.php/category/(\d+)' => 'CategoryController@addCategory@2',
+    'GET /api.php/category/(\d+)' => 'CategoryController@getBookCategory@0',
+    'DELETE /api.php/category/(\d+)' => 'CategoryController@deleteCategory@2'
 
     
 ];
