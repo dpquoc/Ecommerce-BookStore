@@ -11,6 +11,7 @@ import Checkout from '../pages/checkout/Checkout';
 import Profile from '../pages/profile/Profile';
 import About from '../pages/about/About';
 import WishList from '../pages/wishlist/WishList';
+import Search from '../pages/search/Search';
 
 const publicRoutes = [
     { path: '/', component: Home},
@@ -24,8 +25,9 @@ const publicRoutes = [
     { path: '/about', component: About},
     { path: '/register', component: Register},
     { path: '/checkout', component: Checkout},
-    { path: '/profile', component: Profile},
+    { path: '/profile/:id', component: Profile},
     { path: '/wishlist', component: WishList},
+    { path: '/search/:searchForm', component: Search},
     { path: '*', component: NotFound },
 
 ]

@@ -13,12 +13,14 @@ import { BASE_URL } from "../../utils/apiURL";
 
 
 function BookCard({ isbn, title, author_id, img, price, onsale, liked }) {
-    const [isFavorite, setIsFavorite] = useState(liked);
+    const [isFavorite, setIsFavorite] = useState(liked ?? false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login.currentUser)
     const authors = useSelector(getAllAuthors)
-    
+
+    const [AllUser, setAllUser] = useState([]);
+    const [listReview, setlistReview] = useState([]);
 
     const heartIcon = isFavorite ? <><HeartFilled /></> : <><HeartOutlined /></>;
     const heartClickAuth = () => {
@@ -50,14 +52,53 @@ function BookCard({ isbn, title, author_id, img, price, onsale, liked }) {
     const handleAddToCart = () => {
         dispatch(addToCart({ isbn, title, newprice, img }))
     }
-
-
-
     useEffect(() => {
         dispatch(fetchAsyncAuthors())
     }, [])
 
     const author = authors.filter((author) => author.id === author_id)
+
+    //rating book
+    const fetchReview = async () => {
+        await axios.get(`${BASE_URL}review`, { withCredentials: true })
+            .then(res => {
+                setlistReview(res.data.data)
+            })
+            .catch(err => {
+                setlistReview([])
+            })
+    };
+    useEffect(() => {
+        fetchReview();
+    }, []);
+
+    const fetchAllUser = async () => {
+        await axios.get(`${BASE_URL}user`, { withCredentials: true })
+            .then(res => {
+                setAllUser(res.data.data);
+            })
+            .catch(err => {
+                setAllUser([]);
+            })
+    };
+    useEffect(() => {
+        fetchAllUser();
+    }, []);
+
+    const filteredListReview = listReview.filter(item => item.book_isbn === isbn);
+    const updatedReview = filteredListReview.map(item => {
+        const userId = item.user_id;
+        const userMatch = AllUser.find(userItem => userItem.id === userId);
+        if (userMatch) {
+            return {
+                ...item,
+                fullname: userMatch.fullname,
+                avt_url: userMatch.avt_url
+            };
+        }
+        return item;
+    });
+    const avgRating = updatedReview.reduce((total, item) => total + parseInt(item.rating), 0) / updatedReview.length;
 
     return (
         <div className="box-card" style={{ color: 'var(--black)' }} >
@@ -69,11 +110,10 @@ function BookCard({ isbn, title, author_id, img, price, onsale, liked }) {
             <Link to={`/products/${isbn}`}>
                 <img src={img} alt="" />
             </Link>
-
             <div className='box-content'>
                 <div className="author-starts">
                     <h3>by <a href="">{author[0]?.name}</a></h3>
-                    {/* <span><StarFilled style={{ color: 'gold' }} /> {rating }</span> */}
+                    {avgRating ? <span><StarFilled style={{ color: 'gold' }} /> {avgRating}</span> : <></>}
                 </div>
                 <h2>{title}</h2>
                 <div className='quantity'>
@@ -86,7 +126,6 @@ function BookCard({ isbn, title, author_id, img, price, onsale, liked }) {
                     </div>
                 </div>
                 <div className='btn-cart-like'>
-
                     <div href="" className="btn-cart" onClick={handleAddToCart}>Add to cart</div>
                     {user ? <div href="" className="btn-like" onClick={heartClickLike}>{heartIcon}</div>
                         : <div href="" className="btn-like" onClick={heartClickAuth}>{heartIcon}</div>

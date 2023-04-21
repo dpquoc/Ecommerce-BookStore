@@ -8,7 +8,7 @@ function ListProducts({ products, title, liked }) {
         <BookCard key={index} {...card} liked= {liked}  />
     ));
     const cardElementsSale = products.filter((card) => (card.onsale > 0)).map((card, index) => (
-        <BookCard key={index} {...card} />
+        <BookCard key={index} {...card} liked= {liked} />
     ));
     return (
         <div className="list">

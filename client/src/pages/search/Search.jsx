@@ -8,22 +8,25 @@ import ListProducts from '../../components/listProducts/ListProducts';
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import { getAllProducts, getAllProductsStatus } from '../../store/productSlice';
-import { fetchAsyncProducts } from '../../store/apiReq';
+
 import { STATUS } from '../../utils/status';
 import Loading from '../../components/loading/Loading';
 import Sidebar from '../../components/sidebar/Sidebar';
-
+import { getAllProducts, getAllProductsStatus } from '../../store/productSlice';
+import { fetchAsyncAuthors, fetchAsyncProducts } from '../../store/apiReq';
+import { getAllAuthors } from '../../store/authorSlice';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
-
+import { BASE_URL } from '../../utils/apiURL';
+import axios from 'axios';
 import {
     Select,
     Slider
 } from 'antd';
 
-import './Products.scss'
+import './Search.scss'
 
 const categorys = [
     {
@@ -55,45 +58,71 @@ const categorys = [
         name: 'Science'
     },
 ]
-import axios from 'axios';
-import { BASE_URL } from '../../utils/apiURL';
 
-function Products() {
-
+function Search() {
+    const { searchForm } = useParams();
     const dispatch = useDispatch();
+
+    const [selected, setSelected] = useState("all");
+    const [changeFilter, setChangeFilter] = useState([5, 50]);
+    const [valueSort, setValueSort] = useState(0);
+
+    const handleSelect = (option) => {
+        setSelected(option);
+    };
+
+
+
+    const [listSearch, setListSearch] = useState([]);
     useEffect(() => {
         dispatch(fetchAsyncProducts());
     }, []);
     const products = useSelector(getAllProducts);
     const productStatus = useSelector(getAllProductsStatus);
-    const [selected, setSelected] = useState("all");
-    const [changeFilter, setChangeFilter] = useState([5, 50]);
-    const [listSort, setListSort] = useState([]);
-    const [valueSort, setValueSort] = useState(0);
-    const handleSelect = (option) => {
-        setSelected(option);
-    };
+    const authors = useSelector(getAllAuthors)
+    useEffect(() => {
+        dispatch(fetchAsyncAuthors())
+    }, [])
 
-    const handleSort = async (value) => {
-        setValueSort(value)
-        setChangeFilter(value)
-        await axios.get(`${BASE_URL}book?sort=${value}&min_price=${value[0]}&max_price=${value[1]}`
-            , { withCredentials: true })
+    const authorStatus = (authors.filter(author => author.name === searchForm)[0]?.id) && true;
+    const search = authors.filter(author => author.name === searchForm)[0]?.id ?? searchForm;
+    console.log(search)
+    useEffect(() => {
+        setListSearch([])
+        if (authorStatus) {
+            fetchSearchAuthor();
+        }
+        else {
+            fetchSearch();
+        }
+    }, [search, valueSort,changeFilter,authorStatus]);
+    // &min_price=${changeFilter[0]}&max_price=${changeFilter[1]}
+    const fetchSearch = async () => {
+        await axios.get(`${BASE_URL}book?search_title=${search}&sort=${valueSort}&min_price=${changeFilter[0]}&max_price=${changeFilter[1]}`
+        , { withCredentials: true })
             .then(res => {
-                setListSort(res.data.data)
+                setListSearch(res.data.data)
             })
             .catch(err => {
-                setListSort([])
+                setListSearch([])
             })
     };
 
-
-
+    const fetchSearchAuthor = async () => {
+        await axios.get(`${BASE_URL}book?search_author=${search}&sort=${valueSort}&min_price=${changeFilter[0]}&max_price=${changeFilter[1]}`
+        , { withCredentials: true })
+            .then(res => {
+                setListSearch(res.data.data)
+            })
+            .catch(err => {
+                setListSearch([])
+            })
+    };
     return (
         <>
             <div className="container-products">
                 <HeroBanner
-                    title="#products"
+                    title="#search"
                     summary="A place where you can find the books you need!"
                     srcImg={pageHeaderProduct}
                 />
@@ -105,10 +134,18 @@ function Products() {
                         </Link>
                         <Link
                             underline="hover"
-                            href="/material-ui/getting-started/installation/"
-                            color="text.primary"
+                            href="/products"
+                            color="inherit"
+
                         >
                             Products
+                        </Link>
+                        <Link
+                            underline="hover"
+                            href={`/search/${searchForm}`}
+                            color="text.primary"
+                        >
+                            Search
                         </Link>
                     </Breadcrumbs>
                     <div className='sort-content'>
@@ -122,13 +159,11 @@ function Products() {
                                     Sale
                                 </div>
                             </div>
-                            <p className='text'>
-                                "{listSort.length > 0 ? selected === "sale" ? listSort.filter((card) => (card.onsale > 0)).length : listSort.length 
-                                    : selected === "sale" ? products.filter((card) => (card.onsale > 0)).length : products.length} total products"</p>
+                            <p className='text'>"The search for '{searchForm}' returned {selected === "sale" ? listSearch?.filter((card) => (card.onsale > 0))?.length : listSearch.length} products"</p>
                             <div className='sort-price'>
                                 <p>Sort by price: </p>
                                 <Select
-                                    onChange={handleSort}
+                                    onChange={(value) => setValueSort(value)}
                                     defaultValue={valueSort}
                                     style={{ width: 120 }}
                                     options={[
@@ -138,14 +173,12 @@ function Products() {
                                     ]}
                                 />
                             </div>
-
-
                         </div>
                         <div className='right-content'>
                             <div className='filter'>
                                 Filter price: ${changeFilter[0]} - ${changeFilter[1]}
                                 <br /><br />
-                                <Slider range defaultValue={changeFilter} onChange={handleSort} />
+                                <Slider range defaultValue={changeFilter} onChange={(e) => setChangeFilter(e)} />
                                 {/* <div className='ResetBtn'>Reset</div> */}
                             </div>
                         </div>
@@ -153,32 +186,15 @@ function Products() {
                     <div className='products-content'>
                         <div className='left-content'>
                             {
-                                productStatus === STATUS.LOADING ?
-                                    <Loading />
-                                    :
-                                    listSort.length > 0 ?
-                                        (selected === "sale" ?
-
-                                            <ListProducts
-                                                products={listSort.filter((card) => (card.onsale > 0))}
-                                                style={{ backgroundColor: '#eee' }}
-                                            />
-                                            :
-                                            <ListProducts
-                                                products={listSort}
-                                                style={{ backgroundColor: '#eee' }}
-                                            />)
-                                        :
-                                        (selected === "sale" ?
-                                            <ListProducts
-                                                products={products.filter((card) => (card.onsale > 0))}
-                                                style={{ backgroundColor: '#eee' }}
-                                            />
-                                            :
-                                            <ListProducts
-                                                products={products}
-                                                style={{ backgroundColor: '#eee' }}
-                                            />)
+                                selected === "sale" ?
+                                    <ListProducts
+                                        products={listSearch.filter((card) => (card.onsale > 0))}
+                                        style={{ backgroundColor: '#eee' }}
+                                    />
+                                    : <ListProducts
+                                        products={listSearch}
+                                        style={{ backgroundColor: '#eee' }}
+                                    />
                             }
 
                         </div>
@@ -193,4 +209,4 @@ function Products() {
     );
 }
 
-export default Products;
+export default Search;

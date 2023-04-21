@@ -4,6 +4,7 @@ import SearchForm from '../../components/searchForm/SearchForm';
 import { Avatar } from "@mui/material"
 import Rating from '@mui/material/Rating';
 import { Form } from "antd";
+import { CheckCircleFilled } from '@ant-design/icons'
 import { useLocation } from 'react-router-dom';
 import ScrollToTop from '../../utils/srcolltoTop';
 import { useParams } from 'react-router-dom';
@@ -16,32 +17,7 @@ import Loading from '../../components/loading/Loading';
 import axios from 'axios';
 import { BASE_URL } from '../../utils/apiURL';
 
-const number_of_product = 20;
-
-const reviews_of_book = [
-    {
-        id: 1,
-        name: "Maureen Burrows",
-        cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer2.jpg",
-        rating: 4.5,
-        review: "Under the gifted guidance of Ron Burgandy, one of James Cameron's talented team, imaginative modern cooking from a kitchen brigade at the top of its game"
-    },
-    {
-        id: 2,
-        name: "Magnus Mahoney",
-        cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer1.jpg",
-        rating: 5,
-        review: "On my midweek visit, every seat was taken by 6.15pm, the atmosphere was electric, the air filled with charcoal smoke, music and laughter"
-    },
-    {
-        id: 3,
-        name: "Rhonda Barajas",
-        cover: "https://raw.githubusercontent.com/paul-duvall/website_images/master/reviewer3.jpg",
-        rating: 5,
-        review: "The friendly and welcoming staff act like they genuinely care, first and foremost, about you having a really good time. I'll drink to that"
-    },
-];
-
+const number_of_product = 20
 
 function DetailsProduct() {
     const { id } = useParams();
@@ -56,8 +32,9 @@ function DetailsProduct() {
     const productSingleStatus = useSelector(getSingleProductStatus);
     const author = useSelector(getAuthor)
     const authorStatus = useSelector(getAuthorStatus)
-    const user = useSelector((state) => state.auth.login.currentUser);
+    const user = useSelector((state) => state?.auth?.login?.currentUser);
 
+    const [AllUser, setAllUser] = useState([]);
     const [listReview, setlistReview] = useState([]);
     const [valueRating, setvalueRating] = useState(0);
     const [valueReview, setvalueReview] = useState("");
@@ -76,6 +53,7 @@ function DetailsProduct() {
             .catch(err => {
                 console.log(err);
             })
+        window.location.reload();
     }
     const fetchReview = async () => {
         await axios.get(`${BASE_URL}review`, { withCredentials: true })
@@ -89,7 +67,36 @@ function DetailsProduct() {
     useEffect(() => {
         fetchReview();
     }, []);
+
+    const fetchAllUser = async () => {
+        await axios.get(`${BASE_URL}user`, { withCredentials: true })
+            .then(res => {
+
+                setAllUser(res.data.data);
+            })
+            .catch(err => {
+                setAllUser([]);
+
+            })
+    };
+    useEffect(() => {
+        fetchAllUser();
+    }, []);
+
     const filteredListReview = listReview.filter(item => item.book_isbn === id);
+    const updatedReview = filteredListReview.map(item => {
+        const userId = item.user_id;
+        const userMatch = AllUser.find(userItem => userItem.id === userId);
+        if (userMatch) {
+            return {
+                ...item,
+                fullname: userMatch.fullname,
+                avt_url: userMatch.avt_url
+            };
+        }
+        return item;
+    });
+    const avgRating = updatedReview.reduce((total, item) => total + parseInt(item.rating), 0) / updatedReview.length;
 
     useEffect(() => {
         if (productSingle && productSingle.author_id)
@@ -97,7 +104,6 @@ function DetailsProduct() {
     }, [dispatch, productSingle.author_id]);
 
     const newprice = Math.round((productSingle.price - (productSingle.price * productSingle.on_sale / 100)) * 100) / 100;
-    //value rating
 
 
     useEffect(() => {
@@ -144,8 +150,8 @@ function DetailsProduct() {
                                     {productSingle?.title}
                                 </div>
                                 <div className="product_rating">
-                                    <Rating name="read-only" value={4} size='large' readOnly />
-                                    <span className='number_of_review'>(2 customer review)</span>
+                                    <Rating name="read-only" value={avgRating} precision={0.5} size='large' readOnly />
+                                    <span className='number_of_review'>({updatedReview.length} customer review)</span>
                                 </div>
                                 <div className="product_intro">
                                     What can you do to save money with online shopping? You may be wondering if finding coupons and sales is time consuming. If you aren't into that, there are other options. You simply need to heed the tips in this piece and act on them.
@@ -235,30 +241,18 @@ function DetailsProduct() {
                                 </div>
 
                                 <div className="reviews_tab_panel">
-                                    <div className="reviews_quantity">{reviews_of_book.length} reviews for '{productSingle.title}'</div>
-                                    {reviews_of_book.map((review, index) => (
-                                        <div className="item_review" key={index}>
-                                            <Avatar className='review_avatar' variant="square" src={review["cover"]} />
-                                            <div className="review_detail">
-                                                <div className="review_name">{review["name"]}</div>
-                                                <div className="review_content">{review["review"]}</div>
-                                                <div className="review_rating">
-                                                    <Rating name="read-only" value={review["rating"]} size='large' readOnly />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                    {filteredListReview.map((review, index) => (
+                                    <div className="reviews_quantity">{updatedReview.length} reviews for '{productSingle.title}'</div>
+                                    {updatedReview.map((review, index) => (
                                         <div className="item_review" key={index}>
                                             <Avatar
                                                 className='review_avatar'
-                                                variant="square" src={user?.img}
+                                                variant="square" src={review?.avt_url}
                                                 sx={{ fontSize: '3rem' }}
                                             >
-                                                {user.img ? <></> : user?.fullname[0]}
+                                                {review.avt_url ? <></> : review?.fullname[0]}
                                             </Avatar>
                                             <div className="review_detail">
-                                                <div className="review_name">{user?.fullname}</div>
+                                                <div className="review_name">{review?.fullname}</div>
                                                 <div className="review_content">{review.review}</div>
                                                 <div className="review_rating">
                                                     <Rating name="read-only" value={parseInt(review.rating)} size='large' readOnly />
@@ -268,43 +262,51 @@ function DetailsProduct() {
                                     ))}
 
                                     <div className="review_add_form">
-                                        <div className="form_title">
-                                            <span>Add a review</span>
-                                            {user ? <>You are only allowed to review once, so please consider carefully !</> : <>Please login before review *</>}
-                                        </div>
-                                        <Form className='form_content'>
-                                            <div className="form_input_row">
-                                                <div className='label'>Your rating *</div>
-                                                <Rating
-                                                    className='rating'
-                                                    name="rating"
-                                                    value={valueRating}
-                                                    onChange={(e) => {
-                                                        setvalueRating(parseInt(e.target.value));
-                                                    }}
-                                                    size='large'
-                                                />
+                                        {updatedReview.some(item => item.user_id === user.id) ?
+                                            <div className="thanks-for-review">
+                                                <CheckCircleFilled style={{ color: '#22d122' }} /> Thanks for your review !
                                             </div>
-                                            <div className="form_input_row">
-                                                <div className='label'>Your review *</div>
-                                                <textarea
-                                                    name="review"
-                                                    id=""
-                                                    cols="30"
-                                                    rows="5"
-                                                    placeholder='Please write your thoughts...'
-                                                    onChange={(e) => {
-                                                        setvalueReview(e.target.value);
-                                                    }}
-                                                >
-                                                </textarea>
-                                            </div>
+                                            :
+                                            <>
+                                                <div className="form_title">
+                                                    <span>Add a review</span>
+                                                    {user ? <>You are only allowed to review once, so please consider carefully !</> : <>Please login before review *</>}
+                                                </div>
+                                                <Form className='form_content'>
+                                                    <div className="form_input_row">
+                                                        <div className='label'>Your rating *</div>
+                                                        <Rating
+                                                            className='rating'
+                                                            name="rating"
+                                                            value={valueRating}
+                                                            onChange={(e) => {
+                                                                setvalueRating(parseInt(e.target.value));
+                                                            }}
+                                                            size='large'
+                                                        />
+                                                    </div>
+                                                    <div className="form_input_row">
+                                                        <div className='label'>Your review *</div>
+                                                        <textarea
+                                                            name="review"
+                                                            id=""
+                                                            cols="30"
+                                                            rows="5"
+                                                            placeholder='Please write your thoughts...'
+                                                            onChange={(e) => {
+                                                                setvalueReview(e.target.value);
+                                                            }}
+                                                        >
+                                                        </textarea>
+                                                    </div>
 
-                                            <div className="form_input_row">
-                                                <div className=""></div>
-                                                <button className='submit_review' onClick={onSubmitReview}>Submit</button>
-                                            </div>
-                                        </Form>
+                                                    <div className="form_input_row">
+                                                        <div className=""></div>
+                                                        <button className='submit_review' onClick={onSubmitReview}>Submit</button>
+                                                    </div>
+                                                </Form>
+                                            </>
+                                        }
                                     </div>
 
                                 </div>

@@ -131,7 +131,8 @@
                     color: #999;
                     font-size: 1.5rem;
                 }
-                p{
+
+                p {
                     font-size: 1.5rem;
                     color: red;
                     display: inline;
@@ -387,6 +388,12 @@
             .review_add_form {
                 margin-top: 20px;
 
+                .thanks-for-review {
+                    font-size: 2.5rem;
+                    margin-bottom: 40px;
+                    
+                }
+
                 .form_title {
                     display: flex;
                     flex-direction: column;
@@ -425,6 +432,7 @@
                             border: none;
                             border-radius: 3px;
                             background-color: #F3F4FA;
+
                             &:focus {
                                 border: 1px solid black;
                             }
@@ -441,6 +449,7 @@
 
                         .rating {
                             width: 100px;
+
                             svg {
                                 width: 20px;
                                 height: 20px;

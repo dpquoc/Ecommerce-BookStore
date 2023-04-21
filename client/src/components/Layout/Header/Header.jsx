@@ -19,15 +19,29 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { logoutUser } from '../../../store/apiReq';
+import axios from "axios";
+import { BASE_URL } from '../../../utils/apiURL';
 
 function Header() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [user, setUser] = useState({});
     const handleLogout = () => {
         logoutUser(dispatch, navigate);
     }
 
-    const user = useSelector((state) => state.auth.login.currentUser)
+    const fetchUserCurrent = async () => {
+        await axios.get(`${BASE_URL}user/showme`, { withCredentials: true })
+          .then(res => {
+            setUser(res.data.data)
+          })
+          .catch(err => {
+            setUser({})
+          })
+      };
+      useEffect(() => {
+        fetchUserCurrent();
+      }, []);
 
     const [cardOpen, setCardOpen] = useState(false)
 
@@ -81,7 +95,7 @@ function Header() {
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
                             >
-                                {user.fullname[0]}
+                                {user.fullname && user.fullname.charAt(0).toUpperCase()}
                             </Avatar>
                             <Menu
                                 anchorEl={anchorEl}
@@ -118,7 +132,7 @@ function Header() {
                                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
-                                <Link to='/profile'>
+                                <Link to={`/profile/${user.id}`}>
                                     <MenuItem sx={{ fontSize: '1.5rem', color: 'black' }}>
                                         Hi, {user.fullname}
                                     </MenuItem>

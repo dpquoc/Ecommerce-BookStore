@@ -5,12 +5,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 .news-main-content{
     display: flex;
     flex-direction: row;
     width: 100%;
+    margin-bottom: 50px;
 }
 .news{
     width: 70%;
@@ -19,6 +19,7 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 50px;
 }
 .sidebar-news{
     width: 28%;

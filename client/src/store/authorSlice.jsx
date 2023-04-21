@@ -18,7 +18,6 @@ const authorSlice = createSlice({
         .addCase(fetchAsyncAuthors.pending, (state, action) => {
             state.authorsStatus = STATUS.LOADING;
         })
-
         .addCase(fetchAsyncAuthors.fulfilled, (state, action) => {
             state.authorsCurrent = action.payload;
             state.authorsStatus = STATUS.SUCCEEDED;
