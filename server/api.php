@@ -36,6 +36,7 @@ if (isset($_COOKIE['jwt'])) {
         if ( $payload['role'] == 'user' ) { $userLevel = 1 ; }
         else if ( $payload['role'] == 'admin' ) { $userLevel = 2 ;}
     }
+    $payload['user_level'] = $userLevel;
 } 
 
 // userLevel = 0 : viewer , 1 : user , 2 : admin
@@ -105,9 +106,12 @@ $routes = [
     //category
     'POST /api.php/category/(\d+)' => 'CategoryController@addCategory@2',
     'GET /api.php/category/(\d+)' => 'CategoryController@getBookCategory@0',
-    'DELETE /api.php/category/(\d+)' => 'CategoryController@deleteCategory@2'
+    'DELETE /api.php/category/(\d+)' => 'CategoryController@deleteCategory@2',
 
-    
+    //order
+    'POST /api.php/order' => 'OrderController@createOrder@0',
+    'GET /api.php/order' => 'OrderController@getOrders@2',
+    'GET /api.php/order/my' => 'OrderController@getMyOrders@1'
 ];
 
 

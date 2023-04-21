@@ -88,6 +88,29 @@ CREATE TABLE USER_LIKE_BOOK (
   FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn)
 );
 
+CREATE TABLE ORDERS (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL DEFAULT -1,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  telephone VARCHAR(255) NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  status ENUM('Pending', 'In Transit', 'Delayed', 'Delivered', 'Cancelled', 'Returned') NOT NULL DEFAULT 'Pending'
+);
+
+
+CREATE TABLE ORDER_ITEM (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  order_id INT NOT NULL,
+  book_isbn INT NOT NULL,
+  quantity INT NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES ORDERS(id),
+  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn)
+);
+
+
 DELIMITER // 
 CREATE PROCEDURE search_books(
   IN search_title VARCHAR(255), 
@@ -136,7 +159,7 @@ sort INT parameter = 1 ( sort from low to high ) ,  = 2 ( from high to low ) , e
 
 /*FIRST ADMIN*/
 INSERT INTO USER (email, username, password, role, fullname)
-VALUES ('', 'originaladmin', '$2y$10$xmBhI4CHFz.zh5gqW151/uFIRHu/GEn4A62XM1TjiEbH7w/3sMdj.', 'admin', 'Original Admin');
+VALUES ('', 'admin', '$2y$10$DVqz9I7oFKR/c0h5juTL3uxQWujtmtE3dY7cunDvH9KfiDrGfgu0K', 'admin', 'Original Admin');
 
 /*AUTHOR*/
 INSERT INTO AUTHOR (name, img_url, description)
