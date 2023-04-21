@@ -134,6 +134,10 @@ sort INT parameter = 1 ( sort from low to high ) ,  = 2 ( from high to low ) , e
 
 /*-------------------------ENRICH DATABASE-------------------------*/
 
+/*FIRST ADMIN*/
+INSERT INTO USER (email, username, password, role, fullname)
+VALUES ('', 'originaladmin', '$2y$10$xmBhI4CHFz.zh5gqW151/uFIRHu/GEn4A62XM1TjiEbH7w/3sMdj.', 'admin', 'Original Admin');
+
 /*AUTHOR*/
 INSERT INTO AUTHOR (name, img_url, description)
 VALUES ('Sarfaraz', 'https://demo.tokopress.com/bookie/wp-content/uploads/sites/7/2016/06/author-01.jpg', 'How to Build a Successful Blog Business is a straight forward guide to building a publishing business online that covers everything from choosing a niche to hiring staff, registering a business to selling it.

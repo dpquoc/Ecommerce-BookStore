@@ -13,6 +13,8 @@ import React, { useState, useEffect } from 'react';
 
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import { BASE_URL } from '../../utils/apiURL';
+import axios from 'axios';
 
 function News() {
     const dispatch = useDispatch();
@@ -20,6 +22,22 @@ function News() {
         dispatch(fetchAsyncProducts());
     }, []);
     const products = useSelector(getAllProducts);
+
+    const [listBlog, setListBlog] = useState([]);
+
+    useEffect(() => {
+        fetchBlog()
+    }, []);
+    const fetchBlog = async () => {
+        await axios.get(`${BASE_URL}blog`, { withCredentials: true })
+            .then(res => {
+                setListBlog(res.data.data)
+            })
+            .catch(err => {
+                console.log(err)
+                setListBlog([])
+            })
+    }
 
     return (
         <>
@@ -45,14 +63,18 @@ function News() {
                 <div className='news-main-content'>
 
                     <div className="news">
+                        {
+                            listBlog.map((blog) => (
+                                <NewsCard
+                                    key={blog.id}
+                                    id={blog.id}
+                                    title={blog.title}
+                                    banner_url={blog.banner_url}
+                                    publish_date={blog.publish_date}
+                                />
 
-                        <NewsCard />
-                        <NewsCard />
-                        <NewsCard />
-                        <NewsCard />
-                        <NewsCard />
-                        <NewsCard />
-
+                            ))
+                        }
                     </div>
                     <div className='sidebar-news'><ListTopProducts topProducts={products} /></div>
                 </div>

@@ -12,6 +12,7 @@ import Profile from '../pages/profile/Profile';
 import About from '../pages/about/About';
 import WishList from '../pages/wishlist/WishList';
 import Search from '../pages/search/Search';
+import Category from '../pages/category/Category';
 
 const publicRoutes = [
     { path: '/', component: Home},
@@ -19,7 +20,7 @@ const publicRoutes = [
     { path: '/products/:id', component: DetailsProduct},  
     { path: '/news', component: News},  
     { path: '/contact', component: Contact},
-    { path: '/detailsNews', component: DetailsNews},
+    { path: '/detailsNews/:id', component: DetailsNews},
     { path: '/about', component: About},
     { path: '/login', component: Login},
     { path: '/about', component: About},
@@ -28,6 +29,7 @@ const publicRoutes = [
     { path: '/profile/:id', component: Profile},
     { path: '/wishlist', component: WishList},
     { path: '/search/:searchForm', component: Search},
+    { path: '/category/:category', component: Category},
     { path: '*', component: NotFound },
 
 ]

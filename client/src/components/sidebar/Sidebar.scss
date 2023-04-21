@@ -19,8 +19,10 @@
     font-size: 1.8rem;
     cursor: pointer;
     padding: 1rem;
+    color: var(--black);
 }
 .categorys .list-categorys .category:hover{
     background-color: #f4f4f4;
     border-radius: 1rem;
+    color: var(--orange);
 }

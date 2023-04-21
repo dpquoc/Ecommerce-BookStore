@@ -71,10 +71,8 @@ class LikelistController {
 
     public function unlikeBook($idRoute = null, $queryParams, $postData, $fromUser) {
         $likelist = new LikelistModel();
-
         // Check if likelist with the given ID exists
         $existingLikelist = $likelist->read(['user_id' => $fromUser['id'] ,'book_isbn' => $idRoute]);
-
         if (!$existingLikelist) {
             http_response_code(404);
             return array(

@@ -95,8 +95,8 @@ function Search() {
         else {
             fetchSearch();
         }
-    }, [search, valueSort,changeFilter,authorStatus]);
-    // &min_price=${changeFilter[0]}&max_price=${changeFilter[1]}
+    }, [search, valueSort,changeFilter,authorStatus,selected]);
+
     const fetchSearch = async () => {
         await axios.get(`${BASE_URL}book?search_title=${search}&sort=${valueSort}&min_price=${changeFilter[0]}&max_price=${changeFilter[1]}`
         , { withCredentials: true })

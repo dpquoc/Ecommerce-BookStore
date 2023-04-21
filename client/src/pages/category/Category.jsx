@@ -8,13 +8,15 @@ import ListProducts from '../../components/listProducts/ListProducts';
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import { getAllProducts, getAllProductsStatus } from '../../store/productSlice';
-import { fetchAsyncProducts } from '../../store/apiReq';
+
 import { STATUS } from '../../utils/status';
 import Loading from '../../components/loading/Loading';
 import Sidebar from '../../components/sidebar/Sidebar';
-
+import { getAllProducts, getAllProductsStatus } from '../../store/productSlice';
+import { fetchAsyncAuthors, fetchAsyncProducts } from '../../store/apiReq';
+import { getAllAuthors } from '../../store/authorSlice';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import { BASE_URL } from '../../utils/apiURL';
@@ -24,7 +26,6 @@ import {
     Slider
 } from 'antd';
 
-import './Wishlist.scss'
 
 const categorys = [
     {
@@ -57,46 +58,42 @@ const categorys = [
     },
 ]
 
-function WishList() {
-
+function Category() {
+    const { category } = useParams();
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(fetchAsyncProducts());
-    }, []);
-    const products = useSelector(getAllProducts);
-    const productStatus = useSelector(getAllProductsStatus);
+
     const [selected, setSelected] = useState("all");
-    const [changeFilter, setChangeFilter] = useState([5, 100]);
-    const [listLiked, setlistLiked] = useState([]);
+    const [changeFilter, setChangeFilter] = useState([5, 50]);
+    const [valueSort, setValueSort] = useState(0);
+
     const handleSelect = (option) => {
         setSelected(option);
     };
-    const handleChangeSelect = (value) => {
-        console.log(`selected ${value}`);
-    };
-    const fetchLiked = async () => {
-        await axios.get(`${BASE_URL}likelist/my`, { withCredentials: true })
-        .then(res => {
-            setlistLiked(res.data.data)
-        })
-        .catch(err => {
-            setlistLiked([])
-        })
-    };
+
+    const [listCategory, setListCategory] = useState([]);
+
+    const products = useSelector(getAllProducts);
 
     useEffect(() => {
-        fetchLiked();
-    }, []);
+        setListCategory([])
+        fetchCategory();
+    }, [category, valueSort, changeFilter, selected]);
 
-    const filteredProducts = products.filter(product => {
-        return listLiked.some(item => item.book_isbn === product.isbn);
-    });
-
+    const fetchCategory = async () => {
+        await axios.get(`${BASE_URL}book?search_category=${category}&sort=${valueSort}&min_price=${changeFilter[0]}&max_price=${changeFilter[1]}`
+            , { withCredentials: true })
+            .then(res => {
+                setListCategory(res.data.data)
+            })
+            .catch(err => {
+                setListCategory([])
+            })
+    };
     return (
         <>
             <div className="container-products">
                 <HeroBanner
-                    title="#wishlist"
+                    title="#category"
                     summary="A place where you can find the books you need!"
                     srcImg={pageHeaderProduct}
                 />
@@ -108,17 +105,10 @@ function WishList() {
                         </Link>
                         <Link
                             underline="hover"
-                            href="/products"
-                            color="inherit"
-                        >
-                            Products
-                        </Link>
-                        <Link
-                            underline="hover"
-                            href="/wishlist"
+                            href={`/category/${category}`}
                             color="text.primary"
                         >
-                            Wishlist
+                            Category: {category}
                         </Link>
                     </Breadcrumbs>
                     <div className='sort-content'>
@@ -132,36 +122,47 @@ function WishList() {
                                     Sale
                                 </div>
                             </div>
-                            <p className='text'>"{selected === "sale" ? filteredProducts.filter((card) => (card.onsale > 0)).length : filteredProducts.length} total products liked"</p>
-                            
+                            <p className='text'>"{selected === "sale" ? listCategory?.filter((card) => (card.onsale > 0))?.length : listCategory.length} total products"</p>
+                            <div className='sort-price'>
+                                <p>Sort by price: </p>
+                                <Select
+                                    onChange={(value) => setValueSort(value)}
+                                    defaultValue={valueSort}
+                                    style={{ width: 120 }}
+                                    options={[
+                                        { value: 0, label: 'None' },
+                                        { value: 1, label: 'Increase' },
+                                        { value: 2, label: 'Decrease' }
+                                    ]}
+                                />
+                            </div>
                         </div>
                         <div className='right-content'>
-                            
+                            <div className='filter'>
+                                Filter price: ${changeFilter[0]} - ${changeFilter[1]}
+                                <br /><br />
+                                <Slider range defaultValue={changeFilter} onChange={(e) => setChangeFilter(e)} />
+                                {/* <div className='ResetBtn'>Reset</div> */}
+                            </div>
                         </div>
                     </div>
                     <div className='products-content'>
                         <div className='left-content'>
                             {
-                                productStatus === STATUS.LOADING ?
-                                    <Loading />
-                                    :
-                                    selected === "sale" ?
-                                        <ListProducts
-                                            products={filteredProducts.filter((card) => (card.onsale > 0))}
-                                            style={{ backgroundColor: '#eee' }}
-                                            liked={true}
-                                        />
-                                        : <ListProducts
-                                            products={filteredProducts}
-                                            style={{ backgroundColor: '#eee' }}
-                                            liked={true}
-                                        />
+                                selected === "sale" ?
+                                    <ListProducts
+                                        products={listCategory.filter((card) => (card.onsale > 0))}
+                                        style={{ backgroundColor: '#eee' }}
+                                    />
+                                    : <ListProducts
+                                        products={listCategory}
+                                        style={{ backgroundColor: '#eee' }}
+                                    />
                             }
-
                         </div>
                         <div className='right-content' style={{ paddingTop: '10px' }}>
                             <Sidebar categorys={categorys} />
-                            <ListTopProducts topProducts={products} /> 
+                            <ListTopProducts topProducts={products} />
                         </div>
                     </div>
                 </div>
@@ -170,4 +171,4 @@ function WishList() {
     );
 }
 
-export default WishList;
+export default Category;

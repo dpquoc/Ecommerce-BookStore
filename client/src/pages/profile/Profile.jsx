@@ -112,14 +112,14 @@ export default function Profile() {
               <img src="https://gust.com/assets/blank_slate/Gust_Profile_CoverPhoto_Blank-21edf1e2890708d5a507204f49afc10b7dc58eb7baea100b68a1bc2c96948297.png" alt="" />
             </div>
             <div className="avatar">
-              {userCurrent.avt_url ?
+              {/* {userCurrent.avt_url ?
                 <Avatar className='avatar_img' src={userCurrent.avt_url} sx={{ fontSize: '3.5rem' }}>
                 </Avatar>
-                :
+                : */}
                 <Avatar className='avatar_img' src={avt_url} sx={{ fontSize: '3.5rem' }}> 
                   {(userCurrent.fullname && userCurrent.fullname.charAt(0).toUpperCase())} 
                 </Avatar>
-              }
+              {/* } */}
 
               <IconButton className='edit-avt' color="primary" aria-label="upload picture" component="label">
                 <input hidden accept="image/*" type="file" onChange={handlePreviewAvt} />

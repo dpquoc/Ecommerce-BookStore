@@ -50,7 +50,7 @@ function BookCard({ isbn, title, author_id, img, price, onsale, liked }) {
 
 
     const handleAddToCart = () => {
-        dispatch(addToCart({ isbn, title, newprice, img }))
+        dispatch(addToCart({ isbn, title, newprice, img ,quantity:1}))
     }
     useEffect(() => {
         dispatch(fetchAsyncAuthors())
@@ -112,7 +112,7 @@ function BookCard({ isbn, title, author_id, img, price, onsale, liked }) {
             </Link>
             <div className='box-content'>
                 <div className="author-starts">
-                    <h3>by <a href="">{author[0]?.name}</a></h3>
+                    <h3>by <Link to={`/search/${author[0]?.name}`}>{author[0]?.name}</Link></h3>
                     {avgRating ? <span><StarFilled style={{ color: 'gold' }} /> {avgRating}</span> : <></>}
                 </div>
                 <h2>{title}</h2>

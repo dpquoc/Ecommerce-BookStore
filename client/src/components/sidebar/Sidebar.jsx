@@ -1,5 +1,6 @@
 import React from 'react'
 import './Sidebar.scss'
+import { Link } from 'react-router-dom'
 
 export default function Sidebar(props) {
     const { categorys } = props;
@@ -11,9 +12,9 @@ export default function Sidebar(props) {
                 {
                     categorys.map((category) => {
                         return (
-                            <div key={category.id} className='category'>
+                            <Link key={category.id} className='category' to={`/category/${category.name}`}>
                                 {category.name}
-                            </div>
+                            </Link>
                         )
                     })
                 }

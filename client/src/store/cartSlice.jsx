@@ -31,7 +31,7 @@ const cartSlice = createSlice({
         const existingItem = state.itemsList[existingItemIndex];
         existingItem.quantity++;
         existingItem.totalPrice = Math.round((existingItem.totalPrice + newItem.newprice) * 100) / 100;
-        state.totalQuantity++;
+        state.totalQuantity = state.totalQuantity + existingItem.quantity;
         state.totalAmount = Math.round((state.totalAmount + newItem.newprice) * 100) / 100;
         state.itemsList[existingItemIndex] = existingItem;
       } else {
@@ -39,11 +39,11 @@ const cartSlice = createSlice({
           isbn: newItem.isbn,
           title: newItem.title,
           newprice: newItem.newprice,
-          quantity: 1,
+          quantity: newItem.quantity,
           totalPrice: newItem.newprice,
           img: newItem.img,
         });
-        state.totalQuantity++;
+        state.totalQuantity = state.totalQuantity + newItem.quantity;
         state.totalAmount = Math.round((state.totalAmount + newItem.newprice) * 100) / 100;
       }
 

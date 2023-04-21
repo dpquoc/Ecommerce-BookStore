@@ -16,7 +16,8 @@ import { STATUS } from '../../utils/status';
 import Loading from '../../components/loading/Loading';
 import axios from 'axios';
 import { BASE_URL } from '../../utils/apiURL';
-
+import { Link } from 'react-router-dom';
+import { addToCart } from "../../store/cartSlice";
 const number_of_product = 20
 
 function DetailsProduct() {
@@ -38,6 +39,9 @@ function DetailsProduct() {
     const [listReview, setlistReview] = useState([]);
     const [valueRating, setvalueRating] = useState(0);
     const [valueReview, setvalueReview] = useState("");
+    const [listCategory, setListCategory] = useState([]);
+
+    const [valueQuantity, setValueQuantity] = useState(1);
 
     const onSubmitReview = async (e) => {
         e.preventDefault();
@@ -105,6 +109,19 @@ function DetailsProduct() {
 
     const newprice = Math.round((productSingle.price - (productSingle.price * productSingle.on_sale / 100)) * 100) / 100;
 
+    //list category
+    const fetchCategory = async () => {
+        await axios.get(`${BASE_URL}category/${id}`, { withCredentials: true })
+            .then(res => {
+                setListCategory(res.data.data)
+            })
+            .catch(err => {
+                setListCategory([])
+            })
+    };
+    useEffect(() => {
+        fetchCategory();
+    }, []);
 
     useEffect(() => {
         document.querySelector(".detail_product_wrapper input").setAttribute("value", 1);
@@ -129,6 +146,10 @@ function DetailsProduct() {
             });
         }
     }, []);
+
+    const handleAddtoCart = (id, title, newprice, img, ) => {
+        dispatch(addToCart({ id, title, newprice, img, quantity: valueQuantity }))
+    }
 
     return (
         <>
@@ -161,20 +182,24 @@ function DetailsProduct() {
                                     <div className="number_of_product">{number_of_product} in stock</div>
                                     <div className="quantity_and_button">
                                         <div className="quantity">
-                                            <input type="number" name="" min={1} max={number_of_product} />
+                                            <input type="number" name="" min={1} max={number_of_product} onChange={(e) => setValueQuantity(e.target.value)}/>
                                         </div>
-                                        <div className="add_button">ADD TO CART</div>
+                                        <div className="add_button" onClick={() =>
+                                            handleAddtoCart(id, productSingle?.title, newprice, productSingle?.image_url, valueQuantity)}>
+                                            ADD TO CART
+                                        </div>
                                     </div>
                                 </div>
 
 
                                 <div className="product_categories">
                                     <span>Categories:</span>
-                                    Culture, Life Style
-                                </div>
-                                <div className="products_tag">
-                                    <span>Tags:</span>
-                                    Dream, Music, Sound
+                                    {listCategory.map((item, index) => (
+                                        <div key={index} style={{ display: 'inline' }}>
+                                            <Link to={`/category/${item}`}>{item}</Link>
+                                            {index !== listCategory.length - 1 ? ", " : "."}
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -241,7 +266,7 @@ function DetailsProduct() {
                                 </div>
 
                                 <div className="reviews_tab_panel">
-                                    <div className="reviews_quantity">{updatedReview.length} reviews for '{productSingle.title}'</div>
+                                    <div className="reviews_quantity">{updatedReview?.length} reviews for '{productSingle?.title}'</div>
                                     {updatedReview.map((review, index) => (
                                         <div className="item_review" key={index}>
                                             <Avatar
@@ -249,13 +274,13 @@ function DetailsProduct() {
                                                 variant="square" src={review?.avt_url}
                                                 sx={{ fontSize: '3rem' }}
                                             >
-                                                {review.avt_url ? <></> : review?.fullname[0]}
+                                                {review.avt_url ? <></> : (review.fullname && review.fullname.charAt(0).toUpperCase())}
                                             </Avatar>
                                             <div className="review_detail">
                                                 <div className="review_name">{review?.fullname}</div>
-                                                <div className="review_content">{review.review}</div>
+                                                <div className="review_content">{review?.review}</div>
                                                 <div className="review_rating">
-                                                    <Rating name="read-only" value={parseInt(review.rating)} size='large' readOnly />
+                                                    <Rating name="read-only" value={parseInt(review?.rating)} size='large' readOnly />
                                                 </div>
                                             </div>
                                         </div>

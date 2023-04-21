@@ -191,6 +191,13 @@
                 color: #616A6B;
                 margin-right: 5px;
             }
+            a{
+                cursor: pointer;
+                color: var(--black);
+            }
+            a:hover{
+                color: var(--orange);
+            }
         }
 
         .products_tag {
