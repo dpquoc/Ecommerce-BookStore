@@ -59,48 +59,52 @@ function DetailsProduct() {
             })
         window.location.reload();
     }
-    const fetchReview = async () => {
-        await axios.get(`${BASE_URL}review`, { withCredentials: true })
-            .then(res => {
-                setlistReview(res.data.data)
-            })
-            .catch(err => {
-                setlistReview([])
-            })
-    };
     useEffect(() => {
         fetchReview();
     }, []);
+    const fetchReview = async () => {
+        try {
+            await axios.get(`${BASE_URL}review`, { withCredentials: true })
+                .then(res => {
+                    setlistReview(res.data.data)
+                })
+                .catch(err => {
+                    setlistReview([])
+                })
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
 
+    useEffect(() => {
+        fetchAllUser();
+    }, []);
     const fetchAllUser = async () => {
         await axios.get(`${BASE_URL}user`, { withCredentials: true })
             .then(res => {
-
                 setAllUser(res.data.data);
             })
             .catch(err => {
                 setAllUser([]);
-
             })
     };
-    useEffect(() => {
-        fetchAllUser();
-    }, []);
 
-    const filteredListReview = listReview.filter(item => item.book_isbn === id);
-    const updatedReview = filteredListReview.map(item => {
+
+    const filteredListReview = listReview?.filter(item => item.book_isbn === id);
+    const updatedReview = filteredListReview?.map(item => {
         const userId = item.user_id;
-        const userMatch = AllUser.find(userItem => userItem.id === userId);
+        const userMatch = AllUser?.find(userItem => userItem.id === userId);
         if (userMatch) {
             return {
                 ...item,
-                fullname: userMatch.fullname,
-                avt_url: userMatch.avt_url
+                fullname: userMatch?.fullname,
+                avt_url: userMatch?.avt_url
             };
         }
         return item;
     });
-    const avgRating = updatedReview.reduce((total, item) => total + parseInt(item.rating), 0) / updatedReview.length;
+    const avgRating = updatedReview?.reduce((total, item) => total + parseInt(item.rating), 0) / updatedReview?.length;
 
     useEffect(() => {
         if (productSingle && productSingle.author_id)
@@ -147,7 +151,7 @@ function DetailsProduct() {
         }
     }, []);
 
-    const handleAddtoCart = (id, title, newprice, img, ) => {
+    const handleAddtoCart = (id, title, newprice, img,) => {
         dispatch(addToCart({ id, title, newprice, img, quantity: valueQuantity }))
     }
 
@@ -182,7 +186,7 @@ function DetailsProduct() {
                                     <div className="number_of_product">{number_of_product} in stock</div>
                                     <div className="quantity_and_button">
                                         <div className="quantity">
-                                            <input type="number" name="" min={1} max={number_of_product} onChange={(e) => setValueQuantity(e.target.value)}/>
+                                            <input type="number" name="" min={1} max={number_of_product} onChange={(e) => setValueQuantity(e.target.value)} />
                                         </div>
                                         <div className="add_button" onClick={() =>
                                             handleAddtoCart(id, productSingle?.title, newprice, productSingle?.image_url, valueQuantity)}>
@@ -267,7 +271,7 @@ function DetailsProduct() {
 
                                 <div className="reviews_tab_panel">
                                     <div className="reviews_quantity">{updatedReview?.length} reviews for '{productSingle?.title}'</div>
-                                    {updatedReview.map((review, index) => (
+                                    {updatedReview?.map((review, index) => (
                                         <div className="item_review" key={index}>
                                             <Avatar
                                                 className='review_avatar'
@@ -287,7 +291,7 @@ function DetailsProduct() {
                                     ))}
 
                                     <div className="review_add_form">
-                                        {updatedReview.some(item => item.user_id === user.id) ?
+                                        {updatedReview?.some(item => item.user_id === user.id) ?
                                             <div className="thanks-for-review">
                                                 <CheckCircleFilled style={{ color: '#22d122' }} /> Thanks for your review !
                                             </div>

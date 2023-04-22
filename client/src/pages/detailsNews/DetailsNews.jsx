@@ -35,7 +35,6 @@ function DetailsNews() {
                     summary="Brings you news about books and authors along with our picks for great reads!"
                     srcImg={pageHeaderProduct}
                 />
-                <SearchForm />
                 <div className="details-news-container">
                     <div className="news-content">
                         <h3 className="news-date" >

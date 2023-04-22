@@ -184,7 +184,9 @@ function Products() {
                         </div>
                         <div className='right-content' style={{ paddingTop: '10px' }}>
                             <Sidebar categorys={categorys} />
-                            <ListTopProducts topProducts={products} />
+                            {
+                                <ListTopProducts topProducts={products} />
+                            }
                         </div>
                     </div>
                 </div>

@@ -32,7 +32,7 @@ function NewsCard({id, title, banner_url, publish_date}) {
                 </div>
                 <div className="card-content">
                     {summary}
-                    <Link to={`/detailsNews/${id}`}>Countinue Reading →</Link>
+                    <Link to={`/news/${id}`}>Countinue Reading →</Link>
                 </div>
                 
                 <div className="card-date"><CalendarOutlined/> {publish_date}</div>

@@ -25,23 +25,11 @@ import { BASE_URL } from '../../../utils/apiURL';
 function Header() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [user, setUser] = useState({});
     const handleLogout = () => {
         logoutUser(dispatch, navigate);
     }
 
-    const fetchUserCurrent = async () => {
-        await axios.get(`${BASE_URL}user/showme`, { withCredentials: true })
-          .then(res => {
-            setUser(res.data.data)
-          })
-          .catch(err => {
-            setUser({})
-          })
-      };
-      useEffect(() => {
-        fetchUserCurrent();
-      }, []);
+    const user = useSelector((state) => state.auth.login.currentUser)
 
     const [cardOpen, setCardOpen] = useState(false)
 

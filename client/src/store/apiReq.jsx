@@ -42,7 +42,12 @@ export const loginUser = async (user, dispatch, navigate) => {
                 //         dispatch(loginSuccess(res.data));
                 //     }, 3000);
             }
-        });
+        })
+        .catch((err) => {
+            dispatch(loginFalse());
+            console.log(err);
+        }
+        );
 };
 export const logoutUser = async (dispatch, navigate) => {
     dispatch(logOutStart());
@@ -87,8 +92,6 @@ export const fetchAsyncProducts = createAsyncThunk('books/get', async () => {
     const response = await fetch(`${BASE_URL}book`);
     const data = await response.json();
     return data.data;
-
-
 });
 
 export const fetchAsyncProductSingle = createAsyncThunk('book-single/get', async (id) => {

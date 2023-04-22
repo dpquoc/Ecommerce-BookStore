@@ -48,8 +48,11 @@ import { reviews } from '../../components/data/reviews';
 import { getAllProducts } from '../../store/productSlice';
 import { fetchAsyncProducts } from '../../store/apiReq';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { BASE_URL } from '../../utils/apiURL';
 
 function Home() {
+    window.scrollTo(0, 0);
     const [expanded, setExpanded] = React.useState('');
 
     const handleChange1 = (panel) => (event, newExpanded) => {
@@ -59,11 +62,59 @@ function Home() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchAsyncProducts());
-      }, []);
+    }, []);
 
     const products = useSelector(getAllProducts);
 
-    window.scrollTo(0, 0);
+    const [AllUser, setAllUser] = useState([]);
+    const [listReview, setlistReview] = useState([]);
+
+    useEffect(() => {
+        fetchReview();
+    }, []);
+    const fetchReview = async () => {
+        try {
+            await axios.get(`${BASE_URL}review`, { withCredentials: true })
+                .then(res => {
+                    setlistReview(res.data.data)
+                })
+                .catch(err => {
+                    setlistReview([])
+                })
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+
+    useEffect(() => {
+        fetchAllUser();
+    }, []);
+    const fetchAllUser = async () => {
+        await axios.get(`${BASE_URL}user`, { withCredentials: true })
+            .then(res => {
+                setAllUser(res.data.data);
+            })
+            .catch(err => {
+                setAllUser([]);
+            })
+    };
+
+    const userReview = listReview.map(item => {
+        const userId = item.user_id;
+        const userMatch = AllUser.find(userItem => userItem.id === userId);
+        const bookMatch = products.find(bookItem => bookItem.isbn === item.book_isbn);
+        if (userMatch && bookMatch) {
+            return {
+                ...item,
+                fullname: userMatch.fullname,
+                avt_url: userMatch.avt_url,
+                title: bookMatch.title,
+            };
+        }
+        return item;
+    });
+
     return (
 
         <div id="container-home">
@@ -166,13 +217,11 @@ function Home() {
 
 
 
-
-            <ListReview title="Review" reviews={reviews} />
-
+            <ListReview title="Review" reviews={userReview} />
 
 
             <div className="FAQs">
-                <QuestionAnswerSharpIcon sx={{fontSize:'2.8rem'}}/>&nbsp;&nbsp;<h1 className='list-title'> FA<span className='highlight'>Q</span>s </h1>
+                <QuestionAnswerSharpIcon sx={{ fontSize: '2.8rem' }} />&nbsp;&nbsp;<h1 className='list-title'> FA<span className='highlight'>Q</span>s </h1>
                 <br></br>
                 <div className="tag111">
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange1('panel1')} style={{ border: '1px solid', backgroundColor: 'white' }}>
@@ -190,7 +239,7 @@ function Home() {
 
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography sx={{fontSize:'2rem'}}>
+                            <Typography sx={{ fontSize: '2rem' }}>
                                 Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
                                 Aliquam eget maximus est, id dignissim quam.
                             </Typography>
@@ -211,7 +260,7 @@ function Home() {
 
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography sx={{fontSize:'2rem'}}>
+                            <Typography sx={{ fontSize: '2rem' }}>
                                 Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
                                 Aliquam eget maximus est, id dignissim quam.
                             </Typography>
@@ -233,7 +282,7 @@ function Home() {
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography sx={{fontSize:'2rem'}}>
+                            <Typography sx={{ fontSize: '2rem' }}>
                                 Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
                                 Aliquam eget maximus est, id dignissim quam.
                             </Typography>
@@ -253,7 +302,7 @@ function Home() {
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography sx={{fontSize:'2rem'}}>
+                            <Typography sx={{ fontSize: '2rem' }}>
                                 Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
                                 Aliquam eget maximus est, id dignissim quam.
                             </Typography>

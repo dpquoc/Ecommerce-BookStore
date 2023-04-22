@@ -47,8 +47,8 @@ function News() {
                     summary="Brings you news about books and authors along with our picks for great reads!"
                     srcImg={pageHeaderProduct}
                 />
-                <SearchForm />
-                <Breadcrumbs aria-label="breadcrumb" sx={{ marginLeft: '40px', marginBottom: '30px', fontSize: '1.6rem' }}>
+
+                <Breadcrumbs aria-label="breadcrumb" sx={{ marginLeft: '40px', marginBottom: '30px', fontSize: '1.6rem',marginTop: '40px' }}>
                     <Link underline="hover" color="inherit" href="/">
                         Home
                     </Link>
