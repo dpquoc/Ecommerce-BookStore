@@ -19,9 +19,8 @@ function CardReview({ book_isbn, title, fullname, avt_url, rating, review }) {
                 </div>
                 <div className="review_words">
                     <p>{review}</p>
-
                 </div>
-                <div className="review-books">Review <Link to={`/products/${book_isbn}`}>{title} </Link></div>
+                <div className="review-books">Review <Link to={`/products/${book_isbn}`}>{title}</Link></div>
             </div>
         </>
     );

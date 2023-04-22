@@ -44,6 +44,7 @@ function DetailsProduct() {
     const [valueQuantity, setValueQuantity] = useState(1);
 
     const onSubmitReview = async (e) => {
+        if(!user) return alert("Please login to review");
         e.preventDefault();
         const post = {
             rating: valueRating,
@@ -194,8 +195,6 @@ function DetailsProduct() {
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div className="product_categories">
                                     <span>Categories:</span>
                                     {listCategory.map((item, index) => (

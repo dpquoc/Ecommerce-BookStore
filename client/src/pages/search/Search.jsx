@@ -198,7 +198,7 @@ function Search() {
                             }
 
                         </div>
-                        <div className='right-content' style={{ paddingTop: '10px' }}>
+                        <div className='right-content' style={{ paddingTop: '10px',marginBottom:'50px' }}>
                             <Sidebar categorys={categorys} />
                             <ListTopProducts topProducts={products} />
                         </div>
