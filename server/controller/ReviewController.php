@@ -47,9 +47,9 @@ class ReviewController {
                 "data" => $reviews
             );
         } else {
-            http_response_code(404);
+            http_response_code(200);
             return array(
-                "status" => "error",
+                "status" => "success",
                 "message" => "No reviews found."
             );
         }

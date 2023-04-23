@@ -158,8 +158,26 @@ sort INT parameter = 1 ( sort from low to high ) ,  = 2 ( from high to low ) , e
 /*-------------------------ENRICH DATABASE-------------------------*/
 
 /*FIRST ADMIN*/
+/*Password: toiyeulaptrinhweb*/
 INSERT INTO USER (email, username, password, role, fullname)
 VALUES ('', 'admin', '$2y$10$DVqz9I7oFKR/c0h5juTL3uxQWujtmtE3dY7cunDvH9KfiDrGfgu0K', 'admin', 'Original Admin');
+
+/*USERS*/
+INSERT INTO USER (email, username, password, role, fullname, bday, avt_url)
+VALUES ('john@example.com', 'johnsmith', '$2y$10$DVqz9I7oFKR/c0h5juTL3uxQWujtmtE3dY7cunDvH9KfiDrGfgu0K', 'user', 'John Smith', '1990-01-01', NULL);
+
+INSERT INTO USER (email, username, password, role, fullname, bday, avt_url)
+VALUES ('lisa@example.com', 'lisawhite', '$2y$10$DVqz9I7oFKR/c0h5juTL3uxQWujtmtE3dY7cunDvH9KfiDrGfgu0K', 'user', 'Lisa White', NULL, NULL);
+
+INSERT INTO USER (email, username, password, role, fullname, bday, avt_url)
+VALUES ('sam@example.com', 'samjones', '$2y$10$DVqz9I7oFKR/c0h5juTL3uxQWujtmtE3dY7cunDvH9KfiDrGfgu0K', 'user', 'Sam Jones', '1995-08-15', NULL);
+
+INSERT INTO USER (email, username, password, role, fullname, bday, avt_url)
+VALUES ('jane@example.com', 'jane_doe', '$2y$10$DVqz9I7oFKR/c0h5juTL3uxQWujtmtE3dY7cunDvH9KfiDrGfgu0K', 'admin', 'Jane Doe', '1985-05-23', NULL);
+
+INSERT INTO USER (email, username, password, role, fullname, bday, avt_url)
+VALUES ('jim@example.com', 'jimbrown', '$2y$10$DVqz9I7oFKR/c0h5juTL3uxQWujtmtE3dY7cunDvH9KfiDrGfgu0K', 'user', 'Jim Brown', '1982-12-31', NULL);
+
 
 /*AUTHOR*/
 INSERT INTO AUTHOR (name, img_url, description)
@@ -248,6 +266,38 @@ VALUES
     ('Culture', 14),
     ('Life Style', 15),
     ('Business', 16);
+
+
+/*REVIEW*/
+INSERT INTO REVIEW (rating, review, user_id, book_isbn)
+VALUES (4, 'I really enjoyed this book and would definitely recommend it to others!', 2, 1);
+
+INSERT INTO REVIEW (rating, review, user_id, book_isbn)
+VALUES (3, 'This book was pretty good, but I didn\'t love it.', 3, 5);
+
+INSERT INTO REVIEW (rating, review, user_id, book_isbn)
+VALUES (5, 'Absolutely loved this book! Would read it again and again!', 4, 10);
+
+INSERT INTO REVIEW (rating, review, user_id, book_isbn)
+VALUES (2, 'I wasn\'t a fan of this book. It was too slow-paced for my liking.', 5, 14);
+
+INSERT INTO REVIEW (rating, review, user_id, book_isbn)
+VALUES (4, 'I found this book to be informative and engaging. Would recommend to anyone interested in the topic.', 6, 16);
+
+INSERT INTO REVIEW (rating, review, user_id, book_isbn)
+VALUES (3, 'I thought this book was just okay. It didn\'t really hold my interest.', 2, 3);
+
+INSERT INTO REVIEW (rating, review, user_id, book_isbn)
+VALUES (5, 'I absolutely loved this book! It was well-written and kept me engaged from beginning to end.', 3, 6);
+
+INSERT INTO REVIEW (rating, review, user_id, book_isbn)
+VALUES (4, 'This was a great book! I learned a lot and would recommend it to others.', 4, 8);
+
+INSERT INTO REVIEW (rating, review, user_id, book_isbn)
+VALUES (2, 'I didn\'t really enjoy this book. It was too predictable for my liking.', 5, 12);
+
+INSERT INTO REVIEW (rating, review, user_id, book_isbn)
+VALUES (5, 'This book was fantastic! I couldn\'t put it down and would definitely read it again.', 6, 15);
 
 /*BLOG*/
 INSERT INTO BLOG (title, banner_url, publish_date, tag, content)
