@@ -8,7 +8,7 @@
   padding: 10px;
 }
 
-.author {
+.author-review {
   display: block;
   position: relative;
   margin: 0;
@@ -17,7 +17,7 @@
   z-index: 1;
 }
 
-.author div {
+.author-review div {
   position: absolute;
   display: flex;
   max-width: 100%;
@@ -30,12 +30,12 @@
 
 }
 
-.author h4,
-.author span {
+.author-review h4,
+.author-review span {
   left: 40%;
 }
 
-.author h4 {
+.author-review h4 {
   position: absolute;
   padding-bottom: 3px;
   bottom: 50%;
@@ -44,7 +44,7 @@
   font-size: 1.8rem;
 }
 
-.author span {
+.author-review span {
   top: 50%;
   padding-top: 3px;
   margin: 0;

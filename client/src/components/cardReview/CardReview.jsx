@@ -7,7 +7,7 @@ function CardReview({ book_isbn, title, fullname, avt_url, rating, review }) {
     return (
         <>
             <div className="review_item">
-                <div className="author">
+                <div className="author-review">
                     <Avatar
                         variant="square" src={avt_url ?? ''}
                         sx={{ fontSize: '3rem' }}
