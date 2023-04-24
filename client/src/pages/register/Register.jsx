@@ -42,7 +42,7 @@ const Register = () => {
                 .min(4, "Họ và tên yêu cầu tối thiểu 4 kí tự"),
             username: Yup.string()
                 .required("Yêu cầu nhập tài khoản")
-                .min(4, "Tài khoản yêu cầu tối thiểu 4 kí tự"),
+                .min(3, "Tài khoản yêu cầu tối thiểu 3 kí tự"),
             password: Yup.string()
                 .required("Yêu cầu nhập đúng mật khẩu")
                 .matches(/^(?=.*[0-9])/, "color"),
