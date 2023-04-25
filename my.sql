@@ -29,6 +29,8 @@ CREATE TABLE USER (
   username VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   role ENUM('user', 'admin') DEFAULT 'user',
+  token VARCHAR(255) DEFAULT '',
+  token_expiry DATETIME DEFAULT NULL,
   fullname VARCHAR(255) NOT NULL,
   bday DATE ,
   avt_url VARCHAR(255)
