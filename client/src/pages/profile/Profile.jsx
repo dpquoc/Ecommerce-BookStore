@@ -21,7 +21,6 @@ export default function Profile() {
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmpassword] = useState('');
   const [bday, setBday] = useState('');
-  const [avt_url, setAvt_url] = useState('');
 
   const fetchUserCurrent = async () => {
     await axios.get(`${BASE_URL}user/showme`, { withCredentials: true })
@@ -44,27 +43,26 @@ export default function Profile() {
     setAvt_url(userCurrent.avt_url || '');
   }, [userCurrent]);
 
-  useEffect(() => {
-    return () => {
-      avt_url && URL.revokeObjectURL(avt_url);
-    }
-  }, [avt_url]);
 
-  const handlePreviewAvt = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      setAvt_url(reader.result);
-    };
-    reader.readAsDataURL(file);
-    // const file = e.target.files[0];
-    // file.preview = URL.createObjectURL(file);
-    // setAvt_url(file.preview);
-  }
-  console.log(avt_url);
-
+  const presetKey = "oj8g6q4c"
+  const cloudName = "dgmlu00dr"
+  const [avt_url, setAvt_url] = useState('');
+  
   const handleUpdate = async (e) => {
     e.preventDefault();
+    //set avt_url
+    const file = e.target?.files[0]
+    const formData = new FormData()
+    formData.append("file", file)
+    formData.append("upload_preset", presetKey)
+    await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData)
+      .then(res => {
+        setAvt_url(res.data.secure_url)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      //update user
     const dataUpdate = {
       username: username,
       email: email,
@@ -112,17 +110,18 @@ export default function Profile() {
               <img src="https://gust.com/assets/blank_slate/Gust_Profile_CoverPhoto_Blank-21edf1e2890708d5a507204f49afc10b7dc58eb7baea100b68a1bc2c96948297.png" alt="" />
             </div>
             <div className="avatar">
-              {/* {userCurrent.avt_url ?
-                <Avatar className='avatar_img' src={userCurrent.avt_url} sx={{ fontSize: '3.5rem' }}>
-                </Avatar>
-                : */}
-                <Avatar className='avatar_img' src={avt_url} sx={{ fontSize: '3.5rem' }}> 
-                  {(userCurrent.fullname && userCurrent.fullname.charAt(0).toUpperCase())} 
-                </Avatar>
-              {/* } */}
+              {
+                userCurrent.avt_url ?
+                  <Avatar className='avatar_img' src={userCurrent.avt_url} sx={{ fontSize: '3.5rem' }}>
+                  </Avatar>
+                  :
+                  <Avatar className='avatar_img' sx={{ fontSize: '3.5rem' }}>
+                    {(userCurrent.fullname && userCurrent.fullname.charAt(0).toUpperCase())}
+                  </Avatar>
+              }
 
               <IconButton className='edit-avt' color="primary" aria-label="upload picture" component="label">
-                <input hidden accept="image/*" type="file" onChange={handlePreviewAvt} />
+                <input hidden accept="image/*" type="file" onChange={handleUpdate} />
                 <CameraFilled style={{ color: '#0000008b', fontSize: '2rem' }} />
               </IconButton>
 
@@ -172,14 +171,14 @@ export default function Profile() {
               <label htmlFor="">BIRTHDAY</label>
               <input type="date" defaultValue={bday} onChange={(e) => setBday(e.target.value)} />
             </div>
-            <div className="lable_text">
+            {/* <div className="lable_text">
               <label htmlFor="">NEW PASSWORD</label>
               <input type="text" />
             </div>
             <div className="lable_text">
               <label htmlFor="">CONFIRM PASSWORD</label>
               <input type="text" />
-            </div>
+            </div> */}
             <button className='update_button' onClick={handleUpdate}>UPDATE PROFILE</button>
           </div>
 

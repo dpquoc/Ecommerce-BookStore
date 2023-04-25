@@ -187,7 +187,7 @@ function DetailsProduct() {
                                     <div className="number_of_product">{number_of_product} in stock</div>
                                     <div className="quantity_and_button">
                                         <div className="quantity">
-                                            <input type="number" name="" min={1} max={number_of_product} onChange={(e) => setValueQuantity(e.target.value)} />
+                                            <input type="number" name="" min={1} max={number_of_product} onChange={(e) => setValueQuantity(parseInt(e.target.value))} />
                                         </div>
                                         <div className="add_button" onClick={() =>
                                             handleAddtoCart(id, productSingle?.title, newprice, productSingle?.image_url, valueQuantity)}>
@@ -290,7 +290,7 @@ function DetailsProduct() {
                                     ))}
 
                                     <div className="review_add_form">
-                                        {updatedReview?.some(item => item.user_id === user.id) ?
+                                        {updatedReview?.some(item => item.user_id === user?.id) ?
                                             <div className="thanks-for-review">
                                                 <CheckCircleFilled style={{ color: '#22d122' }} /> Thanks for your review !
                                             </div>

@@ -45,7 +45,7 @@ const Register = () => {
                 .min(3, "Tài khoản yêu cầu tối thiểu 3 kí tự"),
             password: Yup.string()
                 .required("Yêu cầu nhập đúng mật khẩu")
-                .matches(/^(?=.*[0-9])/, "color"),
+                .matches(/^(?=.*[0-9])/, "Mật khẩu phải chứa ít nhất 8 kí tự"),
             confirm: Yup.string()
                 .oneOf([Yup.ref("password"), null], "Nhập lại mật khẩu không chính xác")
                 .required("Yêu cầu nhập lại mật khẩu"),

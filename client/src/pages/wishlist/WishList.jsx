@@ -147,7 +147,7 @@ function WishList() {
                                     :
                                     selected === "sale" ?
                                         <ListProducts
-                                            products={filteredProducts.filter((card) => (card.onsale > 0))}
+                                            products={filteredProducts?.filter((card) => (card.onsale > 0))}
                                             style={{ backgroundColor: '#eee' }}
                                             liked={true}
                                         />
@@ -157,7 +157,6 @@ function WishList() {
                                             liked={true}
                                         />
                             }
-
                         </div>
                         <div className='right-content' style={{ paddingTop: '10px',marginBottom:'50px' }}>
                             <Sidebar categorys={categorys} />

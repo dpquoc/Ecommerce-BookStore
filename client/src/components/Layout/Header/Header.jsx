@@ -17,7 +17,7 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import LockResetOutlinedIcon from '@mui/icons-material/LockResetOutlined';
 import { logoutUser } from '../../../store/apiReq';
 import axios from "axios";
 import { BASE_URL } from '../../../utils/apiURL';
@@ -31,6 +31,21 @@ function Header() {
 
     const user = useSelector((state) => state.auth.login.currentUser)
 
+    const [userCurrent, setUserCurrent] = useState({});
+    const fetchUserCurrent = async () => {
+        await axios.get(`${BASE_URL}user/showme`, { withCredentials: true })
+            .then(res => {
+                setUserCurrent(res.data.data)
+            })
+            .catch(err => {
+                setUserCurrent({})
+            })
+    };
+    useEffect(() => {
+        
+        fetchUserCurrent();
+    }, [userCurrent]);
+
     const [cardOpen, setCardOpen] = useState(false)
 
     const quantityTotal = useSelector((state) => state.cart.totalQuantity)
@@ -39,7 +54,7 @@ function Header() {
 
     useEffect(() => {
         dispatch(getCartTotal());
-      }, [cartItems])
+    }, [cartItems])
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -75,16 +90,30 @@ function Header() {
                 {
                     user
                         ? (<>
-                            <Avatar
-                                onClick={handleClick}
-                                size="small"
-                                sx={{ ml: 2 }}
-                                aria-controls={open ? 'account-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                            >
-                                {user.fullname && user.fullname.charAt(0).toUpperCase()}
-                            </Avatar>
+                            {
+                                userCurrent.avt_url ?
+                                <Avatar
+                                    onClick={handleClick}
+                                    size="small"
+                                    sx={{ ml: 2 }}
+                                    aria-controls={open ? 'account-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    src={userCurrent?.avt_url}
+                                >
+                                </Avatar>
+                                :
+                                <Avatar
+                                    onClick={handleClick}
+                                    size="small"
+                                    sx={{ ml: 2 }}
+                                    aria-controls={open ? 'account-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                >
+                                    {userCurrent?.fullname && userCurrent?.fullname.charAt(0).toUpperCase()}
+                                </Avatar>
+                            }
                             <Menu
                                 anchorEl={anchorEl}
                                 id="account-menu"
@@ -120,13 +149,13 @@ function Header() {
                                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
-                                <Link to={`/profile/${user.id}`}>
+                                <Link to={`/profile/${userCurrent?.id}`}>
                                     <MenuItem sx={{ fontSize: '1.5rem', color: 'black' }}>
-                                        Hi, {user.fullname}
+                                        Hi, {userCurrent?.fullname}
                                     </MenuItem>
                                 </Link>
                                 <Divider />
-                                {user.role === 'admin' && (
+                                {userCurrent?.role === 'admin' && (
                                     <Link to='/admin'>
                                         <MenuItem onClick={handleClose} sx={{ fontSize: '1.5rem', color: 'black' }}>
                                             <ListItemIcon>
@@ -137,11 +166,19 @@ function Header() {
                                     </Link>
                                 )}
                                 <Link to='/wishlist'>
-                                    <MenuItem onClick={handleClose} sx={{ fontSize: '1.5rem' , color: 'black' }}>
+                                    <MenuItem onClick={handleClose} sx={{ fontSize: '1.5rem', color: 'black' }}>
                                         <ListItemIcon>
                                             <FavoriteIcon />
                                         </ListItemIcon>
                                         WishList
+                                    </MenuItem>
+                                </Link>
+                                <Link to='/changepassword'>
+                                    <MenuItem onClick={handleClose} sx={{ fontSize: '1.5rem', color: 'black' }}>
+                                        <ListItemIcon>
+                                            <LockResetOutlinedIcon style={{fontSize:'1.5rem'}} />
+                                        </ListItemIcon>
+                                        Change password
                                     </MenuItem>
                                 </Link>
                                 <MenuItem onClick={handleLogout} sx={{ fontSize: '1.5rem' }}>
