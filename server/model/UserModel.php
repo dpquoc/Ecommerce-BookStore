@@ -91,6 +91,16 @@ class UserModel {
             return false;
         }
     }
+    
+    public function setTokenExpiry($userId, $expiryTime = 5) {
+        $query = "UPDATE USER SET token_expiry= DATE_ADD(NOW(), INTERVAL $expiryTime MINUTE) WHERE id='$userId'";
+        if ($this->connection->query($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 
 ?>
