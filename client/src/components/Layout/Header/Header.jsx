@@ -33,16 +33,16 @@ function Header() {
 
     const [userCurrent, setUserCurrent] = useState({});
     const fetchUserCurrent = async () => {
-        await axios.get(`${BASE_URL}user/showme`, { withCredentials: true })
-            .then(res => {
-                setUserCurrent(res.data.data)
-            })
-            .catch(err => {
-                setUserCurrent({})
-            })
+        try {
+            const res = await axios.get(`${BASE_URL}user/showme`, { withCredentials: true })
+            setUserCurrent(res?.data.data)
+        }
+        catch (err) {
+            setUserCurrent({})
+        }
     };
     useEffect(() => {
-        
+
         fetchUserCurrent();
     }, [userCurrent]);
 
@@ -92,27 +92,27 @@ function Header() {
                         ? (<>
                             {
                                 userCurrent.avt_url ?
-                                <Avatar
-                                    onClick={handleClick}
-                                    size="small"
-                                    sx={{ ml: 2 }}
-                                    aria-controls={open ? 'account-menu' : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={open ? 'true' : undefined}
-                                    src={userCurrent?.avt_url}
-                                >
-                                </Avatar>
-                                :
-                                <Avatar
-                                    onClick={handleClick}
-                                    size="small"
-                                    sx={{ ml: 2 }}
-                                    aria-controls={open ? 'account-menu' : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={open ? 'true' : undefined}
-                                >
-                                    {userCurrent?.fullname && userCurrent?.fullname.charAt(0).toUpperCase()}
-                                </Avatar>
+                                    <Avatar
+                                        onClick={handleClick}
+                                        size="small"
+                                        sx={{ ml: 2 }}
+                                        aria-controls={open ? 'account-menu' : undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={open ? 'true' : undefined}
+                                        src={userCurrent.avt_url}
+                                    >
+                                    </Avatar>
+                                    :
+                                    <Avatar
+                                        onClick={handleClick}
+                                        size="small"
+                                        sx={{ ml: 2 }}
+                                        aria-controls={open ? 'account-menu' : undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={open ? 'true' : undefined}
+                                    >
+                                        {userCurrent.fullname && userCurrent.fullname.charAt(0).toUpperCase()}
+                                    </Avatar>
                             }
                             <Menu
                                 anchorEl={anchorEl}
@@ -176,7 +176,7 @@ function Header() {
                                 <Link to='/changepassword'>
                                     <MenuItem onClick={handleClose} sx={{ fontSize: '1.5rem', color: 'black' }}>
                                         <ListItemIcon>
-                                            <LockResetOutlinedIcon style={{fontSize:'1.5rem'}} />
+                                            <LockResetOutlinedIcon style={{ fontSize: '1.5rem' }} />
                                         </ListItemIcon>
                                         Change password
                                     </MenuItem>

@@ -18,9 +18,8 @@ export default function Profile() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [fullname, setFullname] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmpassword, setConfirmpassword] = useState('');
   const [bday, setBday] = useState('');
+  const [avt_url, setAvt_url] = useState('');
 
   const fetchUserCurrent = async () => {
     await axios.get(`${BASE_URL}user/showme`, { withCredentials: true })
@@ -35,50 +34,58 @@ export default function Profile() {
     fetchUserCurrent();
   }, []);
 
-  useEffect(() => {
-    setUsername(userCurrent.username || '');
-    setEmail(userCurrent.email || '');
-    setFullname(userCurrent.fullname || '');
-    setBday(userCurrent.bday || '');
-    setAvt_url(userCurrent.avt_url || '');
-  }, [userCurrent]);
-
 
   const presetKey = "oj8g6q4c"
   const cloudName = "dgmlu00dr"
-  const [avt_url, setAvt_url] = useState('');
-  
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    //set avt_url
-    const file = e.target?.files[0]
-    const formData = new FormData()
-    formData.append("file", file)
-    formData.append("upload_preset", presetKey)
-    await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData)
-      .then(res => {
-        setAvt_url(res.data.secure_url)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-      //update user
-    const dataUpdate = {
-      username: username,
-      email: email,
+
+
+  const handleUpdate = async() => {
+    //update user
+
+    const dataUpdate1 = {
       fullname: fullname,
       bday: bday,
       avt_url: avt_url
     }
-    await axios.patch(`${BASE_URL}user/${id}`, dataUpdate, { withCredentials: true })
+    await axios.patch(`${BASE_URL}user/${id}`, dataUpdate1, { withCredentials: true })
       .then(res => {
         console.log(res.data);
       })
       .catch(err => {
         console.log(err);
       })
-    window.location.reload();
+      window.location.reload();
   }
+
+  const handleUpdateImg = async (e) => {
+    //set avt_url
+    const file = e.target && e.target.files && e.target.files[0] ? e.target.files[0] : null;
+    const formData = new FormData()
+    formData.append("file", file)
+    formData.append("upload_preset", presetKey)
+    await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData)
+      .then(res => {
+        setAvt_url(res.data.secure_url);
+        //update user
+        const dataUpdate = {
+          avt_url: res.data.secure_url
+        }
+        axios.patch(`${BASE_URL}user/${id}`, dataUpdate, { withCredentials: true })
+          .then(res => {
+            console.log(res.data);
+            window.location.reload();
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+
+  
 
   const birthdate = new Date(userCurrent?.bday);
   const now = new Date();
@@ -100,6 +107,13 @@ export default function Profile() {
     document.querySelector(".Update_form").style.display = "none";
     document.querySelector(".order_list_content").style.display = "flex";
   };
+  useEffect(() => {
+    setUsername(userCurrent.username || '');
+    setEmail(userCurrent.email || '');
+    setFullname(userCurrent.fullname || '');
+    setBday(userCurrent.bday || '');
+    setAvt_url(userCurrent.avt_url || '');
+  }, [userCurrent]);
 
   return (
     <>
@@ -121,7 +135,7 @@ export default function Profile() {
               }
 
               <IconButton className='edit-avt' color="primary" aria-label="upload picture" component="label">
-                <input hidden accept="image/*" type="file" onChange={handleUpdate} />
+                <input hidden accept="image/*" type="file" onChange={handleUpdateImg} />
                 <CameraFilled style={{ color: '#0000008b', fontSize: '2rem' }} />
               </IconButton>
 
@@ -157,11 +171,11 @@ export default function Profile() {
           <div className="Update_form">
             <div className="lable_text">
               <label htmlFor="">USERNAME</label>
-              <input type="text" defaultValue={username} onChange={(e) => setUsername(e.target.value)} />
+              <input type="text" defaultValue={username} readOnly onChange={(e) => setUsername(e.target.value)} />
             </div>
             <div className="lable_text">
               <label htmlFor="">EMAIL ADDRESS</label>
-              <input type="text" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
+              <input type="text" defaultValue={email} readOnly onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="lable_text">
               <label htmlFor="">FULL NAME</label>
