@@ -13,6 +13,9 @@ import About from '../pages/about/About';
 import WishList from '../pages/wishlist/WishList';
 import Search from '../pages/search/Search';
 import Category from '../pages/category/Category';
+import ChangePassword from '../pages/changePassword/ChangePassword';
+import ForgotPassword from '../pages/forgotPassword/ForgotPassword';
+import ResetPassword from '../pages/resetPassword/ResetPassword';
 
 const publicRoutes = [
     { path: '/', component: Home},
@@ -27,6 +30,9 @@ const publicRoutes = [
     { path: '/register', component: Register},
     { path: '/checkout', component: Checkout},
     { path: '/profile/:id', component: Profile},
+    { path: '/changepassword', component: ChangePassword},
+    { path: '/forgotpassword', component: ForgotPassword},
+    { path: '/reset-password', component: ResetPassword},
     { path: '/wishlist', component: WishList},
     { path: '/search/:searchForm', component: Search},
     { path: '/category/:category', component: Category},

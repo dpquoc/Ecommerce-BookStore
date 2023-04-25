@@ -18,8 +18,6 @@ export default function Profile() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [fullname, setFullname] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmpassword, setConfirmpassword] = useState('');
   const [bday, setBday] = useState('');
   const [avt_url, setAvt_url] = useState('');
 
@@ -36,51 +34,58 @@ export default function Profile() {
     fetchUserCurrent();
   }, []);
 
-  useEffect(() => {
-    setUsername(userCurrent.username || '');
-    setEmail(userCurrent.email || '');
-    setFullname(userCurrent.fullname || '');
-    setBday(userCurrent.bday || '');
-    setAvt_url(userCurrent.avt_url || '');
-  }, [userCurrent]);
 
-  useEffect(() => {
-    return () => {
-      avt_url && URL.revokeObjectURL(avt_url);
-    }
-  }, [avt_url]);
+  const presetKey = "oj8g6q4c"
+  const cloudName = "dgmlu00dr"
 
-  const handlePreviewAvt = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      setAvt_url(reader.result);
-    };
-    reader.readAsDataURL(file);
-    // const file = e.target.files[0];
-    // file.preview = URL.createObjectURL(file);
-    // setAvt_url(file.preview);
-  }
-  console.log(avt_url);
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    const dataUpdate = {
-      username: username,
-      email: email,
+  const handleUpdate = async() => {
+    //update user
+
+    const dataUpdate1 = {
       fullname: fullname,
       bday: bday,
       avt_url: avt_url
     }
-    await axios.patch(`${BASE_URL}user/${id}`, dataUpdate, { withCredentials: true })
+    await axios.patch(`${BASE_URL}user/${id}`, dataUpdate1, { withCredentials: true })
       .then(res => {
         console.log(res.data);
       })
       .catch(err => {
         console.log(err);
       })
-    window.location.reload();
+      window.location.reload();
   }
+
+  const handleUpdateImg = async (e) => {
+    //set avt_url
+    const file = e.target && e.target.files && e.target.files[0] ? e.target.files[0] : null;
+    const formData = new FormData()
+    formData.append("file", file)
+    formData.append("upload_preset", presetKey)
+    await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData)
+      .then(res => {
+        setAvt_url(res.data.secure_url);
+        //update user
+        const dataUpdate = {
+          avt_url: res.data.secure_url
+        }
+        axios.patch(`${BASE_URL}user/${id}`, dataUpdate, { withCredentials: true })
+          .then(res => {
+            console.log(res.data);
+            window.location.reload();
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+
+  
 
   const birthdate = new Date(userCurrent?.bday);
   const now = new Date();
@@ -102,6 +107,13 @@ export default function Profile() {
     document.querySelector(".Update_form").style.display = "none";
     document.querySelector(".order_list_content").style.display = "flex";
   };
+  useEffect(() => {
+    setUsername(userCurrent.username || '');
+    setEmail(userCurrent.email || '');
+    setFullname(userCurrent.fullname || '');
+    setBday(userCurrent.bday || '');
+    setAvt_url(userCurrent.avt_url || '');
+  }, [userCurrent]);
 
   return (
     <>
@@ -112,17 +124,18 @@ export default function Profile() {
               <img src="https://gust.com/assets/blank_slate/Gust_Profile_CoverPhoto_Blank-21edf1e2890708d5a507204f49afc10b7dc58eb7baea100b68a1bc2c96948297.png" alt="" />
             </div>
             <div className="avatar">
-              {/* {userCurrent.avt_url ?
-                <Avatar className='avatar_img' src={userCurrent.avt_url} sx={{ fontSize: '3.5rem' }}>
-                </Avatar>
-                : */}
-                <Avatar className='avatar_img' src={avt_url} sx={{ fontSize: '3.5rem' }}> 
-                  {(userCurrent.fullname && userCurrent.fullname.charAt(0).toUpperCase())} 
-                </Avatar>
-              {/* } */}
+              {
+                userCurrent.avt_url ?
+                  <Avatar className='avatar_img' src={userCurrent.avt_url} sx={{ fontSize: '3.5rem' }}>
+                  </Avatar>
+                  :
+                  <Avatar className='avatar_img' sx={{ fontSize: '3.5rem' }}>
+                    {(userCurrent.fullname && userCurrent.fullname.charAt(0).toUpperCase())}
+                  </Avatar>
+              }
 
               <IconButton className='edit-avt' color="primary" aria-label="upload picture" component="label">
-                <input hidden accept="image/*" type="file" onChange={handlePreviewAvt} />
+                <input hidden accept="image/*" type="file" onChange={handleUpdateImg} />
                 <CameraFilled style={{ color: '#0000008b', fontSize: '2rem' }} />
               </IconButton>
 
@@ -158,11 +171,11 @@ export default function Profile() {
           <div className="Update_form">
             <div className="lable_text">
               <label htmlFor="">USERNAME</label>
-              <input type="text" defaultValue={username} onChange={(e) => setUsername(e.target.value)} />
+              <input type="text" defaultValue={username} readOnly onChange={(e) => setUsername(e.target.value)} />
             </div>
             <div className="lable_text">
               <label htmlFor="">EMAIL ADDRESS</label>
-              <input type="text" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
+              <input type="text" defaultValue={email} readOnly onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="lable_text">
               <label htmlFor="">FULL NAME</label>
@@ -172,14 +185,14 @@ export default function Profile() {
               <label htmlFor="">BIRTHDAY</label>
               <input type="date" defaultValue={bday} onChange={(e) => setBday(e.target.value)} />
             </div>
-            <div className="lable_text">
+            {/* <div className="lable_text">
               <label htmlFor="">NEW PASSWORD</label>
               <input type="text" />
             </div>
             <div className="lable_text">
               <label htmlFor="">CONFIRM PASSWORD</label>
               <input type="text" />
-            </div>
+            </div> */}
             <button className='update_button' onClick={handleUpdate}>UPDATE PROFILE</button>
           </div>
 

@@ -49,11 +49,14 @@ function ListReview({ reviews, title }) {
                         className="mySwiper"
                         style={{ height: "300px" }}
                     >
-                        {reviews?.filter(card => card.rating === "5" && card.review !== null).map((card, index) => (
-                            <SwiperSlide key={index}>
-                                <CardReview   {...card} />
-                            </SwiperSlide>
-                        ))}
+                        {reviews?.filter(card => card.rating === "5" && card.review !== null)
+                            .map((card, index) => ({ ...card, index })) 
+                            .reverse()
+                            .map(({ index, ...card }) => (
+                                <SwiperSlide key={index}>
+                                    <CardReview {...card} />
+                                </SwiperSlide>
+                            ))}
                     </Swiper>
                 </div>
             </div>
