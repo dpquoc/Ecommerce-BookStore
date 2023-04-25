@@ -112,7 +112,12 @@ $routes = [
     //order
     'POST /api.php/order' => 'OrderController@createOrder@0',
     'GET /api.php/order' => 'OrderController@getOrders@2',
-    'GET /api.php/order/my' => 'OrderController@getMyOrders@1'
+    'GET /api.php/order/my' => 'OrderController@getMyOrders@1',
+
+    //recovery password
+    'POST /api.php/forgot-password' => 'AuthController@forgotPassword@0',
+    'POST /api.php/reset-password' => 'AuthController@resetPassword@0'
+
 ];
 
 
