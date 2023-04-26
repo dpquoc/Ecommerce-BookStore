@@ -117,6 +117,24 @@ class OrderController {
         }
     }
 
+    public function updateOrder($idRoute = null, $queryParams, $postData, $fromUser) {
+        $order = new OrderModel();
+        $allowedKeys = ['status'];
+        if ($order->update($idRoute,$postData, $allowedKeys)) {
+            http_response_code(200);
+            return array(
+                "status" => "success",
+                "message" => "Order updated successfully."
+            );
+        } else {
+            http_response_code(400);
+            return array(
+                "status" => "error",
+                "message" => "Unable to order blog. Please check your data and try again."
+            );
+        }
+    }
+
 }
 
 ?>
