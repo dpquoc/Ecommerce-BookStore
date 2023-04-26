@@ -5,6 +5,11 @@ import GlobalCSS from './components/css'
 import 'antd/dist/reset.css';
 import { Provider } from 'react-redux'
 import store from './store'
+import axios from 'axios';
+
+axios.defaults.headers.common = {
+  'ngrok-skip-browser-warning': 'mycontent'
+};
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
