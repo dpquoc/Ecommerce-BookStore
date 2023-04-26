@@ -5,8 +5,8 @@ require_once __DIR__ . '/../model/UserModel.php';
 class UserController {
     public function getUsers($idRoute = null, $queryParams, $postData, $fromUser) {
         $user = new UserModel();
-        $allowedKeys = ['id', 'role', 'fullname', 'bday', 'avt_url'];
-        $select = ['id', 'role', 'fullname', 'avt_url'];
+        $allowedKeys = ['id', 'role', 'fullname', 'bday', 'avt_url', 'username', 'email'];
+        $select = ['id', 'role', 'fullname', 'avt_url', 'bday' , 'username' , 'email'];
 
         $users = $user->read($queryParams, $allowedKeys , $select);
         if (!empty($users)) {
