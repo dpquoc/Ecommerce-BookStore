@@ -44,7 +44,7 @@ function Header() {
     useEffect(() => {
 
         fetchUserCurrent();
-    }, [userCurrent]);
+    }, []);
 
     const [cardOpen, setCardOpen] = useState(false)
 
