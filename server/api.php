@@ -113,6 +113,7 @@ $routes = [
     'POST /api.php/order' => 'OrderController@createOrder@0',
     'GET /api.php/order' => 'OrderController@getOrders@2',
     'GET /api.php/order/my' => 'OrderController@getMyOrders@1',
+    'PATCH /api.php/order/(\d+)' => 'OrderController@updateOrder@2',
 
     //recovery password
     'POST /api.php/forgot-password' => 'AuthController@forgotPassword@0',
