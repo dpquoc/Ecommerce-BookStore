@@ -125,6 +125,10 @@ class BookModel {
             return false;
         }
     }
+
+    public function getLastInsertId() {
+        return $this->connection->insert_id;
+    }
     
 }
 
