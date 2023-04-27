@@ -9,9 +9,11 @@ class BookController {
         $allowedKeys = ['isbn', 'title', 'price', 'on_sale', 'image_url', 'author_id', 'cover_designer', 'pages', 'publisher', 'lang', 'released', 'description'];
         if ($book->create($postData, $allowedKeys)) {
             http_response_code(201);
+            $book_id = $book->getLastInsertId();
             return array(
                 "status" => "success",
-                "message" => "Book created successfully."
+                "message" => "Book created successfully.",
+                "isbn" => $book_id,
             );
         } else {
             http_response_code(400);
