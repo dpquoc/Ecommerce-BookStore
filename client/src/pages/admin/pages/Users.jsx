@@ -350,7 +350,7 @@ function Users() {
                 <div className="table-data">
                     <div className="order">
                         <div className="head">
-                            <div className='head-title'>Recent User <span>({filteredUsers.length} users)</span></div>
+                            <div className='head-title'>Recent User <span>({filteredUsers.length ?? 0} users)</span></div>
                             <div className='add-product' onClick={() => setModal1Open(true)}><PlusOutlined /> Add</div>
                         </div>
                         <Table columns={columns} dataSource={data} />
@@ -435,7 +435,7 @@ function Users() {
                                 </Form.Item>
                                 <Form.Item label="Birthday">
                                     <DatePicker
-                                        value={dayjs(selectedEdit?.bday)}
+                                        value={dayjs(selectedEdit?.bday?? new Date())}
                                         onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, bday: dayjs(e).format('YYYY-MM-DD') }))} />
                                 </Form.Item>
                                 <Form.Item label="Avatar" >

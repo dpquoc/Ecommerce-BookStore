@@ -87,8 +87,6 @@ function Products() {
             })
     };
 
-
-
     return (
         <>
             <div className="container-products">

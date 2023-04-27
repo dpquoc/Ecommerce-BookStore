@@ -581,7 +581,7 @@ function Products() {
                 <div className="table-data">
                     <div className="order">
                         <div className="head">
-                            <div className='head-title'>List Books <span>({books.length} books)</span></div>
+                            <div className='head-title'>List Books <span>({books.length?? 0} books)</span></div>
                             <div className='add-product' onClick={() => setModal1Open(true)}><PlusOutlined /> Add</div>
 
                         </div>
