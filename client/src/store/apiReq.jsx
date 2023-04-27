@@ -79,7 +79,7 @@ export const registerUser = async (user, dispatch, navigate) => {
                     dispatch(registerSuccess());
                     navigate("/login");
                 } else {
-                    alert("User đã bị trùng, Vui lòng đăng kí lại email hoặc username khác");
+                    alert("Đã có lỗi xảy ra vui lòng thử lại với email hoặc username khác");
                     dispatch(registerFalse());
                 }
             });

@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import SearchForm from '../../components/searchForm/SearchForm';
 import { Avatar } from "@mui/material"
 import Rating from '@mui/material/Rating';
-import { Form } from "antd";
-import { CheckCircleFilled } from '@ant-design/icons'
+import { Form, Modal } from "antd";
+import { CheckCircleFilled, EditFilled, DeleteFilled, WarningFilled } from '@ant-design/icons'
 import { useLocation } from 'react-router-dom';
 import ScrollToTop from '../../utils/srcolltoTop';
 import { useParams } from 'react-router-dom';
@@ -30,9 +30,9 @@ function DetailsProduct() {
     }, [id]);
 
     const productSingle = useSelector(getProductSingle);
-    const productSingleStatus = useSelector(getSingleProductStatus);
+
     const author = useSelector(getAuthor)
-    const authorStatus = useSelector(getAuthorStatus)
+
     const user = useSelector((state) => state?.auth?.login?.currentUser);
 
     const [AllUser, setAllUser] = useState([]);
@@ -44,7 +44,7 @@ function DetailsProduct() {
     const [valueQuantity, setValueQuantity] = useState(1);
 
     const onSubmitReview = async (e) => {
-        if(!user) return alert("Please login to review");
+        if (!user) return alert("Please login to review");
         e.preventDefault();
         const post = {
             rating: valueRating,
@@ -58,11 +58,8 @@ function DetailsProduct() {
             .catch(err => {
                 console.log(err);
             })
-        window.location.reload();
     }
-    useEffect(() => {
-        fetchReview();
-    }, []);
+
     const fetchReview = async () => {
         try {
             await axios.get(`${BASE_URL}review`, { withCredentials: true })
@@ -90,7 +87,9 @@ function DetailsProduct() {
                 setAllUser([]);
             })
     };
-
+    useEffect(() => {
+        fetchReview();
+    }, [listReview]);
 
     const filteredListReview = listReview?.filter(item => item.book_isbn === id);
     const updatedReview = filteredListReview?.map(item => {
@@ -151,9 +150,66 @@ function DetailsProduct() {
             });
         }
     }, []);
+    //api get review id
+
+
 
     const handleAddtoCart = (id, title, newprice, img,) => {
         dispatch(addToCart({ id, title, newprice, img, quantity: valueQuantity }))
+    }
+    const [selectedDelete, setSelectedDelete] = useState(null);
+    const [selectedReview, setSelectedReview] = useState(null);
+    const [modal4Open, setModal4Open] = useState(false);
+    const [modal3Open, setModal3Open] = useState(false);
+
+    const handleDeleteReview = async (id) => {
+        try {
+            await axios.delete(`${BASE_URL}review/${id}`, { withCredentials: true })
+                .then(res => {
+                    console.log(res.data.message)
+                    setModal4Open(false)
+                });
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    const [reviewId, setReviewId] = useState([]);
+
+    const fetchReviewId = async (id_review) => {
+        try {
+            await axios.get(`${BASE_URL}review/${id_review}`, { withCredentials: true })
+                .then(res => {
+                    setReviewId(res.data.data)
+                    setModal3Open(true)
+                })
+                .catch(err => {
+                    setReviewId([])
+                })
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    const handleEditReview = async (id) => {
+        const dataUpdateReview = {
+            rating: reviewId.rating,
+            review: reviewId.review,
+            book_isbn: reviewId.book_isbn,
+        }
+        console.log(id)
+        try {
+            await axios.patch(`${BASE_URL}review/${id}`, dataUpdateReview, { withCredentials: true })
+                .then(res => {
+                    console.log(res.data)
+                    setModal3Open(false)
+                });
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
     return (
@@ -187,7 +243,7 @@ function DetailsProduct() {
                                     <div className="number_of_product">{number_of_product} in stock</div>
                                     <div className="quantity_and_button">
                                         <div className="quantity">
-                                            <input type="number" name="" min={1} max={number_of_product} onChange={(e) => setValueQuantity(e.target.value)} />
+                                            <input type="number" name="" min={1} max={number_of_product} onChange={(e) => setValueQuantity(parseInt(e.target.value))} />
                                         </div>
                                         <div className="add_button" onClick={() =>
                                             handleAddtoCart(id, productSingle?.title, newprice, productSingle?.image_url, valueQuantity)}>
@@ -285,12 +341,72 @@ function DetailsProduct() {
                                                 <div className="review_rating">
                                                     <Rating name="read-only" value={parseInt(review?.rating)} size='large' readOnly />
                                                 </div>
+
                                             </div>
+
+                                            {user?.role === 'admin' ?
+                                                <div className='admin-edit' >
+                                                    {user?.id === review?.user_id ?
+                                                        <EditFilled className='edit' onClick={() => {setSelectedReview(review.id);fetchReviewId(review.id)}} /> : <></>}
+                                                    <DeleteFilled className='delete' onClick={() => { setSelectedDelete(review.id); setModal4Open(true) }} />
+                                                </div>
+                                                : <></>}
+                                            {user?.role === 'user' && user?.id === review?.user_id ?
+                                                <div className='admin-edit' >
+                                                    <EditFilled className='edit' onClick={() => {setSelectedReview(review.id);fetchReviewId(review.id)}} />
+                                                </div>
+                                                : <></>}
+
                                         </div>
                                     ))}
+                                    <Modal
+                                        centered
+
+                                        open={modal4Open}
+                                        onOk={() => handleDeleteReview(selectedDelete)}
+                                        onCancel={() => setModal4Open(false)}
+                                    >
+                                        <h1><WarningFilled style={{ color: 'red' }} /> Warning </h1>
+                                        <h2>Are you sure you want to delete this review?</h2>
+                                    </Modal>
+                                    <Modal
+                                        centered
+                                        open={modal3Open}
+                                        onOk={() => handleEditReview(selectedReview)}
+                                        onCancel={() => setModal3Open(false)}
+                                    >
+                                        <h1>Edit Review</h1>
+                                        <Form className='form_content'>
+                                            <div className="form_input_row">
+                                                <div className='label'>Your rating *</div>
+                                                <Rating
+                                                    className='rating'
+                                                    name="rating"
+                                                    value={parseInt(reviewId?.rating)}
+                                                    onChange={(e) =>
+                                                        setReviewId(prevState => ({ ...prevState, rating: e.target.value }))}
+                                                    size='large'
+                                                />
+                                            </div>
+                                            <div className="form_input_row">
+                                                <div className='label'>Your review *</div>
+                                                <textarea
+                                                    name="review"
+                                                    id=""
+                                                    cols="30"
+                                                    rows="5"
+                                                    value={reviewId?.review}
+                                                    placeholder='Please write your thoughts...'
+                                                    onChange={(e) =>
+                                                        setReviewId(prevState => ({ ...prevState, review: e.target.value }))}
+                                                >
+                                                </textarea>
+                                            </div>
+                                        </Form>
+                                    </Modal>
 
                                     <div className="review_add_form">
-                                        {updatedReview?.some(item => item.user_id === user.id) ?
+                                        {updatedReview?.some(item => item.user_id === user?.id) ?
                                             <div className="thanks-for-review">
                                                 <CheckCircleFilled style={{ color: '#22d122' }} /> Thanks for your review !
                                             </div>
@@ -327,7 +443,6 @@ function DetailsProduct() {
                                                         >
                                                         </textarea>
                                                     </div>
-
                                                     <div className="form_input_row">
                                                         <div className=""></div>
                                                         <button className='submit_review' onClick={onSubmitReview}>Submit</button>

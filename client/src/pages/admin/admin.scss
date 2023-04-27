@@ -24,22 +24,20 @@ li {
 	--grey: #eee;
 	--dark-grey: #AAAAAA;
 	--dark: #342E37;
-	--red: #DB504A;
+	--red: #dd1710;
+	--light-red: #eb4f4f;
 	--yellow: #FFCE26;
 	--light-yellow: #FFF2C6;
 	--orange: #FD7238;
 	--light-orange: #FFE0D3;
+	--brown: #935c0a;
 }
 
 html {
 	overflow-x: hidden;
 }
 
-body.dark {
-	--light: #0C0C1E;
-	--grey: #060714;
-	--dark: #FBFBFB;
-}
+
 
 body
 {
@@ -50,17 +48,23 @@ body
 
 
 .logoName{
-	font-size: 3rem;
+	font-size: 4rem;
 	color: var(--black);
 }
 .logoName span{
-	font-size: 3.4rem;
+	font-size: 4.4rem;
 	color: var(--orange);
 }
 
 /* SIDEBAR */
 
-
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: 500;
+}
+p{
+	margin-bottom: 0;
+}
 
 
 /* NAVBAR */
@@ -266,36 +270,40 @@ body
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	
 }
 #content main .box-info li:nth-child(1) .bx {
-	background: var(--light-blue);
-	color: var(--orange);
+
+	color: var(--brown);
 }
 #content main .box-info li:nth-child(2) .bx {
-	background: var(--light-yellow);
-	color: var(--yellow);
+
+	color: var(--blue);
 }
 #content main .box-info li:nth-child(3) .bx {
-	background: var(--light-orange);
+
 	color: var(--orange);
+}
+#content main .box-info li:nth-child(4) .bx {
+	color: var(--yellow);
 }
 #content main .box-info li .text h3 {
 	font-size: 24px;
 	font-weight: 600;
 	color: var(--dark);
+	margin-bottom: 10px;
 }
 #content main .box-info li .text p {
 	color: var(--dark);	
+	margin-bottom: 0;
+	font-size: 15px;
 }
-
-
-
 
 
 #content main .table-data {
 	display: flex;
 	flex-wrap: wrap;
-	grid-gap: 24px;
+	grid-gap: 10px;
 	margin-top: 24px;
 	width: 100%;
 	color: var(--dark);
@@ -305,6 +313,7 @@ body
 	background: var(--light);
 	padding: 24px;
 	overflow-x: auto;
+	width: 100%;
 }
 #content main .table-data .head {
 	display: flex;
@@ -312,10 +321,15 @@ body
 	grid-gap: 16px;
 	margin-bottom: 24px;
 }
-#content main .table-data .head h3 {
+#content main .table-data .head .head-title {
 	margin-right: auto;
 	font-size: 24px;
 	font-weight: 600;
+	span{
+		font-size: 18px;
+		font-weight: 450;
+		
+	}
 }
 #content main .table-data .head .bx {
 	cursor: pointer;
@@ -325,51 +339,6 @@ body
 	flex-grow: 1;
 	flex-basis: 500px;
 }
-#content main .table-data .order table {
-	width: 100%;
-	border-collapse: collapse;
-}
-#content main .table-data .order table th {
-	padding-bottom: 12px;
-	font-size: 13px;
-	text-align: left;
-	border-bottom: 1px solid var(--grey);
-}
-#content main .table-data .order table td {
-	padding: 16px 0;
-}
-#content main .table-data .order table tr td:first-child {
-	display: flex;
-	align-items: center;
-	grid-gap: 12px;
-	padding-left: 6px;
-}
-#content main .table-data .order table td img {
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;
-	object-fit: cover;
-}
-#content main .table-data .order table tbody tr:hover {
-	background: var(--grey);
-}
-#content main .table-data .order table tr td .status {
-	font-size: 10px;
-	padding: 6px 16px;
-	color: var(--light);
-	border-radius: 20px;
-	font-weight: 700;
-}
-#content main .table-data .order table tr td .status.completed {
-	background: var(--blue);
-}
-#content main .table-data .order table tr td .status.process {
-	background: var(--yellow);
-}
-#content main .table-data .order table tr td .status.pending {
-	background: var(--orange);
-}
-
 
 #content main .table-data .todo {
 	flex-grow: 1;
@@ -403,8 +372,35 @@ body
 /* MAIN */
 /* CONTENT */
 
+.icon-edit{
+	color: var(--blue);
+	cursor: pointer;
 
+}
+.icon-edit:hover{
+	color: var(--light-blue);
 
+}
+.icon-delete{
+	color: var(--red);
+	cursor: pointer;
+}
+.icon-delete:hover{
+	color: var(--light-red);
+
+}
+
+.order .head .add-product{
+	cursor: pointer;
+	font-size: 1.8rem;
+	padding: 0.6rem 2rem;
+	background-color:var(--blue);
+	color: #fff;
+	border-radius: 20px;
+}
+.order .head .add-product:hover{
+	background-color: #3d67a9;
+}
 
 
 

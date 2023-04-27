@@ -14,12 +14,12 @@ CREATE TABLE BOOK (
   author_id INT NOT NULL,
   cover_designer VARCHAR(255) DEFAULT NULL,
   pages INT NOT NULL,
-  publisher VARCHAR(255) NOT NULL,
+  publisher VARCHAR(255) DEFAULT NULL,
   lang VARCHAR(255) NOT NULL,
   released DATE NOT NULL,
   description TEXT NOT NULL,
   CHECK (on_sale BETWEEN 0 AND 100),
-  FOREIGN KEY (author_id) REFERENCES AUTHOR(id)
+  FOREIGN KEY (author_id) REFERENCES AUTHOR(id) ON DELETE CASCADE
 );
 
 
@@ -29,6 +29,8 @@ CREATE TABLE USER (
   username VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   role ENUM('user', 'admin') DEFAULT 'user',
+  token VARCHAR(255) DEFAULT '',
+  token_expiry DATETIME DEFAULT NULL,
   fullname VARCHAR(255) NOT NULL,
   bday DATE ,
   avt_url VARCHAR(255)
@@ -39,7 +41,7 @@ CREATE TABLE CATEGORY_BOOK (
   category VARCHAR(255) NOT NULL,
   book_isbn INT NOT NULL,
   PRIMARY KEY (book_isbn, category),
-  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn)
+  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn) ON DELETE CASCADE
 );
 
 CREATE TABLE CART (
@@ -47,8 +49,8 @@ CREATE TABLE CART (
   book_isbn INT NOT NULL,
   quantity INT NOT NULL,
   PRIMARY KEY (user_id, book_isbn),
-  FOREIGN KEY (user_id) REFERENCES USER(id),
-  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn)
+  FOREIGN KEY (user_id) REFERENCES USER(id) ON DELETE CASCADE,
+  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn) ON DELETE CASCADE
 );
 
 CREATE TABLE BLOG (
@@ -67,8 +69,8 @@ CREATE TABLE REVIEW (
   review TEXT,
   user_id INT NOT NULL,
   book_isbn INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES USER(id),
-  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn)
+  FOREIGN KEY (user_id) REFERENCES USER(id) ON DELETE CASCADE,
+  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn) ON DELETE CASCADE
 );
 
 CREATE TABLE CONTACT (
@@ -84,8 +86,8 @@ CREATE TABLE USER_LIKE_BOOK (
   user_id INT NOT NULL,
   book_isbn INT NOT NULL,
   PRIMARY KEY (user_id, book_isbn),
-  FOREIGN KEY (user_id) REFERENCES USER(id),
-  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn)
+  FOREIGN KEY (user_id) REFERENCES USER(id) ON DELETE CASCADE,
+  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn) ON DELETE CASCADE
 );
 
 CREATE TABLE ORDERS (
@@ -96,7 +98,8 @@ CREATE TABLE ORDERS (
   address VARCHAR(255) NOT NULL,
   telephone VARCHAR(255) NOT NULL,
   price DECIMAL(10,2) NOT NULL,
-  status ENUM('Pending', 'In Transit', 'Delayed', 'Delivered', 'Cancelled', 'Returned') NOT NULL DEFAULT 'Pending'
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  status ENUM('Pending','Done', 'Cancell') NOT NULL DEFAULT 'Pending'
 );
 
 
@@ -106,8 +109,8 @@ CREATE TABLE ORDER_ITEM (
   book_isbn INT NOT NULL,
   quantity INT NOT NULL,
   price DECIMAL(10,2) NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES ORDERS(id),
-  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn)
+  FOREIGN KEY (order_id) REFERENCES ORDERS(id) ON DELETE CASCADE,
+  FOREIGN KEY (book_isbn) REFERENCES BOOK(isbn) ON DELETE CASCADE
 );
 
 

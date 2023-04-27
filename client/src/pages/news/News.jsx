@@ -1,4 +1,5 @@
 import './News.scss'
+import loadingGif from './loading.gif';
 import HeroBanner from '../../components/heroBanner/HeroBanner';
 
 import pageHeaderProduct from '../../components/imgs/banner2.jpg'
@@ -24,6 +25,7 @@ function News() {
     const products = useSelector(getAllProducts);
 
     const [listBlog, setListBlog] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         fetchBlog()
@@ -31,11 +33,13 @@ function News() {
     const fetchBlog = async () => {
         await axios.get(`${BASE_URL}blog`, { withCredentials: true })
             .then(res => {
-                setListBlog(res.data.data)
+                setListBlog(res.data.data);
+                setIsLoading(false);
             })
             .catch(err => {
-                console.log(err)
-                setListBlog([])
+                console.log(err);
+                setListBlog([]);
+                setIsLoading(false);
             })
     }
 
@@ -63,18 +67,19 @@ function News() {
                 <div className='news-main-content'>
 
                     <div className="news">
-                        {
+                        {isLoading ? (
+                            <img src={loadingGif} alt="loading" />
+                            ) : (
                             listBlog.map((blog) => (
                                 <NewsCard
-                                    key={blog.id}
-                                    id={blog.id}
-                                    title={blog.title}
-                                    banner_url={blog.banner_url}
-                                    publish_date={blog.publish_date}
+                                key={blog.id}
+                                id={blog.id}
+                                title={blog.title}
+                                banner_url={blog.banner_url}
+                                publish_date={blog.publish_date}
                                 />
-
                             ))
-                        }
+                        )}
                     </div>
                     <div className='sidebar-news'><ListTopProducts topProducts={products} /></div>
                 </div>

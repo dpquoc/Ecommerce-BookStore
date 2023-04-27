@@ -2,11 +2,11 @@
 error_reporting(E_ERROR);
 header('Content-Type: application/json');
 
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: http://localhost:5173');
 header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Origin: http://localhost:5173');
+
 
 $request = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
@@ -112,7 +112,13 @@ $routes = [
     //order
     'POST /api.php/order' => 'OrderController@createOrder@0',
     'GET /api.php/order' => 'OrderController@getOrders@2',
-    'GET /api.php/order/my' => 'OrderController@getMyOrders@1'
+    'GET /api.php/order/my' => 'OrderController@getMyOrders@1',
+    'PATCH /api.php/order/(\d+)' => 'OrderController@updateOrder@2',
+
+    //recovery password
+    'POST /api.php/forgot-password' => 'AuthController@forgotPassword@0',
+    'POST /api.php/reset-password' => 'AuthController@resetPassword@0'
+
 ];
 
 

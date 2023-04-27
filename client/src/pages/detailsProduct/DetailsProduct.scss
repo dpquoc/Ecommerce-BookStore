@@ -191,11 +191,13 @@
                 color: #616A6B;
                 margin-right: 5px;
             }
-            a{
+
+            a {
                 cursor: pointer;
                 color: var(--black);
             }
-            a:hover{
+
+            a:hover {
                 color: var(--orange);
             }
         }
@@ -358,6 +360,35 @@
                 display: flex;
                 margin-bottom: 30px;
 
+                .admin-edit {
+                    width: 40px;
+                    font-size: 2.4rem;
+                    margin-left: 10px;
+                    display: flex;
+                    flex-direction: column;
+
+                    .edit {
+                        cursor: pointer;
+                        color: var(--orange);
+
+                        &:hover {
+                            color: #8e4e17;
+                        }
+
+                        margin: 10px 0;
+                    }
+
+                    .delete {
+                        cursor: pointer;
+                        margin: auto 0;
+                        color: var(--red);
+
+                        &:hover {
+                            color: #923434;
+                        }
+                    }
+                }
+
                 .review_avatar {
                     margin-right: 30px;
                     width: 50px;
@@ -398,7 +429,7 @@
                 .thanks-for-review {
                     font-size: 2.5rem;
                     margin-bottom: 40px;
-                    
+
                 }
 
                 .form_title {
@@ -414,76 +445,94 @@
                     }
                 }
 
-                .form_content {
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    font-size: unset;
 
-                    .form_input_row {
-                        width: 100%;
-                        display: grid;
-                        grid-template-columns: 150px 1fr;
-                        margin-bottom: 30px;
-
-                        .label {
-                            width: 100%;
-                            font-weight: bold;
-                            color: rgb(117, 117, 117);
-                        }
-
-                        input,
-                        textarea {
-                            width: 100%;
-                            display: flex;
-                            border: none;
-                            border-radius: 3px;
-                            background-color: #F3F4FA;
-
-                            &:focus {
-                                border: 1px solid black;
-                            }
-                        }
-
-                        input {
-                            height: 35px;
-                            padding-left: 10px;
-                        }
-
-                        textarea {
-                            padding: 10px;
-                        }
-
-                        .rating {
-                            width: 100px;
-
-                            svg {
-                                width: 20px;
-                                height: 20px;
-
-                            }
-                        }
-                    }
-
-                    .submit_review {
-                        padding: 5px 20px 5px 20px;
-                        border-radius: 20px;
-                        width: 100px;
-                        font-size: 1.7rem;
-                        cursor: pointer;
-                        background-color: var(--black);
-                        color: white;
-
-                        &:hover {
-                            background-color: rgba(0, 0, 0, 0.733);
-                            color: white;
-                        }
-                    }
-                }
             }
         }
     }
 }
+
+.form_content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: unset;
+
+    .form_input_row {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        margin-bottom: 30px;
+
+        .label {
+            width: 100%;
+            font-weight: bold;
+            color: rgb(117, 117, 117);
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            display: flex;
+            border: none;
+            border-radius: 3px;
+            background-color: #F3F4FA;
+
+            &:focus {
+                border: 1px solid black;
+            }
+        }
+
+        input {
+            height: 35px;
+            padding-left: 10px;
+        }
+
+        textarea {
+            padding: 10px;
+        }
+
+        .rating {
+            width: 100px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+
+            }
+        }
+    }
+
+    .submit_review {
+        padding: 5px 20px 5px 20px;
+        border-radius: 20px;
+        width: 100px;
+        font-size: 1.7rem;
+        cursor: pointer;
+        background-color: var(--black);
+        color: white;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.733);
+            color: white;
+        }
+    }
+    .submit_review_modal {
+        padding: 5px 10px 5px 10px;
+        border-radius: 20px;
+        width: 100px;
+        font-size: 1rem;
+        cursor: pointer;
+        background-color: var(--black);
+        color: white;
+    
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.733);
+            color: white;
+        }
+    }
+}
+
+
 
 
 @media (max-width: 1200px) {

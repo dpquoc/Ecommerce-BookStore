@@ -98,7 +98,7 @@ const Login = () => {
                             <input type="checkbox" />
                             <p style={{fontSize: "130%"}}>Ghi nhớ tài khoản</p>
                         </div>
-                        <p style={{fontSize: "130%"}}>Quên mật khẩu?</p>
+                        <p style={{fontSize: "130%"}} onClick={() => navigate("/forgotpassword")}>Quên mật khẩu?</p>
                     </div>
                     <Button 
                         type="submit"

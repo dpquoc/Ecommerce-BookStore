@@ -4,25 +4,33 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function SideMenu() {
-    const [selected, setSelected] = useState("products");
+    const [selected, setSelected] = useState("");
     const handleSelect = (option) => {
         setSelected(option);
     };
     return (
         <section id="sidebar">
-            <a href="#" className="brand">
+            <Link to='/' className="brand">
                 <i className='bx bxs-smile'></i>
                 <span className="logoName">Book<span>S</span></span>
-            </a>
+            </Link>
             <ul className="side-menu top">
-                <li className={selected === "products" ? "active" : ""} onClick={() => handleSelect("products")}>
+                <li className={selected === "dashboard" ? "active" : ""} onClick={() => handleSelect("dashboard")}>
+
                     <Link to="/admin">
+                        <i className='bx bxs-dashboard'></i>
+                        <span className="text">Dashboard</span>
+                    </Link>
+                </li>
+                <li className={selected === "products" ? "active" : ""} onClick={() => handleSelect("products")}>
+
+                    <Link to="/admin/products">
                         <i className='bx bxs-dashboard'></i>
                         <span className="text">Products</span>
                     </Link>
                 </li>
                 <li className={selected === "users" ? "active" : ""} onClick={() => handleSelect("users")}>
-                    <Link to="/admin/user">
+                    <Link to="/admin/users">
                         <i className='bx bxs-shopping-bag-alt' ></i>
                         <span className="text">Users</span>
                     </Link>

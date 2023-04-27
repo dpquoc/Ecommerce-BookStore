@@ -70,7 +70,7 @@ class OrderController {
     public function getOrders($idRoute = null, $queryParams, $postData, $fromUser) {
         $order = new OrderModel();
         $item = new OrderItemModel();
-        $allowedKeys = ['id', 'user_id', 'name', 'email', 'address', 'telephone', 'status'];
+        $allowedKeys = ['id', 'user_id', 'name', 'email', 'address', 'telephone', 'created_at', 'status'];
 
         $orders = $order->read($queryParams, $allowedKeys, []);
         if (!empty($orders)) {
@@ -95,7 +95,7 @@ class OrderController {
     public function getMyOrders($idRoute = null, $queryParams, $postData, $fromUser) {
         $order = new OrderModel();
         $item = new OrderItemModel();
-        $allowedKeys = ['id', 'user_id', 'name', 'email', 'address', 'telephone', 'status'];
+        $allowedKeys = ['id', 'user_id', 'name', 'email', 'address', 'telephone', 'created_at', 'status'];
 
         $orders = $order->read(['user_id' => $fromUser['id']], $allowedKeys, []);
         if (!empty($orders)) {
@@ -113,6 +113,24 @@ class OrderController {
             return array(
                 "status" => "error",
                 "message" => "No orders found."
+            );
+        }
+    }
+
+    public function updateOrder($idRoute = null, $queryParams, $postData, $fromUser) {
+        $order = new OrderModel();
+        $allowedKeys = ['status'];
+        if ($order->update($idRoute,$postData, $allowedKeys)) {
+            http_response_code(200);
+            return array(
+                "status" => "success",
+                "message" => "Order updated successfully."
+            );
+        } else {
+            http_response_code(400);
+            return array(
+                "status" => "error",
+                "message" => "Unable to order blog. Please check your data and try again."
             );
         }
     }
