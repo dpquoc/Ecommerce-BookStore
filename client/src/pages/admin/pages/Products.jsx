@@ -417,16 +417,13 @@ function Products() {
             })
             .catch(err => {
                 console.log(err)
-            })
-        if (selectedEdit) {
-            selectedEdit.image_url = img
-        }
+            });
+        
     }
 
 
     const handleAddProduct = async () => {
         const data = {
-            isbn: books.length + 1,
             title: title,
             price: price,
             on_sale: sale,
@@ -477,7 +474,20 @@ function Products() {
         setTitle(selectedEdit.title || '');
 
     }, [selectedEdit]); */
-    console.log(released)
+    const handleSelectedEditChange = (field, value) => {
+        setSelectedEdit(prevState => ({
+          ...prevState,
+          [field]: value
+        }));
+      }
+      
+      useEffect(() => {
+        if (img) {
+          handleSelectedEditChange("image_url", img);
+          setImg('')
+        }
+      }, [img]); 
+
     return (
         <section id="content">
             <main>
