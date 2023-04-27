@@ -30,7 +30,7 @@
     border-radius: 20px 20px;
     border: 0.5px solid;
     border-color: rgb(0, 0, 0);
-    padding: 0 40px;
+    padding: 30px 30px;
 }
 
 .mid0 .info {
@@ -61,7 +61,7 @@
 .contacts {
     float: left;
     margin-top: 50px;
-    width: 27%;
+    width: 30%;
     // padding: 3%;
     // height:100%;
     // border-radius: 5px 5px;
@@ -145,7 +145,25 @@ textarea:focus,
     // margin-left: 5%;
 
 }
-
+.info-contact h2 {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 180%;
+}
+.info-contact h3 {
+    
+    font-size: 150%;
+}
+@media only screen and (max-width: 1400px) {
+    .info-contact h2 {
+    
+        font-size: 150%;
+    }
+    .info-contact h3 {
+    
+        font-size: 130%;
+    }
+}
 @media only screen and (max-width: 1200px) {
     // .contacts .tag1 .adinfo {
     //     width: 75%;
@@ -160,10 +178,13 @@ textarea:focus,
     }
 
     .contacts {
-        width: 32%;
+        width: 35%;
 
     }
-
+    .info-contact h3 {
+    
+        font-size: 120%;
+    }
     .FAQs .tag {
         width: 100%;
         // border-radius: 5px 5px;
@@ -188,17 +209,20 @@ textarea:focus,
     .form1 {
         text-align: center;
     }
-
+    .info-contact h3 {
+        font-size: 130%;
+    }
 
     .info-contact h2 {
         text-align: center;
+        font-size: 180%;
     }
 
     .container-contact .mid1 .form1 {
         float: none;
         // margin-top:50px;
-        margin-left: 17%;
-        width: 70%;
+        margin-left: 10%;
+        width: 80%;
         // margin: 0;
         padding: 0%;
     }
@@ -209,13 +233,13 @@ textarea:focus,
 
     .contacts {
 
-        width: 97%;
-        margin-right: 3%;
+        width: 100%;
+        // margin-right: 3%;
         height: 100%;
     }
 
     .contacts .tag1 {
-        width: 33%;
+        width: 33.3%;
         float: left;
         padding: 15px;
     }
@@ -240,16 +264,23 @@ textarea:focus,
 
 @media only screen and (max-width : 992px) {}
 
-@media only screen and (max-width : 768px) {}
-
-@media only screen and (max-width : 517px) {
+@media only screen and (max-width : 768px) {
     .contacts .tag1 {
         width: 50%;
     }
 }
 
-@media only screen and (max-width : 402px) {
+@media only screen and (max-width : 517px) {
     .contacts .tag1 {
         width: 100%;
     }
+    .container-contact .mid1 .form1 {
+
+        margin-left: 5%;
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width : 402px) {
+    
 }

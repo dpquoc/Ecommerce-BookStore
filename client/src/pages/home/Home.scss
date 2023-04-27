@@ -386,7 +386,7 @@
 
 #container-home .FAQs {
     width: 90%;
-    height: 400px;
+    height: 100%;
     text-align: center;
     margin: auto;
     padding: 30px;
@@ -427,7 +427,7 @@
 }
 @media only screen and (max-width: 992px) {
     #container-home .FAQs {
-        height: 500px; 
+        height: 100%; 
     }
     .FAQs .tag111 {
         width: 100%;
@@ -493,6 +493,7 @@
     .outstanding .introcduce-book{
         height: 450px;
     }
+    .tag111{font-size: 2px;}
 }
 @media only screen and (max-width: 450px) {
     .outstanding .introcduce-book{
@@ -544,13 +545,16 @@
         height: 500px;    
     }
     .FAQs .tag111 div p {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 }
 @media only screen and (max-width: 410px) {
     
     .outstanding .introcduce-book{
         height: 600px;
+    }
+    .FAQs .tag111 div p {
+        font-size: 1.3rem;
     }
 }
 

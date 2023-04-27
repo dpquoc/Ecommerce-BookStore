@@ -96,11 +96,11 @@ const Login = () => {
                     <div className="fogot__pw">
                         <div className="remember__pw">
                             <input type="checkbox" />
-                            <p>Ghi nhớ tài khoản</p>
+                            <p style={{fontSize: "130%"}}>Ghi nhớ tài khoản</p>
                         </div>
-                        <p>Quên mật khẩu?</p>
+                        <p style={{fontSize: "130%"}}>Quên mật khẩu?</p>
                     </div>
-                    <Button
+                    <Button 
                         type="submit"
                         variant="contained"
                     // disabled={disabled}
@@ -114,7 +114,7 @@ const Login = () => {
                     >
                         Đăng nhập
                     </Button>
-                    <p style={{ color: "gray", fontSize: "12px", textAlign: "center" }}>
+                    <p style={{ color: "gray",fontSize: "150%", textAlign: "center" }}>
                         Chưa có tài khoản ?
                     </p>
                     <Button variant="outlined" onClick={() => navigate("/register")}>
