@@ -86,13 +86,14 @@ class ReviewController {
                 "message" => "Review not found."
             );
         }
-    
+        
+        $existingReview = $existingReview[0];
         // Check if the review belongs to the user who is trying to update it
-        if ($existingReview['user_id'] !== $fromUser['id']) {
+        if ($existingReview['user_id'] != $fromUser['id']) {
             http_response_code(403);
             return array(
                 "status" => "error",
-                "message" => "You are not authorized to update this review."
+                "message" => "You are not the owner of this review to update it."
             );
         }
 
@@ -124,13 +125,13 @@ class ReviewController {
                 "message" => "Review not found."
             );
         }
-    
+        $existingReview = $existingReview[0];
         // Check if the review belongs to the user who is trying to delete it
-        if ($existingReview['user_id'] !== $fromUser['id']) {
+        if ($fromUser['role'] != 'admin' && $existingReview['user_id'] != $fromUser['id']) {
             http_response_code(403);
             return array(
                 "status" => "error",
-                "message" => "You are not authorized to delete this review."
+                "message" => "You are not the owner of this review to delete"
             );
         }
     
