@@ -4,7 +4,7 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import Avatar from '@mui/material/Avatar';
-import { DownOutlined, SearchOutlined, EyeOutlined, EditFilled, DeleteFilled, PlusOutlined } from '@ant-design/icons';
+import { DownOutlined, SearchOutlined, EyeOutlined, EditFilled, DeleteFilled, PlusOutlined, WarningFilled } from '@ant-design/icons';
 import {
     Badge, Dropdown, Space, Table, Select, Input, Button, Tag, Modal,
     Cascader,
@@ -158,6 +158,7 @@ function Products() {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [modal3Open, setModal3Open] = useState(false);
+    const [modal4Open, setModal4Open] = useState(false);
     //data table
     const data = books.map((book, index) => ({
         key: book.isbn,
@@ -191,7 +192,6 @@ function Products() {
                 .then(res => {
                     setSelectedEditCategory(res.data.data)
                 });
-
         }
         catch (err) {
             setSelectedEdit({})
@@ -381,7 +381,10 @@ function Products() {
             width: '8%',
             render: (record) => <div>
                 <div style={{ display: 'inline' }} onClick={() => handleEdit(record.key)} ><EditFilled className='icon-edit' style={{ fontSize: '2.5rem', marginRight: '20px' }} /></div>
-                <DeleteFilled className='icon-delete' style={{ fontSize: '2.3rem' }} />
+                <DeleteFilled 
+                onClick={() => setModal4Open(true)}
+                className='icon-delete' 
+                style={{ fontSize: '2.3rem' }} />
             </div>,
         },
     ];
@@ -418,7 +421,6 @@ function Products() {
             .catch(err => {
                 console.log(err)
             });
-        
     }
 
 
@@ -432,7 +434,7 @@ function Products() {
             cover_designer: cover_designed,
             pages: pages,
             publisher: publisher,
-            language: language,
+            lang: language,
             released: released,
             description: description,
         }
@@ -443,21 +445,79 @@ function Products() {
             await axios.post(`${BASE_URL}book`, data, { withCredentials: true })
                 .then(res => {
                     console.log(res.data.message)
+                    console.log(res.data.isbn)
+                    for (const element of dataCategories.categories) {
+                        try {
+                            axios.post(`${BASE_URL}category/${res.data.isbn}`, { category: element }, { withCredentials: true })
+                                .then(respon => {
+                                    console.log(respon.data.message)
+                                    setModal1Open(false)
+                                    window.location.reload()
+                                })
+                        } catch (err) {
+                            console.log(err);
+                        }
+                    }
                 });
-            /* for (const element of dataCategories.categories) {
-                try {
-                    const res = await axios.post(`${BASE_URL}category/${books.length + 1}`, { category: element }, { withCredentials: true });
-                    console.log(res.data.message);
-                } catch (err) {
-                    console.log(err);
-                }
-            } */
-            setModal1Open(false)
         }
         catch (err) {
             console.log(err)
         }
     }
+    const handleUpdateProduct = async () => {
+        const dataUpdate = {
+            title: selectedEdit.title,
+            price: selectedEdit.price,
+            on_sale: selectedEdit.on_sale,
+            image_url: selectedEdit.image_url,
+            author_id: selectedEdit.author_id,
+            cover_designer: selectedEdit.cover_designer,
+            pages: selectedEdit.pages,
+            publisher: selectedEdit.publisher,
+            lang: selectedEdit.lang,
+            released: selectedEdit.released,
+            description: selectedEdit.description,
+        }
+        const updateCategories = {
+            categories: selectedEditCategory
+        }
+        try {
+            await axios.patch(`${BASE_URL}book/${selectedEdit.isbn}`, dataUpdate, { withCredentials: true })
+                .then(res => {
+                    console.log(res.data.message)
+                    /* for (const element of updateCategories.categories) {
+                        try {
+                            axios.post(`${BASE_URL}category/${selectedEdit.isbn}`, { category: element }, { withCredentials: true })
+                            .then(respon => {
+                                console.log(respon.data.message)
+                                setModal3Open(false)
+                                window.location.reload()
+                            })
+                        } catch (err) {
+                            console.log(err);
+                        }
+                    } */
+                });
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+    /* const dataUpdate = {
+        title: selectedEdit.title,
+        price: selectedEdit.price,
+        on_sale: selectedEdit.on_sale,
+        image_url: selectedEdit.image_url,
+        author_id: selectedEdit.author_id,
+        cover_designer: selectedEdit.cover_designer,
+        pages: selectedEdit.pages,
+        publisher: selectedEdit.publisher,
+        lang: selectedEdit.lang,
+        released: selectedEdit.released,
+        description: selectedEdit.description,
+    }
+    console.log(dataUpdate) */
     /* useEffect(() => {
         
         setPages(selectedEdit.pages || ''); // Cập nhật giá trị của pages khi book thay đổi
@@ -476,18 +536,17 @@ function Products() {
     }, [selectedEdit]); */
     const handleSelectedEditChange = (field, value) => {
         setSelectedEdit(prevState => ({
-          ...prevState,
-          [field]: value
+            ...prevState,
+            [field]: value
         }));
-      }
-      
-      useEffect(() => {
-        if (img) {
-          handleSelectedEditChange("image_url", img);
-          setImg('')
-        }
-      }, [img]); 
+    }
 
+    useEffect(() => {
+        if (img) {
+            handleSelectedEditChange("image_url", img);
+            setImg('')
+        }
+    }, [img]);
     return (
         <section id="content">
             <main>
@@ -607,7 +666,7 @@ function Products() {
                                 left: 170,
                             }}
                             open={modal3Open}
-                            onOk={() => setModal3Open(false)}
+                            onOk={handleUpdateProduct}
                             onCancel={() => setModal3Open(false)}
                         >
                             <Form
@@ -625,13 +684,22 @@ function Products() {
                                 }}
                             >
                                 <Form.Item label="Title">
-                                    <Input value={selectedEdit?.title} onChange={(e) => setTitle(e.target.value)} />
+                                    <Input
+                                        value={selectedEdit?.title}
+                                        onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, title: e.target.value }))}
+                                    />
                                 </Form.Item>
                                 <Form.Item label="Price">
-                                    <Input value={selectedEdit?.price} placeholder='E.g 10.99' onChange={(e) => setPrice(e.target.value)} />
+                                    <Input
+                                        value={selectedEdit?.price}
+                                        placeholder='E.g 10.99'
+                                        onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, price: e.target.value }))} />
                                 </Form.Item>
                                 <Form.Item label="Sale">
-                                    <Input value={selectedEdit?.on_sale} placeholder='If not sale, e.g 0' onChange={(e) => setSale(e.target.value)} />
+                                    <Input
+                                        value={selectedEdit?.on_sale}
+                                        placeholder='If not sale, e.g 0'
+                                        onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, on_sale: e.target.value }))} />
                                 </Form.Item>
                                 <Form.Item label="Image" >
                                     <img src={selectedEdit?.image_url} alt="Default Image" width="200" height="300" />
@@ -643,7 +711,7 @@ function Products() {
                                         style={{
                                             width: '100%',
                                         }}
-                                        onChange={(e) => setAuthor(e)}
+                                        onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, author_id: parseInt(e) }))}
                                         options={[
                                             {
                                                 value: 1,
@@ -672,28 +740,39 @@ function Products() {
                                         style={{
                                             width: '100%',
                                         }}
-                                        onChange={(e) => setCategories(e)}
+                                        onChange={(e) => setSelectedEditCategory(e)}
                                         placeholder="Please select"
                                         options={options}
                                     />
                                 </Form.Item>
                                 <Form.Item label="Cover Designer">
-                                    <Input value={selectedEdit?.cover_designer} onChange={(e) => setCover_designed(e.target.value)} />
+                                    <Input
+                                        value={selectedEdit?.cover_designer}
+                                        onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, cover_designer: e.target.value }))} />
                                 </Form.Item>
                                 <Form.Item label="Pages">
-                                    <Input value={selectedEdit?.pages} onChange={(e) => setPages(e.target.value)} />
+                                    <Input
+                                        value={selectedEdit?.pages}
+                                        onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, pages: e.target.value }))} />
                                 </Form.Item>
                                 <Form.Item label="Publisher">
-                                    <Input value={selectedEdit?.publisher} onChange={(e) => setPublisher(e.target.value)} />
+                                    <Input
+                                        value={selectedEdit?.publisher}
+                                        onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, publisher: e.target.value }))} />
                                 </Form.Item>
                                 <Form.Item label="Language">
-                                    <Input value={selectedEdit?.lang} onChange={(e) => setLanguage(e.target.value)} />
+                                    <Input
+                                        value={selectedEdit?.lang}
+                                        onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, lang: e.target.value }))} />
                                 </Form.Item>
                                 <Form.Item label="Released">
-                                    <DatePicker value={dayjs(selectedEdit?.released)} onChange={(e) => setReleased(dayjs(e).format('YYYY-MM-DD'))} />
+                                    <DatePicker
+                                        value={dayjs(selectedEdit?.released)}
+                                        onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, released: dayjs(e).format('YYYY-MM-DD') }))} />
                                 </Form.Item>
                                 <Form.Item label="Description">
-                                    <TextArea value={selectedEdit?.description} rows={4} onChange={(e) => setDescription(e.target.value)} />
+                                    <TextArea value={selectedEdit?.description} rows={4}
+                                        onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, description: e.target.value }))} />
                                 </Form.Item>
                             </Form>
                         </Modal>
@@ -711,6 +790,18 @@ function Products() {
                             <p>some contents...</p>
                             <p>some contents...</p>
                             <p>some contents...</p>
+                        </Modal>
+                        <Modal
+                            centered
+                            style={{
+                                left: 170,
+                            }}
+                            open={modal4Open}
+                            onOk={() => setModal4Open(false)}
+                            onCancel={() => setModal4Open(false)}
+                        >
+                            <h1><WarningFilled style={{color:'red'}}/> Warning </h1>
+                            <h2>Are you sure you want to delete this product?</h2>
                         </Modal>
 
                     </div>
