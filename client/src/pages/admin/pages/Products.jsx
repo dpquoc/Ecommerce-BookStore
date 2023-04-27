@@ -178,22 +178,27 @@ function Products() {
     }, [])
 
     const [selectedEdit, setSelectedEdit] = useState(null);
-
-    const handleEdit = async(isbn) => { 
-        try{
+    const [selectedEditCategory, setSelectedEditCategory] = useState(null);
+    const [selectedDelete, setSelectedDelete] = useState(null);
+    const handleEdit = async (isbn) => {
+        try {
             await axios.get(`${BASE_URL}book/${isbn}`, { withCredentials: true })
-            .then(res => {
+                .then(res => {
                     setSelectedEdit(res.data.data)
                     setModal3Open(true);
-            })
+                });
+            await axios.get(`${BASE_URL}category/${isbn}`, { withCredentials: true })
+                .then(res => {
+                    setSelectedEditCategory(res.data.data)
+                });
+
         }
-        catch(err){
+        catch (err) {
             setSelectedEdit({})
-        }        
+        }
     }
-    console.log(selectedEdit)
-    
-    
+
+
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -375,7 +380,7 @@ function Products() {
             fixed: 'right',
             width: '8%',
             render: (record) => <div>
-                <div style={{display:'inline'}} onClick={() => handleEdit(record.key)} ><EditFilled className='icon-edit' style={{ fontSize: '2.5rem', marginRight: '20px' }}/></div>
+                <div style={{ display: 'inline' }} onClick={() => handleEdit(record.key)} ><EditFilled className='icon-edit' style={{ fontSize: '2.5rem', marginRight: '20px' }} /></div>
                 <DeleteFilled className='icon-delete' style={{ fontSize: '2.3rem' }} />
             </div>,
         },
@@ -395,7 +400,7 @@ function Products() {
     const [publisher, setPublisher] = useState('')
     const [language, setLanguage] = useState('')
     const [released, setReleased] = useState('')
-    
+
 
     const presetKey = "rg4c9vsl"
     const cloudName = "dgmlu00dr"
@@ -413,6 +418,9 @@ function Products() {
             .catch(err => {
                 console.log(err)
             })
+        if (selectedEdit) {
+            selectedEdit.image_url = img
+        }
     }
 
 
@@ -522,19 +530,8 @@ function Products() {
                                 <Form.Item label="Sale">
                                     <Input placeholder='If not sale, e.g 0' onChange={(e) => setSale(e.target.value)} />
                                 </Form.Item>
-                                <Form.Item label="Image" valuePropName="fileList" getValueFromEvent={normFile}>
-                                    <Upload action="/upload.do" listType="picture-card" style={{ width: '1000px' }} onChange={fetchImg}>
-                                        <div>
-                                            <PlusOutlined />
-                                            <div
-                                                style={{
-                                                    marginTop: 8,
-                                                }}
-                                            >
-                                                Upload
-                                            </div>
-                                        </div>
-                                    </Upload>
+                                <Form.Item label="Image">
+                                    <input accept="image/*" type="file" onChange={fetchImg} />
                                 </Form.Item>
                                 <Form.Item label="Author">
                                     <Select
@@ -626,19 +623,9 @@ function Products() {
                                 <Form.Item label="Sale">
                                     <Input value={selectedEdit?.on_sale} placeholder='If not sale, e.g 0' onChange={(e) => setSale(e.target.value)} />
                                 </Form.Item>
-                                <Form.Item label="Image" valuePropName="fileList" getValueFromEvent={normFile}>
-                                    <Upload action="/upload.do" listType="picture-card" style={{ width: '1000px' }}>
-                                        <div >
-                                            <PlusOutlined />
-                                            <div
-                                                style={{
-                                                    marginTop: 8,
-                                                }}
-                                            >
-                                                Upload
-                                            </div>
-                                        </div>
-                                    </Upload>
+                                <Form.Item label="Image" >
+                                    <img src={selectedEdit?.image_url} alt="Default Image" width="200" height="300" />
+                                    <input accept="image/*" type="file" onChange={fetchImg} />
                                 </Form.Item>
                                 <Form.Item label="Author">
                                     <Select
@@ -669,6 +656,7 @@ function Products() {
                                 </Form.Item>
                                 <Form.Item label="Categories">
                                     <Select
+                                        value={selectedEditCategory}
                                         mode="multiple"
                                         allowClear
                                         style={{
