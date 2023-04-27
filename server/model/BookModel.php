@@ -109,7 +109,7 @@ class BookModel {
         foreach ($data as $key => $value) {
             $updates[] = "$key='$value'";
         }
-        $query = "UPDATE BOOK SET " . implode(", ", $updates) . " WHERE id='$id'";
+        $query = "UPDATE BOOK SET " . implode(", ", $updates) . " WHERE isbn='$id'";
         if ($this->connection->query($query)) {
             return true;
         } else {

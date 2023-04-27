@@ -79,7 +79,7 @@ const Register = () => {
             setDisabled(false);
         }
         else setDisabled(true);
-    }, [formik.values.fullname, formik.values.email, formik.values.username, formik.values.password]);
+    }, [formik.values.fullname, formik.values.email, formik.values.username, formik.values.password, formik.values.confirm]);
 
     const icon = document.querySelector(".input__icon");
 

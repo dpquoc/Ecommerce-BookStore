@@ -16,7 +16,9 @@ import { BASE_URL } from '../../utils/apiURL';
 
 function ForgotPassword() {
     const [email, setEmail] = useState('');
+    const [clicked, setClicked] = useState(false);
     const handleReset = async () => {
+        setClicked(true);
         const data = {
             email: email
         }
@@ -50,6 +52,10 @@ function ForgotPassword() {
                             <Button type="primary" style={{ width: '100%' }} onClick={handleReset} >Reset Password</Button>
                         </Grid>
                     </Grid>
+                    {clicked && <Typography component="h2" variant="h4" marginX="auto" marginBottom="20px">
+                        Processing your request.... Please wait a bit for our response !
+                    </Typography>}
+                    
                 </Paper>
             </Container>
         </div>
