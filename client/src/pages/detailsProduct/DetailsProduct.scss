@@ -357,7 +357,29 @@
             .item_review {
                 display: flex;
                 margin-bottom: 30px;
-
+                .admin-edit{
+                    width: 40px;
+                    font-size: 2.5rem;
+                    margin-left: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    
+                    .edit{
+                        cursor: pointer;
+                        &:hover{
+                            color: var(--orange);
+                        }
+                        margin: 10px 0;
+                    }
+                    .delete{
+                        cursor: pointer;
+                        margin: auto 0;
+                        color: var(--red);
+                        &:hover{
+                            color: #923434;
+                        }
+                    }
+                }
                 .review_avatar {
                     margin-right: 30px;
                     width: 50px;

@@ -18,6 +18,7 @@ import {
     Upload,
 } from 'antd';
 
+import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../../../utils/apiURL';
@@ -197,7 +198,9 @@ function Products() {
             setSelectedEdit({})
         }
     }
-
+    const handleLinkReview = (id) => {
+        console.log(id)
+    }
 
 
     const [searchText, setSearchText] = useState('');
@@ -365,14 +368,13 @@ function Products() {
         },
         {
             title: 'Reviews',
-            dataIndex: 'reviews',
-            key: 'reviews',
+            key: 'operation',
             width: '8%',
             fixed: 'right',
-            render: () => <a onClick={() => setModal2Open(true)}
+            render: (item) => <Link to={`/products/${item.key}`}
                 style={{ display: 'flex', justifyContent: 'center', fontSize: '2rem' }}>
-                <EyeOutlined />
-            </a>,
+                <div onClick={() => handleLinkReview(item.key)}><EyeOutlined /></div>
+            </Link>,
         },
         {
             title: 'Action',
@@ -382,7 +384,7 @@ function Products() {
             render: (record) => <div>
                 <div style={{ display: 'inline' }} onClick={() => handleEdit(record.key)} ><EditFilled className='icon-edit' style={{ fontSize: '2.5rem', marginRight: '20px' }} /></div>
                 <DeleteFilled 
-                onClick={() => handleDeleteProduct(record.key)}
+                onClick={() => {setSelectedDelete(record.key); setModal4Open(true)}}
                 className='icon-delete' 
                 style={{ fontSize: '2.3rem' }} />
             </div>,
@@ -812,7 +814,7 @@ function Products() {
                                 left: 170,
                             }}
                             open={modal4Open}
-                            onOk={() => setModal4Open(false)}
+                            onOk={() => handleDeleteProduct(selectedDelete)}
                             onCancel={() => setModal4Open(false)}
                         >
                             <h1><WarningFilled style={{color:'red'}}/> Warning </h1>

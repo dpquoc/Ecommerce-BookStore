@@ -4,7 +4,7 @@ import SearchForm from '../../components/searchForm/SearchForm';
 import { Avatar } from "@mui/material"
 import Rating from '@mui/material/Rating';
 import { Form } from "antd";
-import { CheckCircleFilled } from '@ant-design/icons'
+import { CheckCircleFilled, EditFilled, DeleteFilled } from '@ant-design/icons'
 import { useLocation } from 'react-router-dom';
 import ScrollToTop from '../../utils/srcolltoTop';
 import { useParams } from 'react-router-dom';
@@ -44,7 +44,7 @@ function DetailsProduct() {
     const [valueQuantity, setValueQuantity] = useState(1);
 
     const onSubmitReview = async (e) => {
-        if(!user) return alert("Please login to review");
+        if (!user) return alert("Please login to review");
         e.preventDefault();
         const post = {
             rating: valueRating,
@@ -285,7 +285,14 @@ function DetailsProduct() {
                                                 <div className="review_rating">
                                                     <Rating name="read-only" value={parseInt(review?.rating)} size='large' readOnly />
                                                 </div>
+
                                             </div>
+                                            {user.role === 'admin' ?
+                                                <div className='admin-edit' >
+                                                    {/* <EditFilled className='edit' />  */}
+                                                    <DeleteFilled className='delete' />
+                                                </div>
+                                                : <></>}
                                         </div>
                                     ))}
 
