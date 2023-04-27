@@ -86,9 +86,10 @@ class ReviewController {
                 "message" => "Review not found."
             );
         }
-    
+        
+        $existingReview = $existingReview[0];
         // Check if the review belongs to the user who is trying to update it
-        if ($existingReview['user_id'] !== $fromUser['id']) {
+        if ($existingReview['user_id'] != $fromUser['id']) {
             http_response_code(403);
             return array(
                 "status" => "error",
