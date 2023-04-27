@@ -92,7 +92,7 @@ class ReviewController {
             http_response_code(403);
             return array(
                 "status" => "error",
-                "message" => "You are not authorized to update this review."
+                "message" => "You are not the owner of this review to update it."
             );
         }
 
