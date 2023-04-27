@@ -382,7 +382,7 @@ function Products() {
             render: (record) => <div>
                 <div style={{ display: 'inline' }} onClick={() => handleEdit(record.key)} ><EditFilled className='icon-edit' style={{ fontSize: '2.5rem', marginRight: '20px' }} /></div>
                 <DeleteFilled 
-                onClick={() => setModal4Open(true)}
+                onClick={() => handleDeleteProduct(record.key)}
                 className='icon-delete' 
                 style={{ fontSize: '2.3rem' }} />
             </div>,
@@ -485,6 +485,8 @@ function Products() {
             await axios.patch(`${BASE_URL}book/${selectedEdit.isbn}`, dataUpdate, { withCredentials: true })
                 .then(res => {
                     console.log(res.data.message)
+                    setModal3Open(false)
+                    window.location.reload()
                     /* for (const element of updateCategories.categories) {
                         try {
                             axios.post(`${BASE_URL}category/${selectedEdit.isbn}`, { category: element }, { withCredentials: true })
@@ -497,6 +499,19 @@ function Products() {
                             console.log(err);
                         }
                     } */
+                });
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    const handleDeleteProduct = async (isbn) => {
+        try {
+            await axios.delete(`${BASE_URL}book/${isbn}`, { withCredentials: true })
+                .then(res => {
+                    console.log(res.data.message)
+                    setModal4Open(false)
+                    window.location.reload()
                 });
         }
         catch (err) {
