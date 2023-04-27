@@ -87,15 +87,7 @@ function Search() {
     const authorStatus = (authors.filter(author => author.name === searchForm)[0]?.id) && true;
     const search = authors.filter(author => author.name === searchForm)[0]?.id ?? searchForm;
     console.log(search)
-    useEffect(() => {
-        setListSearch([])
-        if (authorStatus) {
-            fetchSearchAuthor();
-        }
-        else {
-            fetchSearch();
-        }
-    }, [search, valueSort, changeFilter, authorStatus, selected]);
+    
 
     const fetchSearch = async () => {
         await axios.get(`${BASE_URL}book?search_title=${search}&sort=${valueSort}&min_price=${changeFilter[0]}&max_price=${changeFilter[1]}`
@@ -118,6 +110,16 @@ function Search() {
                 setListSearch([])
             })
     };
+    
+    useEffect(() => {
+        setListSearch([])
+        if (authorStatus) {
+            fetchSearchAuthor();
+        }
+        else {
+            fetchSearch();
+        }
+    }, [search, valueSort, changeFilter, authorStatus, selected]);
     return (
         <>
             <div className="container-products">

@@ -62,6 +62,7 @@ function Products() {
 
     const dispatch = useDispatch();
     useEffect(() => {
+        
         dispatch(fetchAsyncProducts());
     }, []);
     const products = useSelector(getAllProducts);
@@ -74,10 +75,8 @@ function Products() {
         setSelected(option);
     };
 
-    const handleSort = async (value) => {
-        setValueSort(value)
-        setChangeFilter(value)
-        await axios.get(`${BASE_URL}book?sort=${value}&min_price=${value[0]}&max_price=${value[1]}`
+    const fetchSort = async () => {
+        await axios.get(`${BASE_URL}book?sort=${valueSort}&min_price=${changeFilter[0]}&max_price=${changeFilter[1]}`
             , { withCredentials: true })
             .then(res => {
                 setListSort(res.data.data)
@@ -86,6 +85,11 @@ function Products() {
                 setListSort([])
             })
     };
+
+    useEffect(() => {
+        
+        fetchSort();
+    }, [valueSort, changeFilter]);
 
     return (
         <>
@@ -126,7 +130,7 @@ function Products() {
                             <div className='sort-price'>
                                 <p>Sort by price: </p>
                                 <Select
-                                    onChange={handleSort}
+                                    onChange={(value) => setValueSort(value)}
                                     defaultValue={valueSort}
                                     style={{ width: 120 }}
                                     options={[
@@ -143,7 +147,7 @@ function Products() {
                             <div className='filter'>
                                 Filter price: ${changeFilter[0]} - ${changeFilter[1]}
                                 <br /><br />
-                                <Slider range defaultValue={changeFilter} onChange={handleSort} />
+                                <Slider range defaultValue={changeFilter} onChange={(e) => setChangeFilter(e)} />
                                 {/* <div className='ResetBtn'>Reset</div> */}
                             </div>
                         </div>
