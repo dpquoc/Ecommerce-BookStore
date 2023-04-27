@@ -14,7 +14,7 @@ CREATE TABLE BOOK (
   author_id INT NOT NULL,
   cover_designer VARCHAR(255) DEFAULT NULL,
   pages INT NOT NULL,
-  publisher VARCHAR(255) NOT NULL,
+  publisher VARCHAR(255) DEFAULT NULL,
   lang VARCHAR(255) NOT NULL,
   released DATE NOT NULL,
   description TEXT NOT NULL,
