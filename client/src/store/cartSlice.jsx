@@ -32,7 +32,7 @@ const cartSlice = createSlice({
         existingItem.quantity++;
         existingItem.totalPrice = Math.round((existingItem.totalPrice + newItem.newprice) * 100) / 100;
         state.totalQuantity = state.totalQuantity + existingItem.quantity;
-        state.totalAmount = Math.round((state.totalAmount + newItem.newprice) * 100) / 100;
+        state.totalAmount = (Math.round((state.totalAmount + newItem.newprice) * 100) / 100);
         state.itemsList[existingItemIndex] = existingItem;
       } else {
         state.itemsList.push({
@@ -44,7 +44,7 @@ const cartSlice = createSlice({
           img: newItem.img,
         });
         state.totalQuantity = state.totalQuantity + newItem.quantity;
-        state.totalAmount = Math.round((state.totalAmount + newItem.newprice) * 100) / 100;
+        state.totalAmount = (Math.round((state.totalAmount + newItem.newprice) * 100) / 100);
       }
 
       storeInLocalStorage(state.itemsList);
@@ -60,7 +60,7 @@ const cartSlice = createSlice({
           existingItem.quantity--;
           existingItem.totalPrice = Math.round((existingItem.totalPrice - existingItem.newprice) * 100) / 100;
           state.totalQuantity--;
-          state.totalAmount = Math.round((state.totalAmount - existingItem.newprice) * 100) / 100;
+          state.totalAmount = (Math.round((state.totalAmount - existingItem.newprice) * 100) / 100);
           state.itemsList[existingItemIndex] = existingItem;
           storeInLocalStorage(state.itemsList);
         }
@@ -71,7 +71,7 @@ const cartSlice = createSlice({
       state.itemsList = state.itemsList.filter((item) => {
         if (item.isbn === isbn) {
           state.totalQuantity -= item.quantity;
-          state.totalAmount = Math.round((state.totalAmount - item.totalPrice) * 100) / 100;
+          state.totalAmount = (Math.round((state.totalAmount - item.totalPrice) * 100) / 100);
         }
         return item.isbn !== isbn;
       });
@@ -80,7 +80,7 @@ const cartSlice = createSlice({
     },
     getCartTotal(state) {
       state.totalAmount = state.itemsList.reduce((cartTotal, cartItem) => {
-        return cartTotal += cartItem.totalPrice;
+        return cartTotal = (Math.round((cartTotal + cartItem.totalPrice) * 100) / 100);
       }, 0);
       state.totalQuantity = state.itemsList.reduce((totalQuantity, cartItem) => {
         return totalQuantity += cartItem.quantity;

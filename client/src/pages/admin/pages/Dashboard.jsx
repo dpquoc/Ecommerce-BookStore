@@ -5,24 +5,13 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import Avatar from '@mui/material/Avatar';
 import { DownOutlined } from '@ant-design/icons';
-import { Badge, Dropdown, Space, Table } from 'antd';
-const items = [
-    {
-        key: '1',
-        label: 'Action 1',
-    },
-    {
-        key: '2',
-        label: 'Action 2',
-    },
-];
+import { Badge, Dropdown, Space, Table,Select } from 'antd';
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../../../utils/apiURL';
-import {
-    Select,
-} from 'antd';
+
+
 function Dashboard() {
     //api order
     const [orders, setOrders] = useState([])
@@ -32,10 +21,9 @@ function Dashboard() {
             setOrders(res?.data.data)
         }
         catch (err) {
-            setOrders({})
+            setOrders([])
         }
     }
-
 
     //api user
     const [users, setUsers] = useState([])
@@ -57,7 +45,7 @@ function Dashboard() {
             setBooks(res?.data.data)
         }
         catch (err) {
-            setBooks({})
+            setBooks([])
         }
     }
 
@@ -76,13 +64,9 @@ function Dashboard() {
             }
         }
     }
-    console.log(orders);
 
-    useEffect(() => {
-        fetchProduct()
-        fetchOrder()
-        fetchUser()
-    }, [])
+
+    
     //api review
     const [reviews, setReviews] = useState([])
     const fetchReview = async () => {
@@ -95,6 +79,9 @@ function Dashboard() {
         }
     }
     useEffect(() => {
+        fetchProduct()
+        fetchOrder()
+        fetchUser()
         fetchReview()
     }, [])
 
@@ -134,8 +121,39 @@ function Dashboard() {
 
         return <Table columns={columns} dataSource={itemData} pagination={false} />;
     };
-    const [valueSelect, setValueSelect] = useState('Pending')
-    console.log(valueSelect);
+    const data = orders.map((order) => ({
+        key: order.id,
+        name: order.name,
+        user: order.fullname,
+        email: order.email,
+        address: order.address,
+        telephone: order.telephone,
+        createdAt: order.created_at,
+        totalPrice: order.price,
+        status: order.status,
+        items: order.items,
+    }));
+
+
+    const [statuses, setStatuses] = useState([]);
+    const handleSelectChange = async (value, index) => {
+        const newStatuses = [...statuses]; // Tạo một bản sao của mảng statuses
+        newStatuses[index] = value; // Cập nhật giá trị tại vị trí index
+        setStatuses(newStatuses); // Cập nhật mảng statuses mới
+        try {
+            await axios.patch(`${BASE_URL}order/${index}`, { status: value }, { withCredentials: true })
+                .then(res => {
+                    alert(res.data.message)
+                })
+                .catch(err => {
+                    alert(err.response.data.message)
+                })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    };
+    console.log(statuses);
     const columns = [
         {
             title: 'User',
@@ -183,23 +201,20 @@ function Dashboard() {
         },
         {
             title: 'Status',
-            key: 'state',
+            key: 'status',
             width: 160,
-            render: () => (
+            render: (text, record, index) => (
                 <>
-                
-                    {/* {valueSelect === 'Pending' ? <Badge status="warning" style={{marginRight:'8px'}} /> : <></> } 
-                    {valueSelect === 'Done' ? <Badge status="success" style={{marginRight:'8px'}} /> : <></> } 
-                    {valueSelect === 'Cancell' ? <Badge status="error" style={{marginRight:'8px'}} /> : <></> }  */}
                     <Space size="middle">
                         <Select
-                            onChange={(value) => setValueSelect(value)}
-                            defaultValue={valueSelect}
+                            defaultValue={record.status}
+                            value={statuses[record.key]} // Lấy giá trị từ mảng statuses tại vị trí index
+                            onChange={(value) => handleSelectChange(value, record.key)}
                             style={{ width: 100 }}
                             options={[
                                 { value: 'Pending', label: 'Pending' },
                                 { value: 'Done', label: 'Done' },
-                                { value: 'Cancell', label: 'Cancell'}
+                                { value: 'Cancelled', label: 'Cancelled' }
                             ]}
                         />
                     </Space>
@@ -219,16 +234,7 @@ function Dashboard() {
     //         totalPrice: order.price,
     //     });
     // }
-    const data = orders.map((order) => ({
-        key: order.id,
-        name: order.name,
-        user: order.fullname,
-        email: order.email,
-        address: order.address,
-        telephone: order.telephone,
-        totalPrice: order.price,
-        items: order.items,
-    }));
+
     return (
         <section id="content">
             <main>
@@ -241,7 +247,7 @@ function Dashboard() {
                     <li>
                         <ShoppingCartIcon className='bx' />
                         <span className="text">
-                            <h3>{orders.length}</h3>
+                            <h3>{orders?.length}</h3>
                             <p>Orders</p>
                         </span>
                     </li>

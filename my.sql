@@ -99,7 +99,7 @@ CREATE TABLE ORDERS (
   telephone VARCHAR(255) NOT NULL,
   price DECIMAL(10,2) NOT NULL,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  status ENUM('Pending', 'In Transit', 'Delayed', 'Delivered', 'Cancelled', 'Returned') NOT NULL DEFAULT 'Pending'
+  status ENUM('Pending','Done', 'Cancell') NOT NULL DEFAULT 'Pending'
 );
 
 

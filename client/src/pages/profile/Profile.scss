@@ -166,7 +166,10 @@
         font-size: 2rem;
         margin: 10px;
       }
-
+      .link-items{
+        text-decoration: underline;
+        cursor: pointer;
+      }
       tr {
         height: 50px;
       }

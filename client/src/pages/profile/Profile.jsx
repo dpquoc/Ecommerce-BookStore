@@ -10,6 +10,11 @@ import { BASE_URL } from "../../utils/apiURL"
 import { CameraFilled } from '@ant-design/icons'
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { Modal } from 'antd';
+
+
+
+import { Table } from 'antd';
 
 export default function Profile() {
   const { id } = useParams();
@@ -39,7 +44,7 @@ export default function Profile() {
   const cloudName = "dgmlu00dr"
 
 
-  const handleUpdate = async() => {
+  const handleUpdate = async () => {
     //update user
 
     const dataUpdate1 = {
@@ -54,8 +59,11 @@ export default function Profile() {
       .catch(err => {
         console.log(err);
       })
-      window.location.reload();
+    window.location.reload();
   }
+
+
+
 
   const handleUpdateImg = async (e) => {
     //set avt_url
@@ -85,7 +93,7 @@ export default function Profile() {
   }
 
 
-  
+
 
   const birthdate = new Date(userCurrent?.bday);
   const now = new Date();
@@ -114,6 +122,76 @@ export default function Profile() {
     setBday(userCurrent.bday || '');
     setAvt_url(userCurrent.avt_url || '');
   }, [userCurrent]);
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+
+  //api order
+
+  const [orders, setOrders] = useState([])
+  const fetchOrder = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}order`, { withCredentials: true })
+      setOrders(res?.data.data)
+    }
+    catch (err) {
+      setOrders([])
+    }
+  }
+  //api product
+  const [books, setBooks] = useState([])
+  const fetchProduct = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}book`, { withCredentials: true })
+      setBooks(res?.data.data)
+    }
+    catch (err) {
+      setBooks([])
+    }
+  }
+  //filter user
+  const filteredOrders = orders.filter(order => order.user_id === id);
+  for (let i = 0; i < orders.length; i++) {
+    const order = filteredOrders[i];
+    for (let j = 0; j < order.items.length; j++) {
+      const item = order.items[j];
+      const book = books.find(book => book.isbn === item.book_isbn);
+      if (book) {
+        item.title = book.title;
+      }
+    }
+  }
+  const columns = [
+    {
+      title: 'Num',
+      dataIndex: 'index',
+      key: 'index',
+      render: (text, record, index) => index + 1,
+    },
+    {
+      title: 'Products',
+      dataIndex: 'title',
+      key: 'title',
+      responsive: ['lg'],
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+      responsive: ['lg'],
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
+      responsive: ['lg'],
+    },
+  ];
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  useEffect(() => {
+    fetchProduct()
+    fetchOrder()
+  }, [])
 
   return (
     <>
@@ -202,34 +280,48 @@ export default function Profile() {
                 <tr>
                   <th>ID</th>
                   <th>STATUS</th>
+                  <th>ITEMS</th>
                   <th>DATE</th>
                   <th>TOTAL</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className='paid'>
-                  <td>
-                    <a href={`/`} className="link">
-                      1
-                    </a>
-                  </td>
-                  <td>Paid</td>
-                  <td>Dec 12 2021</td>
-                  <td>$234</td>
-                </tr>
+                {filteredOrders.map((order,index) => (
+                  <tr className={order.status === 'Done' ? 'paid' : 'not_paid'} key={order.id}>
+                    <td className="link">
+                      {index + 1}
+                    </td>
+                    <td>{order.status}</td>
+                    <td className='link-items' onClick={() => { setSelectedOrder(order); setModalOpen(true); }}>See</td>
+                    <td>{order.created_at}</td>
+                    <td>${order.price}</td>
+                    <Modal
+                      title="Product Ordered"
+                      centered
+                      width='50%'
+                      open={modalOpen}
+                      onOk={() => setModalOpen(false)}
+                      onCancel={() => setModalOpen(false)}
+                    >
+                      <Table columns={columns} dataSource={selectedOrder ? selectedOrder.items.map((item, index) => ({ ...item, key: index })) : []} />
+                    </Modal>
+                  </tr>
+                ))}
 
-                <tr className='not_paid'>
+                {/* <tr className='not_paid'>
                   <td >
                     <a href={`/`} className="link">
                       2
                     </a>
                   </td>
-                  <td>Not Paid</td>
+                  <td>Pending</td>
+                  <td>Confirmed</td>
                   <td>Dec 12 2021</td>
                   <td>$34</td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
+
           </div>
         </div>
       </div>

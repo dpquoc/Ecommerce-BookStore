@@ -1,8 +1,724 @@
 import React from 'react'
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import ReviewsIcon from '@mui/icons-material/Reviews';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import Avatar from '@mui/material/Avatar';
+import { DownOutlined, SearchOutlined, EyeOutlined, EditFilled, DeleteFilled, PlusOutlined } from '@ant-design/icons';
+import {
+    Badge, Dropdown, Space, Table, Select, Input, Button, Tag, Modal,
+    Cascader,
+    Checkbox,
+    DatePicker,
+    Form,
+    InputNumber,
+    Radio,
+    Switch,
+    TreeSelect,
+    Upload,
+} from 'antd';
+
+import { useState, useEffect, useRef } from 'react'
+import axios from 'axios'
+import { BASE_URL } from '../../../utils/apiURL';
+import Highlighter from 'react-highlight-words';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
+import dayjs from 'dayjs';
+const antIcon = (
+    <LoadingOutlined
+        style={{
+            fontSize: 24,
+        }}
+        spin
+    />
+);
+const options = [
+    {
+        label: 'Drama',
+        value: 'Drama',
+    },
+    {
+        label: 'Inspiration',
+        value: 'Inspiration',
+    },
+    {
+        label: 'Life Style',
+        value: 'Life Style',
+    },
+    {
+        label: 'Love Story',
+        value: 'Love Story',
+    },
+    {
+        label: 'Business',
+        value: 'Business',
+    },
+    {
+        label: 'Culture',
+        value: 'Culture',
+    },
+    {
+        label: 'Science',
+        value: 'Science',
+    },
+];
+const tagRender = (props) => {
+    const { label, value, closable, onClose } = props;
+    const onPreventMouseDown = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+    };
+    return (
+        <Tag
+            color={value}
+            onMouseDown={onPreventMouseDown}
+            closable={closable}
+            onClose={onClose}
+            style={{
+                marginRight: 3,
+            }}
+        >
+            {label}
+        </Tag>
+    );
+};
 
 function Products() {
+    const { TextArea } = Input;
+    const normFile = (e) => {
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e?.fileList;
+    };
+    //api order
+    const [orders, setOrders] = useState([])
+    const fetchOrder = async () => {
+        try {
+            const res = await axios.get(`${BASE_URL}order`, { withCredentials: true })
+            setOrders(res?.data.data)
+        }
+        catch (err) {
+            setOrders([])
+        }
+    }
+
+    //api user
+    const [users, setUsers] = useState([])
+    const fetchUser = async () => {
+        try {
+            const res = await axios.get(`${BASE_URL}user`, { withCredentials: true })
+            setUsers(res?.data.data)
+        }
+        catch (err) {
+            setUsers({})
+        }
+    }
+
+    //api product
+    const [books, setBooks] = useState([])
+    const fetchProduct = async () => {
+        try {
+            const res = await axios.get(`${BASE_URL}book`, { withCredentials: true })
+            setBooks(res?.data.data)
+        }
+        catch (err) {
+            setBooks([])
+        }
+    }
+
+
+    for (let i = 0; i < orders.length; i++) {
+        const order = orders[i];
+        const user = users.find(user => user.id === order.user_id);
+        if (user) {
+            order.fullname = user.fullname;
+        }
+        for (let j = 0; j < order.items.length; j++) {
+            const item = order.items[j];
+            const book = books.find(book => book.isbn === item.book_isbn);
+            if (book) {
+                item.title = book.title;
+            }
+        }
+    }
+
+    //api review
+    const [reviews, setReviews] = useState([])
+    const fetchReview = async () => {
+        try {
+            const res = await axios.get(`${BASE_URL}review`, { withCredentials: true })
+            setReviews(res?.data.data)
+        }
+        catch (err) {
+            setReviews({})
+        }
+    }
+    const [modal1Open, setModal1Open] = useState(false);
+    const [modal2Open, setModal2Open] = useState(false);
+    const [modal3Open, setModal3Open] = useState(false);
+    //data table
+    const data = books.map((book, index) => ({
+        key: book.isbn,
+        num: index + 1,
+        title: (book.title).toString(),
+        price: book.price,
+        sale: book.onsale,
+        img: book.img,
+        author: book.author_id,
+        categories: book.categories,
+    }));
+
+    useEffect(() => {
+        fetchProduct()
+        fetchOrder()
+        fetchUser()
+        fetchReview()
+    }, [])
+
+    const [selectedEdit, setSelectedEdit] = useState(null);
+
+    const handleEdit = async(isbn) => { 
+        try{
+            await axios.get(`${BASE_URL}book/${isbn}`, { withCredentials: true })
+            .then(res => {
+                    setSelectedEdit(res.data.data)
+                    setModal3Open(true);
+            })
+        }
+        catch(err){
+            setSelectedEdit({})
+        }        
+    }
+    console.log(selectedEdit)
+    
+    
+
+    const [searchText, setSearchText] = useState('');
+    const [searchedColumn, setSearchedColumn] = useState('');
+    const searchInput = useRef(null);
+    const handleSearch = (selectedKeys, confirm, dataIndex) => {
+        confirm();
+        setSearchText(selectedKeys[0]);
+        setSearchedColumn(dataIndex);
+    };
+    const handleReset = (clearFilters) => {
+        clearFilters();
+        setSearchText('');
+    };
+    const getColumnSearchProps = (dataIndex) => ({
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
+            <div
+                style={{
+                    padding: 8,
+                }}
+                onKeyDown={(e) => e.stopPropagation()}
+            >
+                <Input
+                    ref={searchInput}
+                    placeholder={`Search ${dataIndex}`}
+                    value={selectedKeys[0]}
+                    onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                    style={{
+                        marginBottom: 8,
+                        display: 'block',
+                    }}
+                />
+                <Space>
+                    <Button
+                        type="primary"
+                        onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                        icon={<SearchOutlined />}
+                        size="small"
+                        style={{
+                            width: 90,
+                        }}
+                    >
+                        Search
+                    </Button>
+                    <Button
+                        onClick={() => clearFilters && handleReset(clearFilters)}
+                        size="small"
+                        style={{
+                            width: 90,
+                        }}
+                    >
+                        Reset
+                    </Button>
+                    <Button
+                        type="link"
+                        size="small"
+                        onClick={() => {
+                            confirm({
+                                closeDropdown: false,
+                            });
+                            setSearchText(selectedKeys[0]);
+                            setSearchedColumn(dataIndex);
+                        }}
+                    >
+                        Filter
+                    </Button>
+                    <Button
+                        type="link"
+                        size="small"
+                        onClick={() => {
+                            close();
+                        }}
+                    >
+                        close
+                    </Button>
+                </Space>
+            </div>
+        ),
+        filterIcon: (filtered) => (
+            <SearchOutlined
+                style={{
+                    color: filtered ? '#1890ff' : undefined,
+                }}
+            />
+        ),
+        onFilter: (value, record) =>
+            record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+        onFilterDropdownOpenChange: (visible) => {
+            if (visible) {
+                setTimeout(() => searchInput.current?.select(), 100);
+            }
+        },
+        render: (text) =>
+            searchedColumn === dataIndex ? (
+                <Highlighter
+                    highlightStyle={{
+                        backgroundColor: '#ffc069',
+                        padding: 0,
+                    }}
+                    searchWords={[searchText]}
+                    autoEscape
+                    textToHighlight={text ? text.toString() : ''}
+                />
+            ) : (
+                text
+            ),
+    });
+    const columns = [
+        {
+            title: 'Num',
+            dataIndex: 'num',
+            key: 'num',
+            width: '5%',
+
+        },
+        {
+            title: 'Image',
+            dataIndex: 'img',
+            key: 'img',
+            width: '10%',
+            render: (img) => (
+                <img src={img} alt="" style={{ width: '80px', height: '100px' }} />
+            )
+        },
+        {
+            title: 'Title',
+            dataIndex: 'title',
+            key: 'title',
+            width: '30%',
+            ...getColumnSearchProps('book'),
+        },
+        {
+            title: 'Price',
+            dataIndex: 'price',
+            key: 'price',
+            width: '8%',
+            sorter: (a, b) => a.age - b.age,
+        },
+        {
+            title: 'Author',
+            dataIndex: 'author',
+            key: 'author',
+        },
+        {
+            title: 'Sale',
+            dataIndex: 'sale',
+            key: 'sale',
+            width: '5%',
+
+        },
+        {
+            title: 'Categories',
+            dataIndex: 'categories',
+            key: 'categories',
+            render: (categories) => (
+                <>
+                    {categories.map((tag) => (
+                        <Tag color="blue" key={tag}>
+                            {tag}
+                        </Tag>
+                    ))}
+                </>
+            )
+        },
+        {
+            title: 'Reviews',
+            dataIndex: 'reviews',
+            key: 'reviews',
+            width: '8%',
+            fixed: 'right',
+            render: () => <a onClick={() => setModal2Open(true)}
+                style={{ display: 'flex', justifyContent: 'center', fontSize: '2rem' }}>
+                <EyeOutlined />
+            </a>,
+        },
+        {
+            title: 'Action',
+            key: 'operation',
+            fixed: 'right',
+            width: '8%',
+            render: (record) => <div>
+                <div style={{display:'inline'}} onClick={() => handleEdit(record.key)} ><EditFilled className='icon-edit' style={{ fontSize: '2.5rem', marginRight: '20px' }}/></div>
+                <DeleteFilled className='icon-delete' style={{ fontSize: '2.3rem' }} />
+            </div>,
+        },
+    ];
+    //api post book 
+
+
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
+    const [price, setPrice] = useState('')
+    const [sale, setSale] = useState('')
+    const [categories, setCategories] = useState([])
+    const [description, setDescription] = useState('')
+    const [img, setImg] = useState('')
+    const [cover_designed, setCover_designed] = useState('')
+    const [pages, setPages] = useState('')
+    const [publisher, setPublisher] = useState('')
+    const [language, setLanguage] = useState('')
+    const [released, setReleased] = useState('')
+    
+
+    const presetKey = "rg4c9vsl"
+    const cloudName = "dgmlu00dr"
+
+    const fetchImg = async (e) => {
+        const file = e.target && e.target.files && e.target.files[0] ? e.target.files[0] : null;
+        const formData = new FormData()
+        formData.append("file", file)
+        formData.append("upload_preset", presetKey)
+        await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, formData)
+            .then(res => {
+                setImg(res.data.secure_url);
+                //update user
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+
+    const handleAddProduct = async () => {
+        const data = {
+            isbn: books.length + 1,
+            title: title,
+            price: price,
+            on_sale: sale,
+            image_url: img,
+            author_id: author,
+            cover_designer: cover_designed,
+            pages: pages,
+            publisher: publisher,
+            language: language,
+            released: released,
+            description: description,
+        }
+        const dataCategories = {
+            categories: categories
+        }
+        try {
+            await axios.post(`${BASE_URL}book`, data, { withCredentials: true })
+                .then(res => {
+                    console.log(res.data.message)
+                });
+            /* for (const element of dataCategories.categories) {
+                try {
+                    const res = await axios.post(`${BASE_URL}category/${books.length + 1}`, { category: element }, { withCredentials: true });
+                    console.log(res.data.message);
+                } catch (err) {
+                    console.log(err);
+                }
+            } */
+            setModal1Open(false)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    /* useEffect(() => {
+        
+        setPages(selectedEdit.pages || ''); // Cập nhật giá trị của pages khi book thay đổi
+        setPublisher(selectedEdit.publisher || '');
+        setLanguage(selectedEdit.language || '');
+        setReleased(selectedEdit.released || '');
+        setCover_designed(selectedEdit.cover_designed || '');
+        setImg(selectedEdit.image_url || '');
+        setDescription(selectedEdit.description || '');
+        setCategories(selectedEdit.categories || []);
+        setPrice(selectedEdit.price || '');
+        setSale(selectedEdit.on_sale || '');
+        setAuthor(selectedEdit.author_id || '');
+        setTitle(selectedEdit.title || '');
+
+    }, [selectedEdit]); */
+    console.log(released)
     return (
-        <div>product</div>
+        <section id="content">
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Products</h1>
+                    </div>
+                </div>
+                <div className="table-data">
+                    <div className="order">
+                        <div className="head">
+                            <h3>List Books</h3>
+                            <div className='add-product' onClick={() => setModal1Open(true)}><PlusOutlined /> Add</div>
+
+                        </div>
+                        <Table
+                            columns={columns}
+                            dataSource={data}
+                        />
+                        <Modal
+                            title="Add Product"
+                            style={{
+                                left: 170,
+
+                            }}
+                            open={modal1Open}
+                            onOk={handleAddProduct}
+                            onCancel={() => setModal1Open(false)}
+                        >
+                            <Form
+                                labelCol={{
+                                    span: 6,
+                                }}
+                                wrapperCol={{
+                                    span: 14,
+                                }}
+                                layout="horizontal"
+
+                                style={{
+                                    maxWidth: 600,
+                                    marginTop: 20,
+                                }}
+                            >
+                                <Form.Item label="Title">
+                                    <Input onChange={(e) => setTitle(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Price">
+                                    <Input placeholder='E.g 10.99' onChange={(e) => setPrice(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Sale">
+                                    <Input placeholder='If not sale, e.g 0' onChange={(e) => setSale(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Image" valuePropName="fileList" getValueFromEvent={normFile}>
+                                    <Upload action="/upload.do" listType="picture-card" style={{ width: '1000px' }} onChange={fetchImg}>
+                                        <div>
+                                            <PlusOutlined />
+                                            <div
+                                                style={{
+                                                    marginTop: 8,
+                                                }}
+                                            >
+                                                Upload
+                                            </div>
+                                        </div>
+                                    </Upload>
+                                </Form.Item>
+                                <Form.Item label="Author">
+                                    <Select
+                                        style={{
+                                            width: '100%',
+                                        }}
+                                        onChange={(e) => setAuthor(e)}
+                                        options={[
+                                            {
+                                                value: 1,
+                                                label: 'Sarfaraz',
+                                            },
+                                            {
+                                                value: 2,
+                                                label: 'Saifudin A.',
+                                            },
+                                            {
+                                                value: 3,
+                                                label: 'Brian O Well',
+                                            },
+                                            {
+                                                value: 4,
+                                                label: 'Atkia',
+                                            },
+                                        ]}
+                                    />
+                                </Form.Item>
+                                <Form.Item label="Categories">
+                                    <Select
+                                        mode="multiple"
+                                        allowClear
+                                        style={{
+                                            width: '100%',
+                                        }}
+                                        onChange={(e) => setCategories(e)}
+                                        placeholder="Please select"
+                                        options={options}
+                                    />
+                                </Form.Item>
+                                <Form.Item label="Cover Designer">
+                                    <Input onChange={(e) => setCover_designed(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Pages">
+                                    <Input onChange={(e) => setPages(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Publisher">
+                                    <Input onChange={(e) => setPublisher(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Language">
+                                    <Input onChange={(e) => setLanguage(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Released">
+                                    <DatePicker onChange={(e) => setReleased(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Description">
+                                    <TextArea rows={4} onChange={(e) => setDescription(e.target.value)} />
+                                </Form.Item>
+                            </Form>
+                        </Modal>
+                        <Modal
+                            title="Update Product"
+                            style={{
+                                left: 170,
+                            }}
+                            open={modal3Open}
+                            onOk={() => setModal3Open(false)}
+                            onCancel={() => setModal3Open(false)}
+                        >
+                            <Form
+                                labelCol={{
+                                    span: 6,
+                                }}
+                                wrapperCol={{
+                                    span: 14,
+                                }}
+                                layout="horizontal"
+
+                                style={{
+                                    maxWidth: 600,
+                                    marginTop: 20,
+                                }}
+                            >
+                                <Form.Item label="Title">
+                                    <Input value={selectedEdit?.title} onChange={(e) => setTitle(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Price">
+                                    <Input value={selectedEdit?.price} placeholder='E.g 10.99' onChange={(e) => setPrice(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Sale">
+                                    <Input value={selectedEdit?.on_sale} placeholder='If not sale, e.g 0' onChange={(e) => setSale(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Image" valuePropName="fileList" getValueFromEvent={normFile}>
+                                    <Upload action="/upload.do" listType="picture-card" style={{ width: '1000px' }}>
+                                        <div >
+                                            <PlusOutlined />
+                                            <div
+                                                style={{
+                                                    marginTop: 8,
+                                                }}
+                                            >
+                                                Upload
+                                            </div>
+                                        </div>
+                                    </Upload>
+                                </Form.Item>
+                                <Form.Item label="Author">
+                                    <Select
+                                        value={parseInt(selectedEdit?.author_id)}
+                                        style={{
+                                            width: '100%',
+                                        }}
+                                        onChange={(e) => setAuthor(e)}
+                                        options={[
+                                            {
+                                                value: 1,
+                                                label: 'Sarfaraz',
+                                            },
+                                            {
+                                                value: 2,
+                                                label: 'Saifudin A.',
+                                            },
+                                            {
+                                                value: 3,
+                                                label: 'Brian O Well',
+                                            },
+                                            {
+                                                value: 4,
+                                                label: 'Atkia',
+                                            },
+                                        ]}
+                                    />
+                                </Form.Item>
+                                <Form.Item label="Categories">
+                                    <Select
+                                        mode="multiple"
+                                        allowClear
+                                        style={{
+                                            width: '100%',
+                                        }}
+                                        onChange={(e) => setCategories(e)}
+                                        placeholder="Please select"
+                                        options={options}
+                                    />
+                                </Form.Item>
+                                <Form.Item label="Cover Designer">
+                                    <Input value={selectedEdit?.cover_designer} onChange={(e) => setCover_designed(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Pages">
+                                    <Input value={selectedEdit?.pages} onChange={(e) => setPages(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Publisher">
+                                    <Input value={selectedEdit?.publisher} onChange={(e) => setPublisher(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Language">
+                                    <Input value={selectedEdit?.lang} onChange={(e) => setLanguage(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item label="Released">
+                                    <DatePicker value={dayjs(selectedEdit?.released)} onChange={(e) => setReleased(dayjs(e).format('YYYY-MM-DD'))} />
+                                </Form.Item>
+                                <Form.Item label="Description">
+                                    <TextArea value={selectedEdit?.description} rows={4} onChange={(e) => setDescription(e.target.value)} />
+                                </Form.Item>
+                            </Form>
+                        </Modal>
+                        <Modal
+                            title="Vertically centered modal dialog"
+                            centered
+                            style={{
+                                left: 170,
+
+                            }}
+                            open={modal2Open}
+                            onOk={() => setModal2Open(false)}
+                            onCancel={() => setModal2Open(false)}
+                        >
+                            <p>some contents...</p>
+                            <p>some contents...</p>
+                            <p>some contents...</p>
+                        </Modal>
+
+                    </div>
+                </div>
+            </main>
+        </section >
     )
 }
 export default Products

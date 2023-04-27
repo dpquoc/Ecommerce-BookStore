@@ -24,7 +24,8 @@ li {
 	--grey: #eee;
 	--dark-grey: #AAAAAA;
 	--dark: #342E37;
-	--red: #DB504A;
+	--red: #dd1710;
+	--light-red: #eb4f4f;
 	--yellow: #FFCE26;
 	--light-yellow: #FFF2C6;
 	--orange: #FD7238;
@@ -366,8 +367,35 @@ p{
 /* MAIN */
 /* CONTENT */
 
+.icon-edit{
+	color: var(--blue);
+	cursor: pointer;
 
+}
+.icon-edit:hover{
+	color: var(--light-blue);
 
+}
+.icon-delete{
+	color: var(--red);
+	cursor: pointer;
+}
+.icon-delete:hover{
+	color: var(--light-red);
+
+}
+
+.order .head .add-product{
+	cursor: pointer;
+	font-size: 1.8rem;
+	padding: 0.6rem 2rem;
+	background-color:var(--blue);
+	color: #fff;
+	border-radius: 20px;
+}
+.order .head .add-product:hover{
+	background-color: #3d67a9;
+}
 
 
 

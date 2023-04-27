@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function SideMenu() {
-    const [selected, setSelected] = useState("dashboard");
+    const [selected, setSelected] = useState("");
     const handleSelect = (option) => {
         setSelected(option);
     };
