@@ -18,13 +18,13 @@ import { Autoplay, Pagination, Navigation } from 'swiper';
 
 const dataBanner = [
     {
-        title: 'Search book easily',
-        content: 'The Best Store Online That Every Book Lover Must Visit ',
+        title: 'Diverse books',
+        content: 'The bookshop is a cozy haven for book lovers',
         srcImg: Reading
     },
     {
-        title: 'Search book easily',
-        content: 'The Best Store Online That Every Book Lover Must Visit ',
+        title: 'Enormous clients',
+        content: 'Over 10000 accounts was created in 2022 ',
         srcImg: Searching
     },
 ]

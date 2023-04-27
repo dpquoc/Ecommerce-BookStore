@@ -95,11 +95,11 @@ function Search() {
         else {
             fetchSearch();
         }
-    }, [search, valueSort,changeFilter,authorStatus,selected]);
+    }, [search, valueSort, changeFilter, authorStatus, selected]);
 
     const fetchSearch = async () => {
         await axios.get(`${BASE_URL}book?search_title=${search}&sort=${valueSort}&min_price=${changeFilter[0]}&max_price=${changeFilter[1]}`
-        , { withCredentials: true })
+            , { withCredentials: true })
             .then(res => {
                 setListSearch(res.data.data)
             })
@@ -110,7 +110,7 @@ function Search() {
 
     const fetchSearchAuthor = async () => {
         await axios.get(`${BASE_URL}book?search_author=${search}&sort=${valueSort}&min_price=${changeFilter[0]}&max_price=${changeFilter[1]}`
-        , { withCredentials: true })
+            , { withCredentials: true })
             .then(res => {
                 setListSearch(res.data.data)
             })
@@ -184,6 +184,10 @@ function Search() {
                         </div>
                     </div>
                     <div className='products-content'>
+                        <div className='right-content' style={{ paddingTop: '10px', marginBottom: '50px' }}>
+                            <Sidebar categorys={categorys} />
+                            <ListTopProducts topProducts={products} />
+                        </div>
                         <div className='left-content'>
                             {
                                 selected === "sale" ?
@@ -198,10 +202,7 @@ function Search() {
                             }
 
                         </div>
-                        <div className='right-content' style={{ paddingTop: '10px',marginBottom:'50px' }}>
-                            <Sidebar categorys={categorys} />
-                            <ListTopProducts topProducts={products} />
-                        </div>
+
                     </div>
                 </div>
             </div>

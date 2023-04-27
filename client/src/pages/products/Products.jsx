@@ -94,7 +94,7 @@ function Products() {
             <div className="container-products">
                 <HeroBanner
                     title="#products"
-                    summary="A place where you can find the books you need!"
+                    summary="Vastly selection of books, from bestsellers to hidden gems, all carefully curated to meet your reading needs"
                     srcImg={pageHeaderProduct}
                 />
                 <SearchForm />
@@ -123,7 +123,7 @@ function Products() {
                                 </div>
                             </div>
                             <p className='text'>
-                                "{listSort.length > 0 ? selected === "sale" ? listSort.filter((card) => (card.onsale > 0)).length : listSort.length 
+                                "{listSort.length > 0 ? selected === "sale" ? listSort.filter((card) => (card.onsale > 0)).length : listSort.length
                                     : selected === "sale" ? products.filter((card) => (card.onsale > 0)).length : products.length} total products"</p>
                             <div className='sort-price'>
                                 <p>Sort by price: </p>
@@ -151,6 +151,12 @@ function Products() {
                         </div>
                     </div>
                     <div className='products-content'>
+                        <div className='right-content' style={{ paddingTop: '10px', marginBottom: '50px' }}>
+                            <Sidebar categorys={categorys} />
+                            {
+                                <ListTopProducts topProducts={products} />
+                            }
+                        </div>
                         <div className='left-content'>
                             {
                                 productStatus === STATUS.LOADING ?
@@ -182,12 +188,7 @@ function Products() {
                             }
 
                         </div>
-                        <div className='right-content' style={{ paddingTop: '10px',marginBottom:'50px' }}>
-                            <Sidebar categorys={categorys} />
-                            {
-                                <ListTopProducts topProducts={products} />
-                            }
-                        </div>
+
                     </div>
                 </div>
             </div>
