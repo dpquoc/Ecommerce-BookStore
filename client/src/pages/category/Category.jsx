@@ -147,6 +147,10 @@ function Category() {
                         </div>
                     </div>
                     <div className='products-content'>
+                        <div className='right-content' style={{ paddingTop: '10px', marginBottom: '50px' }}>
+                            <Sidebar categorys={categorys} />
+                            <ListTopProducts topProducts={products} />
+                        </div>
                         <div className='left-content'>
                             {
                                 selected === "sale" ?
@@ -160,10 +164,7 @@ function Category() {
                                     />
                             }
                         </div>
-                        <div className='right-content' style={{ paddingTop: '10px',marginBottom:'50px'}}>
-                            <Sidebar categorys={categorys} />
-                            <ListTopProducts topProducts={products} />
-                        </div>
+
                     </div>
                 </div>
             </div>

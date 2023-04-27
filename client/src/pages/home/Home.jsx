@@ -11,6 +11,10 @@ import SearchForm from '../../components/searchForm/SearchForm';
 import featuredBook1 from '../../components/imgs/home1-featured-01.jpg'
 import featuredBook2 from '../../components/imgs/home1-featured-02.jpg'
 import book1 from '../../components/imgs/book1.jpg'
+import book2 from '../../components/imgs/book2.jpg'
+import book3 from '../../components/imgs/book3.jpg'
+import book4 from '../../components/imgs/book4.jpg'
+import book5 from '../../components/imgs/book5.jpg'
 import blog from '../../components/imgs/blog.jpg'
 import Button from '@mui/material/Button';
 
@@ -146,16 +150,16 @@ function Home() {
                         <img src={book1} style={{ width: '100%', display: 'block' }} />
                     </SwiperSlide>
                     <SwiperSlide style={{ width: "300px", height: "400px" }}>
-                        <img src={book1} style={{ width: '100%', display: 'block' }} />
+                        <img src={book2} style={{ width: '100%', display: 'block' }} />
                     </SwiperSlide>
                     <SwiperSlide style={{ width: "300px", height: "400px" }}>
-                        <img src={book1} style={{ width: '100%', display: 'block' }} />
+                        <img src={book3} style={{ width: '100%', display: 'block' }} />
                     </SwiperSlide>
                     <SwiperSlide style={{ width: "300px", height: "400px" }}>
-                        <img src={book1} style={{ width: '100%', display: 'block' }} />
+                        <img src={book4} style={{ width: '100%', display: 'block' }} />
                     </SwiperSlide>
                     <SwiperSlide style={{ width: "300px", height: "400px" }}>
-                        <img src={book1} style={{ width: '100%', display: 'block' }} />
+                        <img src={book5} style={{ width: '100%', display: 'block' }} />
                     </SwiperSlide>
 
                 </Swiper>
@@ -167,9 +171,9 @@ function Home() {
                         <ReadOutlined style={{ fontSize: '5rem' }} />
                     </div>
                     <h3>Tons of Books</h3>
-                    <p>The store has a lot of good books that you want to find,
-                        and there are all kinds of books for you to choose from,
-                        books will be updated continuously every day.</p>
+                    <p>The bookshop can be a treasure trove for book enthusiasts,
+                        offering a diverse selection of titles  that can range from popular bestsellers
+                        to rare editions</p>
                 </div>
                 <div className="card authorWrite">
                     <div className="overlay"></div>
@@ -177,9 +181,8 @@ function Home() {
                         <EditTwoTone style={{ fontSize: '5rem' }} />
                     </div>
                     <h3>Hundreds of Authors</h3>
-                    <p>The store has a lot of good books that you want to find,
-                        and there are all kinds of books for you to choose from,
-                        books will be updated continuously every day.</p>
+                    <p>The bookshop provides readers with a diverse selection of works by established and emerging writers,
+                        and chance to discover different writing styles</p>
                 </div>
                 <div className="card SafeTransaction">
                     <div className="overlay"></div>
@@ -187,9 +190,9 @@ function Home() {
                         <SafetyCertificateTwoTone style={{ fontSize: '5rem', color: 'black' }} />
                     </div>
                     <h3>Easily Payment</h3>
-                    <p>The store has a lot of good books that you want to find,
-                        and there are all kinds of books for you to choose from,
-                        books will be updated continuously every day.</p>
+                    <p>The bookshop offers a payment system that is fast, secure. 
+                        We offer a range of payment options, including credit cards, online banking, 
+                        and cash on delivery.</p>
                 </div>
             </div>
             <div className="outstanding">
@@ -197,9 +200,9 @@ function Home() {
                     <h3>Featured Book</h3>
                     <h1>The Complete Idiots Guide to Graphic Design</h1>
                     <h4>Anggi Krisna</h4>
-                    <p>From advanced selectors to generated content to web fonts, and from gradients, shadows,
-                        and rounded corners to elegant animations, CSS3 hold a
-                        universe of creative possibilities. No one can better guide you through these galaxies than Dan Cederholm.
+                    <p>Covers art supplies, software, concept development, reproduction needs, and much more
+Sample projects include business cards, print and web ads, and graphic T-shirts
+Follows the success of other titles aimed at the aspiring artist, including the Complete Idiots Guide® titles on digital photography, drawing, and manga
                     </p>
                     <a className='btn-featured'>See More</a>
                 </div>
@@ -234,14 +237,14 @@ function Home() {
                                 <ManageAccountsSharpIcon sx={{ fontSize: 30 }} />
                             </Typography>
                             <Typography sx={{ width: '80%', textAlign: 'left', fontSize: "20px" }}>
-                                How to change password?
+                                How long will it take for me to receive my order?
                             </Typography>
 
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography sx={{ fontSize: '2rem' }}>
-                                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-                                Aliquam eget maximus est, id dignissim quam.
+                            <Typography sx={{ textAlign: 'left', fontSize: '1.6rem' }}>
+                                It usually takes 2-3 days for customers live in city, about 5-6 days for thats live in
+                                countryside
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
@@ -255,14 +258,13 @@ function Home() {
                                 <PaymentsSharpIcon sx={{ fontSize: 30 }} />
                             </Typography>
                             <Typography sx={{ width: '80%', textAlign: 'left', fontSize: "20px" }}>
-                                How to pay online?
+                                Do you sell eBooks?
                             </Typography>
 
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography sx={{ fontSize: '2rem' }}>
-                                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-                                Aliquam eget maximus est, id dignissim quam.
+                            <Typography sx={{ textAlign: 'left', fontSize: '1.6rem' }}>
+                                No. We think nothing beats the feel of a real-life, proper, papery book in your hands.
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
@@ -278,13 +280,16 @@ function Home() {
                                 <ManageAccountsSharpIcon sx={{ fontSize: 30 }} />
                             </Typography>
                             <Typography sx={{ width: '80%', textAlign: 'left', fontSize: "20px" }}>
-                                Can we refund new book?
+                                How do I return an order that I don't want?
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography sx={{ fontSize: '2rem' }}>
-                                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-                                Aliquam eget maximus est, id dignissim quam.
+                            <Typography sx={{ textAlign: 'left', fontSize: '1.6rem' }}>
+                                If you have received a book that you no longer want, you can return that within 14 days of the
+                                delivery date for a full refund.
+                                The refund will cover the cost of the books returned plus initial shipping costs to compensate for the return shipping.
+                                <br></br>
+                                To ensure your package is returned correctly please be sure to write the purchase order number prominently on the packaging.
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
@@ -298,13 +303,15 @@ function Home() {
                                 <NotificationsActiveSharpIcon sx={{ fontSize: 30 }} />
                             </Typography>
                             <Typography sx={{ width: '80%', textAlign: 'left', fontSize: "20px" }}>
-                                How to receive notifications?
+                                I received an incorrect item. What should I do?
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography sx={{ fontSize: '2rem' }}>
-                                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-                                Aliquam eget maximus est, id dignissim quam.
+                            <Typography sx={{ textAlign: 'left', fontSize: '1.6rem' }}>
+                                From time to time a human error results in an order with the wrong books in it!
+                                If you’ve received wrong items, please reach out to the customer service team to request either a resend
+                                or a refund of your order. Please include a picture of the incorrect items if at all possible.
+                                Please be patient as we correspond to report any and all mispacked packages.
                             </Typography>
                         </AccordionDetails>
                     </Accordion>

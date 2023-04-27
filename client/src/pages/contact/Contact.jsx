@@ -109,13 +109,13 @@ return (
         <div className="info">
           <section >
             <div >
-              <h1>GET IN TOUCH</h1>
+              <h1 style={{fontSize: '2.2em'}}>GET IN TOUCH</h1>
               <br></br>
-              <h1 style={{ fontSize: '250%' }}>Visit one of our agency location or contact us today</h1>
+              <h1 style={{ fontSize: '270%' }}>Visit one of our agency location or contact us today</h1>
               <br></br>
-              <h3>Head Office</h3>
+              <h3 style={{ fontSize: '170%' }}>Head Office</h3>
               <br></br>
-              <div style={{ fontSize: '150%' }}>
+              <div style={{ fontSize: '200%' }}>
                 <br></br>
                 <EnvironmentFilled />
                 &nbsp;
@@ -125,7 +125,7 @@ return (
                 <br></br>
                 <MailTwoTone />
                 &nbsp;
-                contact@example.com
+                contact@bookshop.com
                 <br></br>
                 <br></br>
                 <PhoneTwoTone />
@@ -178,20 +178,20 @@ return (
               <img src={avt} />
             </div>
             <div className="info-contact">
-              <h2>Harry Potter</h2>
+              <h2 >LÊ TRUNG ĐỨC</h2>
               <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
               <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
-              <h3 style={{ color: 'gray' }}>Email: contact@examole.com</h3>
+              <h3 style={{ color: 'gray' }}>Email: contact@bookshop.com</h3>
             </div>
           </div><div className="tag1">
             <div className="img1">
               <img src={avt} />
             </div>
             <div className="info-contact">
-              <h2>Harry Potter</h2>
+              <h2>LÊ BÁ DŨNG</h2>
               <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
               <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
-              <h3 style={{ color: 'gray' }}>Email: contact@examole.com</h3>
+              <h3 style={{ color: 'gray' }}>Email: contact@bookshop.com</h3>
             </div>
           </div>
           <div className="tag1">
@@ -199,10 +199,10 @@ return (
               <img src={avt} />
             </div>
             <div className="info-contact">
-              <h2>Harry Potter</h2>
+              <h2 >HOÀNG NHẬT QUÂN</h2>
               <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
               <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
-              <h3 style={{ color: 'gray' }}>Email: contact@examole.com</h3>
+              <h3 style={{ color: 'gray' }}>Email: contact@bookshop.com</h3>
             </div>
           </div>
           <div className="tag1">
@@ -211,10 +211,10 @@ return (
               {/* acbbb */}
             </div>
             <div className="info-contact">
-              <h2>Harry Potter</h2>
+              <h2>ĐẶNG PHÚ QUỐC</h2>
               <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
               <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
-              <h3 style={{ color: 'gray' }}>Email: contact@examole.com</h3>
+              <h3 style={{ color: 'gray' }}>Email: contact@bookshop.com</h3>
             </div>
           </div>
 
