@@ -70,7 +70,7 @@ class OrderController {
     public function getOrders($idRoute = null, $queryParams, $postData, $fromUser) {
         $order = new OrderModel();
         $item = new OrderItemModel();
-        $allowedKeys = ['id', 'user_id', 'name', 'email', 'address', 'telephone', 'status'];
+        $allowedKeys = ['id', 'user_id', 'name', 'email', 'address', 'telephone', 'created_at', 'status'];
 
         $orders = $order->read($queryParams, $allowedKeys, []);
         if (!empty($orders)) {
@@ -95,7 +95,7 @@ class OrderController {
     public function getMyOrders($idRoute = null, $queryParams, $postData, $fromUser) {
         $order = new OrderModel();
         $item = new OrderItemModel();
-        $allowedKeys = ['id', 'user_id', 'name', 'email', 'address', 'telephone', 'status'];
+        $allowedKeys = ['id', 'user_id', 'name', 'email', 'address', 'telephone', 'created_at', 'status'];
 
         $orders = $order->read(['user_id' => $fromUser['id']], $allowedKeys, []);
         if (!empty($orders)) {
