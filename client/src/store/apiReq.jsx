@@ -27,11 +27,13 @@ export const loginUser = async (user, dispatch, navigate) => {
         .then((res) => {
             if (res.data.status == "error") {
                 dispatch(loginFalse());
+                window.location.reload();
                 alert(res.data.message);
                 // const target = document.querySelector(".overlayz");
                 // setTimeout(() => {
                 //     target.classList.toggle("none");
                 // }, 3000);
+                
             } else { 
                 dispatch(loginSuccess(res.data));
                 alert(res.data.message);

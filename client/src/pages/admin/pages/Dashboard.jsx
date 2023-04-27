@@ -277,7 +277,7 @@ function Dashboard() {
                 <div className="table-data">
                     <div className="order">
                         <div className="head">
-                            <h3>Recent Orders</h3>
+                            <div className='head-title'>Recent Orders</div>
                         </div>
                         <Table
                             columns={columns}

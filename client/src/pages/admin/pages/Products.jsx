@@ -1,31 +1,21 @@
 import React from 'react'
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import ReviewsIcon from '@mui/icons-material/Reviews';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import LocalAtmIcon from '@mui/icons-material/LocalAtm';
-import Avatar from '@mui/material/Avatar';
-import { DownOutlined, SearchOutlined, EyeOutlined, EditFilled, DeleteFilled, PlusOutlined, WarningFilled } from '@ant-design/icons';
+
+import { SearchOutlined, EyeOutlined, EditFilled, DeleteFilled, PlusOutlined, WarningFilled } from '@ant-design/icons';
 import {
-    Badge, Dropdown, Space, Table, Select, Input, Button, Tag, Modal,
-    Cascader,
-    Checkbox,
+    Space, Table, Select, Input, Button, Tag, Modal,
     DatePicker,
     Form,
-    InputNumber,
-    Radio,
-    Switch,
-    TreeSelect,
-    Upload,
-} from 'antd';
 
+} from 'antd';
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../../../utils/apiURL';
 import Highlighter from 'react-highlight-words';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+
 import dayjs from 'dayjs';
+
 const antIcon = (
     <LoadingOutlined
         style={{
@@ -128,8 +118,6 @@ function Products() {
             setBooks([])
         }
     }
-
-
     for (let i = 0; i < orders.length; i++) {
         const order = orders[i];
         const user = users.find(user => user.id === order.user_id);
@@ -142,6 +130,17 @@ function Products() {
             if (book) {
                 item.title = book.title;
             }
+        }
+    }
+    //api author
+    const [authors, setAuthors] = useState([])
+    const fetchAuthors = async () => {
+        try {
+            const res = await axios.get(`${BASE_URL}author`, { withCredentials: true })
+            setAuthors(res?.data.data)
+        }
+        catch (err) {
+            setAuthors({})
         }
     }
 
@@ -165,6 +164,7 @@ function Products() {
     let count = 0;
     for (let i = books.length - 1; i >= 0; i--) {
         const book = books[i];
+        const authorName = authors.find(a => a.id === book.author_id)?.name;
         const item = {
             key: book.isbn,
             num: ++count,
@@ -172,7 +172,7 @@ function Products() {
             price: book.price,
             sale: book.onsale,
             img: book.img,
-            author: book.author_id,
+            author: authorName,
             categories: book.categories,
         };
         data.push(item);
@@ -185,6 +185,7 @@ function Products() {
         fetchOrder()
         fetchUser()
         fetchReview()
+        fetchAuthors()
     }, [])
 
     const [selectedEdit, setSelectedEdit] = useState(null);
@@ -339,14 +340,14 @@ function Products() {
             dataIndex: 'title',
             key: 'title',
             width: '30%',
-            ...getColumnSearchProps('book'),
+            ...getColumnSearchProps('title'),
         },
         {
             title: 'Price',
             dataIndex: 'price',
             key: 'price',
             width: '8%',
-            sorter: (a, b) => a.age - b.age,
+            sorter: (a, b) => a.price - b.price,
         },
         {
             title: 'Author',
@@ -797,21 +798,6 @@ function Products() {
                                         onChange={(e) => setSelectedEdit(prevState => ({ ...prevState, description: e.target.value }))} />
                                 </Form.Item>
                             </Form>
-                        </Modal>
-                        <Modal
-                            title="Vertically centered modal dialog"
-                            centered
-                            style={{
-                                left: 170,
-
-                            }}
-                            open={modal2Open}
-                            onOk={() => setModal2Open(false)}
-                            onCancel={() => setModal2Open(false)}
-                        >
-                            <p>some contents...</p>
-                            <p>some contents...</p>
-                            <p>some contents...</p>
                         </Modal>
                         <Modal
                             centered

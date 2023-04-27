@@ -35,6 +35,12 @@ export default function SideMenu() {
                         <span className="text">Users</span>
                     </Link>
                 </li>
+                <li className={selected === "admins" ? "active" : ""} onClick={() => handleSelect("admins")}>
+                    <Link to="/admin/admins">
+                        <i className='bx bxs-shopping-bag-alt' ></i>
+                        <span className="text">Admins</span>
+                    </Link>
+                </li>
                 <li className={selected === "blogs" ? "active" : ""} onClick={() => handleSelect("blogs")}>
                     <Link to="/admin/blogs">
                         <i className='bx bxs-doughnut-chart' ></i>
