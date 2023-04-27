@@ -161,19 +161,27 @@ function Products() {
     const [modal3Open, setModal3Open] = useState(false);
     const [modal4Open, setModal4Open] = useState(false);
     //data table
-    const data = books.map((book, index) => ({
-        key: book.isbn,
-        num: index + 1,
-        title: (book.title).toString(),
-        price: book.price,
-        sale: book.onsale,
-        img: book.img,
-        author: book.author_id,
-        categories: book.categories,
-    }));
+    const data = [];
+    let count = 0;
+    for (let i = books.length - 1; i >= 0; i--) {
+        const book = books[i];
+        const item = {
+            key: book.isbn,
+            num: ++count,
+            title: book.title.toString(),
+            price: book.price,
+            sale: book.onsale,
+            img: book.img,
+            author: book.author_id,
+            categories: book.categories,
+        };
+        data.push(item);
+    }
 
     useEffect(() => {
         fetchProduct()
+    }, [books])
+    useEffect(() => {
         fetchOrder()
         fetchUser()
         fetchReview()
@@ -288,7 +296,7 @@ function Products() {
             />
         ),
         onFilter: (value, record) =>
-            record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+            (record[dataIndex] && record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())),
         onFilterDropdownOpenChange: (visible) => {
             if (visible) {
                 setTimeout(() => searchInput.current?.select(), 100);
@@ -383,10 +391,10 @@ function Products() {
             width: '8%',
             render: (record) => <div>
                 <div style={{ display: 'inline' }} onClick={() => handleEdit(record.key)} ><EditFilled className='icon-edit' style={{ fontSize: '2.5rem', marginRight: '20px' }} /></div>
-                <DeleteFilled 
-                onClick={() => {setSelectedDelete(record.key); setModal4Open(true)}}
-                className='icon-delete' 
-                style={{ fontSize: '2.3rem' }} />
+                <DeleteFilled
+                    onClick={() => { setSelectedDelete(record.key); setModal4Open(true) }}
+                    className='icon-delete'
+                    style={{ fontSize: '2.3rem' }} />
             </div>,
         },
     ];
@@ -405,6 +413,7 @@ function Products() {
     const [publisher, setPublisher] = useState('')
     const [language, setLanguage] = useState('')
     const [released, setReleased] = useState('')
+
 
 
     const presetKey = "rg4c9vsl"
@@ -427,40 +436,37 @@ function Products() {
 
 
     const handleAddProduct = async () => {
-        const data = {
-            title: title,
-            price: price,
-            on_sale: sale,
+        const dataProduct = {
+            title: title.toString(),
+            price: price.toString(),
+            on_sale: sale.toString(),
             image_url: img,
             author_id: author,
-            cover_designer: cover_designed,
-            pages: pages,
-            publisher: publisher,
-            lang: language,
+            cover_designer: cover_designed.toString(),
+            pages: pages.toString(),
+            publisher: publisher.toString(),
+            lang: language.toString(),
             released: released,
-            description: description,
+            description: description.toString(),
         }
+
         const dataCategories = {
             categories: categories
         }
+        console.log(dataProduct)
         try {
-            await axios.post(`${BASE_URL}book`, data, { withCredentials: true })
-                .then(res => {
-                    console.log(res.data.message)
-                    console.log(res.data.isbn)
-                    for (const element of dataCategories.categories) {
-                        try {
-                            axios.post(`${BASE_URL}category/${res.data.isbn}`, { category: element }, { withCredentials: true })
-                                .then(respon => {
-                                    console.log(respon.data.message)
-                                    setModal1Open(false)
-                                    window.location.reload()
-                                })
-                        } catch (err) {
-                            console.log(err);
-                        }
-                    }
-                });
+            const res = await axios.post(`${BASE_URL}book`, dataProduct, { withCredentials: true })
+            console.log(res.data.message)
+            for (const element of dataCategories.categories) {
+                try {
+                    const respon = axios.post(`${BASE_URL}category/${res.data.isbn}`, { category: element }, { withCredentials: true })
+
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            setModal1Open(false)
+
         }
         catch (err) {
             console.log(err)
@@ -471,7 +477,7 @@ function Products() {
             title: selectedEdit.title,
             price: selectedEdit.price,
             on_sale: selectedEdit.on_sale,
-            image_url: selectedEdit.image_url,
+            image_url: (selectedEdit.image_url).toString(),
             author_id: selectedEdit.author_id,
             cover_designer: selectedEdit.cover_designer,
             pages: selectedEdit.pages,
@@ -488,7 +494,7 @@ function Products() {
                 .then(res => {
                     console.log(res.data.message)
                     setModal3Open(false)
-                    window.location.reload()
+
                     /* for (const element of updateCategories.categories) {
                         try {
                             axios.post(`${BASE_URL}category/${selectedEdit.isbn}`, { category: element }, { withCredentials: true })
@@ -513,7 +519,7 @@ function Products() {
                 .then(res => {
                     console.log(res.data.message)
                     setModal4Open(false)
-                    window.location.reload()
+
                 });
         }
         catch (err) {
@@ -561,7 +567,6 @@ function Products() {
     useEffect(() => {
         if (img) {
             handleSelectedEditChange("image_url", img);
-            setImg('')
         }
     }, [img]);
     return (
@@ -575,7 +580,7 @@ function Products() {
                 <div className="table-data">
                     <div className="order">
                         <div className="head">
-                            <h3>List Books</h3>
+                            <div className='head-title'>List Books <span>({books.length} books)</span></div>
                             <div className='add-product' onClick={() => setModal1Open(true)}><PlusOutlined /> Add</div>
 
                         </div>
@@ -670,7 +675,7 @@ function Products() {
                                     <Input onChange={(e) => setLanguage(e.target.value)} />
                                 </Form.Item>
                                 <Form.Item label="Released">
-                                    <DatePicker onChange={(e) => setReleased(e.target.value)} />
+                                    <DatePicker onChange={(e) => setReleased(dayjs(e).format('YYYY-MM-DD'))} />
                                 </Form.Item>
                                 <Form.Item label="Description">
                                     <TextArea rows={4} onChange={(e) => setDescription(e.target.value)} />
@@ -817,7 +822,7 @@ function Products() {
                             onOk={() => handleDeleteProduct(selectedDelete)}
                             onCancel={() => setModal4Open(false)}
                         >
-                            <h1><WarningFilled style={{color:'red'}}/> Warning </h1>
+                            <h1><WarningFilled style={{ color: 'red' }} /> Warning </h1>
                             <h2>Are you sure you want to delete this product?</h2>
                         </Modal>
 

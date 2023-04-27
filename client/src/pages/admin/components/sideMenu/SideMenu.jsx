@@ -30,7 +30,7 @@ export default function SideMenu() {
                     </Link>
                 </li>
                 <li className={selected === "users" ? "active" : ""} onClick={() => handleSelect("users")}>
-                    <Link to="/admin/user">
+                    <Link to="/admin/users">
                         <i className='bx bxs-shopping-bag-alt' ></i>
                         <span className="text">Users</span>
                     </Link>

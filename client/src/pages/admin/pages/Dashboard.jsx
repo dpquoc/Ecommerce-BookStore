@@ -153,7 +153,6 @@ function Dashboard() {
             console.log(err)
         }
     };
-    console.log(statuses);
     const columns = [
         {
             title: 'User',

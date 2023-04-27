@@ -321,10 +321,15 @@ p{
 	grid-gap: 16px;
 	margin-bottom: 24px;
 }
-#content main .table-data .head h3 {
+#content main .table-data .head .head-title {
 	margin-right: auto;
 	font-size: 24px;
 	font-weight: 600;
+	span{
+		font-size: 18px;
+		font-weight: 450;
+		
+	}
 }
 #content main .table-data .head .bx {
 	cursor: pointer;
