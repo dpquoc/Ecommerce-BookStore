@@ -118,7 +118,7 @@ class BookModel {
     }
 
     public function delete($id) {
-        $query = "DELETE FROM BOOK WHERE id='$id'";
+        $query = "DELETE FROM BOOK WHERE isbn='$id'";
         if ($this->connection->query($query)) {
             return true;
         } else {
