@@ -179,7 +179,7 @@ return (
             </div>
             <div className="info-contact">
               <h2 >LÊ TRUNG ĐỨC</h2>
-              <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
+              <h3 style={{ color: 'gray' }}>Software Engineer </h3>
               <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
               <h3 style={{ color: 'gray' }}>Email: contact@bookshop.com</h3>
             </div>
@@ -189,7 +189,7 @@ return (
             </div>
             <div className="info-contact">
               <h2>LÊ BÁ DŨNG</h2>
-              <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
+              <h3 style={{ color: 'gray' }}>Software Engineer </h3>
               <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
               <h3 style={{ color: 'gray' }}>Email: contact@bookshop.com</h3>
             </div>
@@ -200,7 +200,7 @@ return (
             </div>
             <div className="info-contact">
               <h2 >HOÀNG NHẬT QUÂN</h2>
-              <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
+              <h3 style={{ color: 'gray' }}>Software Engineer </h3>
               <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
               <h3 style={{ color: 'gray' }}>Email: contact@bookshop.com</h3>
             </div>
@@ -212,7 +212,7 @@ return (
             </div>
             <div className="info-contact">
               <h2>ĐẶNG PHÚ QUỐC</h2>
-              <h3 style={{ color: 'gray' }}>Senior Marketing Manager </h3>
+              <h3 style={{ color: 'gray' }}>Software Engineer </h3>
               <h3 style={{ color: 'gray' }}>Phone: +000 123 000 77 88 </h3>
               <h3 style={{ color: 'gray' }}>Email: contact@bookshop.com</h3>
             </div>

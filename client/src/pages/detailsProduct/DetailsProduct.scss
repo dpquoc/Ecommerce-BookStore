@@ -4,6 +4,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-top: 99px;
 }
 
 .detail_page_container .detail_product_wrapper {
@@ -595,7 +596,10 @@
 
 }
 
-@media (max-width:768px) {
+@media (max-width:798px) {
+    .detail_page_container{
+        margin-top: 87px;
+    }
     .detail_page_container .detail_product_wrapper {
         width: 100%;
         padding-top: 30px;
@@ -625,5 +629,8 @@
     .detail_page_container .detail_product_wrapper .detail_product_container {
         padding: 30px 15px 20px 30px;
 
+    }
+    .detail_page_container{
+        margin-top: 67px;
     }
 }

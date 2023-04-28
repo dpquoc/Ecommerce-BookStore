@@ -3,6 +3,7 @@
   height: 80vh;
   display: grid;
   grid-template-columns: 1fr 2fr;
+  margin-top: 99px;
 }
 
 .frame_container {
@@ -263,6 +264,11 @@
 
 
 }
+@media (max-width:799px) {
+  .Profile_container{
+    margin-top: 87px;
+  }
+}
 
 @media (max-width:700px) {
   .tab_panel .Update_form {
@@ -272,5 +278,10 @@
     .update_button {
       grid-column: unset;
     }
+  }
+}
+@media (max-width:499px) {
+  .Profile_container{
+    margin-top: 67px;
   }
 }

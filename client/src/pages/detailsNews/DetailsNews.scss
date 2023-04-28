@@ -3,6 +3,7 @@
   width: 100%;
   display: block;
   align-items: center;
+  margin-top: 99px;
 }
 
 .details-news-container {
@@ -70,4 +71,14 @@
 .news-img img {
   width: 70%;
   height: 70%;
+}
+@media (max-width:798px) {
+  .container-detailNews{
+    margin-top: 87px;
+  }
+}
+@media (max-width:492px) {
+  .container-detailNews{
+    margin-top: 67px;
+  }
 }
