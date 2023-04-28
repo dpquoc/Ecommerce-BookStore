@@ -89,7 +89,7 @@ function DetailsProduct() {
     };
     useEffect(() => {
         fetchReview();
-    }, [listReview]);
+    }, []);
 
     const filteredListReview = listReview?.filter(item => item.book_isbn === id);
     const updatedReview = filteredListReview?.map(item => {
