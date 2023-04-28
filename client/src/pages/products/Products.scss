@@ -4,6 +4,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-top: 99px;
 }
 
 .container-products .main-content {
@@ -189,6 +190,9 @@
     }
 }
 @media (max-width: 792px) {
+    .container-products {
+        margin-top: 87px;
+    }
     .container-products .search-form {
         width: 80%;
         height: 12rem;
@@ -306,6 +310,11 @@
         cursor: pointer;
         padding: 0.6rem;
         color: var(--black);
+    }
+}
+@media (max-width: 492px) {
+    .container-products{
+        margin-top: 67px;
     }
 }
 @media (max-width: 400px) {

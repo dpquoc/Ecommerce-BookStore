@@ -3,6 +3,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  margin-top: 99px;
 }
 
 .About .img-bg {
@@ -166,6 +167,9 @@
 }
 
 @media (max-width:786px) {
+  .About{
+    margin-top: 87px;
+  }
   .About_header .Introduce span{
     font-size: 7rem;
   }
@@ -173,6 +177,12 @@
   .About_header .Introduce{
     padding: 50px 50px 50px 50px;
   }
+}
+@media (max-width:492px) {
+  .About{
+    margin-top: 67px;
+  }
+  
 }
 
 

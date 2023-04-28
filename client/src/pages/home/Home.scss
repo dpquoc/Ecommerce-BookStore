@@ -4,7 +4,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-
+    margin-top: 99px;
 }
 
 .list-products {
@@ -457,6 +457,9 @@
         width: 300px;
         height: 350px;
     }
+    #container-home{
+        margin-top: 86px;
+    }
     
 }
 @media only screen and (max-width: 754px) {
@@ -496,6 +499,9 @@
     .tag111{font-size: 2px;}
 }
 @media only screen and (max-width: 450px) {
+    #container-home{
+        margin-top: 67px;
+    }
     .outstanding .introcduce-book{
         height: 500px;
     }

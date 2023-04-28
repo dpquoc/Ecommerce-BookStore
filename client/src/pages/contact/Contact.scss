@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
     background-color: white;
+    margin-top: 99px;
 }
 
 .container-contact.mid0 {
@@ -265,6 +266,9 @@ textarea:focus,
 @media only screen and (max-width : 992px) {}
 
 @media only screen and (max-width : 768px) {
+    .container-contact{
+        margin-top: 87px;
+    }
     .contacts .tag1 {
         width: 50%;
     }
@@ -281,6 +285,8 @@ textarea:focus,
     }
 }
 
-@media only screen and (max-width : 402px) {
-    
+@media only screen and (max-width : 492px) {
+    .container-contact{
+        margin-top: 67px;
+    }
 }

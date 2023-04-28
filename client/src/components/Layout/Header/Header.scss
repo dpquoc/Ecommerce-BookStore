@@ -1,6 +1,5 @@
 /* Header */
 .header {
-    /* position: fixed; */
     display: flex;
     justify-content: space-between;
     top: 0;
@@ -11,7 +10,8 @@
     background-color: #fff;
     
     align-items: center;
-    position: relative;
+    position: fixed;
+    
 }
 
 .header h1 {

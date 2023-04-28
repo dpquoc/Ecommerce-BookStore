@@ -4,6 +4,7 @@
   padding: 60px 40px 60px 40px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 99px;
 
 
   .checkout_container {
@@ -84,9 +85,11 @@
             text-align: left;
             padding-right: 30px;
           }
+
           td:nth-child(6) {
             cursor: pointer;
           }
+
           td:nth-child(6):hover {
             color: var(--orange);
           }
@@ -101,7 +104,7 @@
             margin: auto 5px;
           }
 
-          .plus:hover,  
+          .plus:hover,
           .minus:hover {
             color: var(--orange);
           }
@@ -126,6 +129,7 @@
           }
         }
       }
+
       .clear_button {
         margin-top: 20px;
         width: 20%;
@@ -148,11 +152,12 @@
 
     .checkout_infor {
       .ship_info {
-        .title{
+        .title {
           font-size: 2.5rem;
           margin-bottom: 20px;
           color: var(--orange);
         }
+
         display: flex;
         flex-direction: column;
 
@@ -192,7 +197,7 @@
           color: var(--black);
           font-size: 2rem;
         }
-        
+
 
         .last_row {
           border-bottom: 1px solid rgba(93, 92, 92, 0.25);
@@ -243,6 +248,7 @@
   .checkout_wrapper {
     width: 100%;
     padding: 30px 15px 30px 15px;
+    margin-top: 87px;
 
     .checkout_container {
       display: flex;
@@ -263,4 +269,16 @@
       }
     }
   }
+}
+@media (max-width:492px) {
+  
+  .checkout_wrapper {
+    margin-top: 67px;
+
+    
+  }
+  .checkout_wrapper .checkout_container .product_ship_info .clear_button {
+    width: 40%;
+  }
+
 }

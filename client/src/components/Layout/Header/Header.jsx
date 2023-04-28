@@ -1,6 +1,6 @@
 import './Header.scss'
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { HeartOutlined, ShoppingCartOutlined, MenuOutlined, UserOutlined, DeleteFilled } from '@ant-design/icons'
 
 import CartItems from '../../cartItems/CartItems'
@@ -28,6 +28,10 @@ function Header() {
     const handleLogout = () => {
         logoutUser(dispatch, navigate);
     }
+    const handleMenuClick = () => {
+
+        return document.querySelector('.header .navbar').classList.toggle('active');
+    }
 
     const user = useSelector((state) => state.auth.login.currentUser)
 
@@ -42,11 +46,19 @@ function Header() {
         }
     };
     useEffect(() => {
-
         fetchUserCurrent();
-    }, []);
+    }, [user]);
 
     const [cardOpen, setCardOpen] = useState(false)
+
+    const handleClickOutside = (event) => {
+        if (event.target.closest('.icon-btn-cart') === null) {
+            setCardOpen(false);
+        }
+        if(event.target.closest('.icon-btn') === null){
+            document.querySelector('.header .navbar').classList.remove('active');
+        }
+    };
 
     const quantityTotal = useSelector((state) => state.cart.totalQuantity)
     const amountTotal = useSelector((state) => state.cart.totalAmount)
@@ -68,10 +80,11 @@ function Header() {
     const handleCheckout = () => {
         user ? navigate('/checkout') : navigate('/login')
     }
+
     return (
-        <div className="header">
-            <div className="menu-btn icon-btn" ><MenuOutlined /></div>
-            <h1>
+        <div className="header" onClick={handleClickOutside}>
+            <div className="menu-btn icon-btn" onClick={handleMenuClick} ><MenuOutlined /></div>
+            <h1 style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
                 Book<span>S</span>
             </h1>
             <nav className="navbar">
