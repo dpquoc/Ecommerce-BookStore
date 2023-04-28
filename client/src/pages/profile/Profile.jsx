@@ -131,7 +131,7 @@ export default function Profile() {
   const [orders, setOrders] = useState([])
   const fetchOrder = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}order`, { withCredentials: true })
+      const res = await axios.get(`${BASE_URL}order/my`, { withCredentials: true })
       setOrders(res?.data.data)
     }
     catch (err) {

@@ -54,6 +54,7 @@ function DetailsProduct() {
         await axios.post(`${BASE_URL}review`, post, { withCredentials: true })
             .then(res => {
                 console.log(res.data);
+                window.location.reload();
             })
             .catch(err => {
                 console.log(err);
