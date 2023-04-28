@@ -31,7 +31,7 @@ function About() {
                         <div className="name">LÊ TRUNG ĐỨC</div>
 
                         <div className="member_info">
-                        Front end<br></br>Thiết kế component, giao diện và reponsive  cho các page.
+                        Frontend<br></br>Thiết kế và hiện thực giao diện responsive cho các trang và thành phần, đảm bảo trải nghiệm người dùng tối ưu trên mọi thiết bị.
                         </div>
                     </div>
                     <div className="member">
@@ -43,7 +43,7 @@ function About() {
                         <div className="name">LÊ BÁ DŨNG</div>
 
                         <div className="member_info">
-                            Front end<br></br>Thiết kế component, giao diện và reponsive  cho các page.
+                            Frontend<br></br>Thiết kế và hiện thực giao diện responsive cho các trang và thành phần, đảm bảo trải nghiệm người dùng tối ưu trên mọi thiết bị.
                         </div>
                     </div>
                     <div className="member">
@@ -55,7 +55,7 @@ function About() {
                         <div className="name">HOÀNG NHẬT QUÂN</div>
 
                         <div className="member_info">
-                            Back end<br></br>Viết API kết nối giữa các hệ thống
+                            Front end<br></br>Hiện thực kết nối các API từ backend, hỗ trợ hiện thực giao diện và triển khai các tính năng cho giao diện người dùng.
                         </div>
                     </div>
                     <div className="member">
@@ -67,7 +67,7 @@ function About() {
                         <div className="name">ĐẶNG PHÚ QUỐC</div>
 
                         <div className="member_info">
-                            Back end<br></br>Viết API kết nối giữa các hệ thống
+                            Back end<br></br>Hiện thực các API cho backend và cơ sở dữ liệu, đảm bảo dữ liệu được truy vấn, cập nhật và bảo mật một cách hiệu quả.
                         </div>
                     </div>
 
