@@ -55,7 +55,7 @@ function About() {
                         <div className="name">HOÀNG NHẬT QUÂN</div>
 
                         <div className="member_info">
-                            Front end<br></br>Hiện thực kết nối các API từ backend và triển khai các tính năng cho giao diện người dùng.
+                            Front end<br></br>Hiện thực kết nối các API từ backend, hỗ trợ hiện thực giao diện và triển khai các tính năng cho giao diện người dùng.
                         </div>
                     </div>
                     <div className="member">
@@ -67,7 +67,7 @@ function About() {
                         <div className="name">ĐẶNG PHÚ QUỐC</div>
 
                         <div className="member_info">
-                            Back end<br></br>Hiện thực các API cho backend và cơ sở dữ liệu, đảm bảo dữ liệu được truy vấn và bảo mật một cách hiệu quả.
+                            Back end<br></br>Hiện thực các API cho backend và cơ sở dữ liệu, đảm bảo dữ liệu được truy vấn, cập nhật và bảo mật một cách hiệu quả.
                         </div>
                     </div>
 
