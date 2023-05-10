@@ -10,6 +10,7 @@ This is an e-commerce book store website built with React as the frontend and pu
 - Create and edit user profile and preferences
 - Rate and review books and provide feedback
 - Admin dashboard to manage inventory, orders, users, etc.
+- Forget Password and Reset Password by email.
 
 ## Getting Started
 
