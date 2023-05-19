@@ -27,10 +27,23 @@ To run this project on your machine, you need to have the following installed:
 - Node.js
 - MySQL
 - PHP
+- 
+### Mailing Configuration
+
+To enable the mailing function for password recovery and other email-related features, please follow these steps:
+
+1. Add the PHPMailer library folder named `PHPMailer` to the `server` folder of the project. You can obtain the PHPMailer library from the official PHPMailer GitHub repository.
+
+2. Configure the mailing settings in the `mailer.php` function located in the `server` folder. Update the SMTP server, port, authentication credentials, and other necessary configuration options based on your email service provider's requirements.
+
+By adding the `PHPMailer` library and configuring the `mailer.php` function, you will enable the mailing functionality in the e-commerce bookstore website.
 
 ## Installing
 
-1. Clone the repository to your local machine using the command `git clone https://github.com/HoangNhatQuan/BookStore`
+1. Clone the repository to your local machine using the command
+```
+git clone https://github.com/dpquoc/Ecommerce-BookStore
+```
 2. Navigate to the root directory of the project and install the dependencies using the command `npm install`
 3. Navigate to the `client` directory and install the dependencies using the command `npm install`
 
@@ -39,7 +52,7 @@ To run this project on your machine, you need to have the following installed:
 To run the server, navigate to the `server` folder and run a local server to serve the folder. You can use tools like XAMPP, WAMP or MAMP for this. If not, navigate to the root directory of the project and run the following command:
 
 ```
-php -S localhost:8000 -t server
+php -S localhost:80 -t server
 ```
 
 ## Running the Client
