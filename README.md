@@ -27,7 +27,7 @@ To run this project on your machine, you need to have the following installed:
 - Node.js
 - MySQL
 - PHP
-- 
+
 ### Mailing Configuration
 
 To enable the mailing function for password recovery and other email-related features, please follow these steps:
@@ -54,6 +54,8 @@ To run the server, navigate to the `server` folder and run a local server to ser
 ```
 php -S localhost:80 -t server
 ```
+
+**Note:** If you are not using XAMPP, WAMP, or MAMP, and instead have your own MySQL configuration, please make sure to adjust the necessary settings in the project's code to ensure the server runs correctly.
 
 ## Running the Client
 
