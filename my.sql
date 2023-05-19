@@ -163,7 +163,7 @@ sort INT parameter = 1 ( sort from low to high ) ,  = 2 ( from high to low ) , e
 /*FIRST ADMIN*/
 /*Password: toiyeulaptrinhweb*/
 INSERT INTO USER (email, username, password, role, fullname)
-VALUES ('', 'admin', '$2y$10$DVqz9I7oFKR/c0h5juTL3uxQWujtmtE3dY7cunDvH9KfiDrGfgu0K', 'admin', 'Original Admin');
+VALUES ('admin@example.com', 'admin', '$2y$10$DVqz9I7oFKR/c0h5juTL3uxQWujtmtE3dY7cunDvH9KfiDrGfgu0K', 'admin', 'Original Admin');
 
 /*USERS*/
 INSERT INTO USER (email, username, password, role, fullname, bday, avt_url)
